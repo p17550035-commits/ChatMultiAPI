@@ -16,9 +16,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-
+      
       - name: Install Gradle
         uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-disabled: true
 
       - name: Generate Gradle wrapper
         run: |
