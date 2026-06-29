@@ -1,0 +1,6 @@
+{
+  "project_name": "ChatMultiAPI",
+  "project_root": "/data/data/com.termux/files/home/ChatMultiAPI",
+  "export_chats_to": "/sdcard/Download/ChatLogs/",
+  "default_assets_path": "/sdcard/Documents/ChatAppAssets/"
+}

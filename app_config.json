@@ -1,0 +1,14 @@
+{
+  "providers": {
+    "groq": "",
+    "openai": "",
+    "anthropic": "",
+    "nvidia": "",
+    "lmstudio": "",
+    "custom": {
+      "key": "",
+      "url": ""
+    }
+  },
+  "selected_provider": "groq"
+}

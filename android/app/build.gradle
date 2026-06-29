@@ -1,0 +1,38 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python'
+}
+
+android {
+    namespace 'com.example.chatmultiapi'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.chatmultiapi"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        python {
+            version "3.10"
+        }
+    }
+
+    sourceSets {
+        main {
+            python.srcDir "src/main/python"
+        }
+    }
+}
+
+chaquopy {
+    defaultConfig {
+        pip {
+            install "kivy"
+            install "requests"
+            install "plyer"
+        }
+    }
+}
