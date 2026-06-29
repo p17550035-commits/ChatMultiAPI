@@ -1,18 +1,42 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python'
+}
+
+android {
+    namespace 'com.example.chatmultiapi'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.chatmultiapi"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        python {
+            version "3.10"
+        }
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
-        classpath 'com.chaquo.python:gradle:15.0.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
+
+    sourceSets {
+        main {
+            python.srcDir "src/main/python"
+        }
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
+chaquopy {
+    defaultConfig {
+        pip {
+            install "kivy"
+            install "requests"
+            install "plyer"
+        }
     }
 }
