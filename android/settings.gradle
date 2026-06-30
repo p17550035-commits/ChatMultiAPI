@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'ChatMultiAPI'
+rootProject.name = 'android'
 include ':app'
 
 
