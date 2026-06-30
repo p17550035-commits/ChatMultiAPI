@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'com.chaquo.python'
+    id 'com.chaquopy.python'
 }
 
 android {
@@ -17,6 +17,10 @@ android {
 
         python {
             version "3.10"
+        }
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
         }
     }
 
