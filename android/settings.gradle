@@ -1,4 +1,3 @@
-include ':app'
 pluginManagement {
     repositories {
         google()
@@ -6,3 +5,5 @@ pluginManagement {
         maven { url "https://chaquo.com/maven" } // Chaquopy repository
     }
 }
+
+include ':app'
