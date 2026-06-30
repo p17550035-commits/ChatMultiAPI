@@ -16,7 +16,7 @@ android {
         versionName "1.0"
 
         python {
-            version "3.13"
+            version "3.9"
         }
 
 
