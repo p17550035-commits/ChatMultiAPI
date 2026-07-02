@@ -10,24 +10,31 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - name: Set up Java
+        uses: actions/setup-java@v5
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
 
-      - name: Generate Gradle Wrapper
+      - name: Install Gradle 8.7
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.7
+          cache-disabled: true
+
+      - name: Generate Gradle wrapper
         run: |
           cd android
-          ./gradlew wrapper
+          gradle wrapper --gradle-version 8.7
 
       - name: Commit wrapper files
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add android/gradle/wrapper/*
-          git commit -m "Update Gradle wrapper"
+          git add android/gradlew
+          git add android/gradlew.bat
+          git add android/gradle/wrapper/gradle-wrapper.jar
+          git add android/gradle/wrapper/gradle-wrapper.properties
+          git commit -m "Add Gradle wrapper"
           git push
