@@ -32,7 +32,7 @@
         app:layout_constraintStart_toEndOf="@id/faceAvatar"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Guts panel (for status / agent info) -->
+    <!-- Guts panel -->
     <TextView
         android:id="@+id/gutsPanel"
         android:layout_width="0dp"
@@ -99,8 +99,8 @@
             android:layout_weight="1"
             android:background="@drawable/input_background"
             android:textColor="#FFFFFF"
+            android:textColorHint="#888888"
             android:hint="Say something..."
-            android:hintTextColor="#888888"
             android:padding="8dp" />
 
         <ImageButton
