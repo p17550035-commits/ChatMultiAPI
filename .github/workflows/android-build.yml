@@ -25,7 +25,9 @@ jobs:
         python-version: '3.11.9'
 
     - name: Add Python 3.11 to PATH
-      run: echo "PATH=/opt/hostedtoolcache/Python/3.11.9/x64/bin:$PATH" >> $GITHUB_ENV
+      run: |
+        echo "PATH=/opt/hostedtoolcache/Python/3.11.9/x64/bin:$PATH" >> $GITHUB_ENV
+        echo "PATH=/opt/hostedtoolcache/Python/3.11.9/x86_64/bin:$PATH" >> $GITHUB_ENV
 
     - name: Grant execute permission for gradlew
       run: chmod +x android/gradlew
