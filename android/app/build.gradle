@@ -24,7 +24,6 @@ android {
         }
     }
 
-    // ⭐ REQUIRED FIX: Align Java + Kotlin to JVM 17
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
@@ -49,4 +48,9 @@ chaquopy {
             install "plyer"
         }
     }
+}
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.12.0"
 }
