@@ -35,7 +35,6 @@ chaquopy {
     defaultConfig {
         buildPython "3.11"
         pip {
-            install "kivy"
             install "requests"
             install "plyer"
         }
