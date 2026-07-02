@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <!--
+        GUTS PANEL (REMOVED)
+        This section used to contain gutsTitle + gutsPanel.
+        Left commented intentionally for historical comedy.
+        No longer affects build or layout.
+    -->
+
     <!-- Face / avatar with titanium ring -->
     <ImageView
         android:id="@+id/faceAvatar"
@@ -18,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Settings button (NEW) -->
+    <!-- Settings button -->
     <ImageButton
         android:id="@+id/btnSettings"
         android:layout_width="40dp"
@@ -30,37 +37,6 @@
         android:contentDescription="Settings"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Guts panel title -->
-    <TextView
-        android:id="@id/gutsTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="Guts"
-        android:textColor="#C724B1"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="@id/faceAvatar"
-        app:layout_constraintStart_toEndOf="@id/faceAvatar"
-        app:layout_constraintEnd_toStartOf="@id/btnSettings" />
-
-    <!-- Guts panel -->
-    <TextView
-        android:id="@+id/gutsPanel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="4dp"
-        android:text="Ready."
-        android:textColor="#FFFFFF"
-        android:textSize="14sp"
-        android:padding="8dp"
-        android:background="@drawable/titanium_border"
-        app:layout_constraintTop_toBottomOf="@id/gutsTitle"
-        app:layout_constraintStart_toEndOf="@id/faceAvatar"
-        app:layout_constraintEnd_toStartOf="@id/btnSettings" />
 
     <!-- Chat bubbles list -->
     <androidx.recyclerview.widget.RecyclerView
