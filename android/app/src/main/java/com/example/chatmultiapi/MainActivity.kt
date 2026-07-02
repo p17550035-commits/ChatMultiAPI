@@ -126,4 +126,156 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val data = result
+            val data = result.data
+            val matches = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val text = matches?.firstOrNull()
+            if (!text.isNullOrEmpty()) {
+                inputText.setText(text)
+            }
+        }
+    }
+
+    private val fileLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val uri = result.data?.data
+            if (uri != null) {
+                gutsPanel.text = "File selected: $uri"
+                sendMessage("[IMAGE] $uri")
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        chatRecycler = findViewById(R.id.chatRecycler)
+        inputText = findViewById(R.id.inputText)
+        btnSend = findViewById(R.id.btnSend)
+        btnVoice = findViewById(R.id.btnVoice)
+        btnFile = findViewById(R.id.btnFile)
+        gutsPanel = findViewById(R.id.gutsPanel)
+
+        adapter = ChatAdapter(this, chatList) { bubble ->
+            saveBubbleToFile(bubble)
+        }
+
+        chatRecycler.layoutManager = LinearLayoutManager(this)
+        chatRecycler.adapter = adapter
+
+        btnSend.setOnClickListener {
+            val text = inputText.text.toString().trim()
+            if (text.isNotEmpty()) {
+                sendMessage(text)
+                inputText.setText("")
+            }
+        }
+
+        btnVoice.setOnClickListener {
+            startVoiceInput()
+        }
+
+        btnFile.setOnClickListener {
+            openFilePicker()
+        }
+    }
+
+    private fun startVoiceInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak…")
+        }
+        voiceLauncher.launch(intent)
+    }
+
+    private fun openFilePicker() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "*/*"
+        }
+        fileLauncher.launch(intent)
+    }
+
+    private fun sendMessage(text: String) {
+        val now = System.currentTimeMillis()
+        val userBubble = ChatBubble("user", text, now)
+        chatList.add(userBubble)
+        adapter.notifyItemInserted(chatList.size - 1)
+        chatRecycler.scrollToPosition(chatList.size - 1)
+
+        gutsPanel.text = "Thinking…"
+
+        try {
+            val py = Python.getInstance()
+            val module: PyObject = py.getModule("backend")
+            val result: PyObject = module.callAttr("handle_message", text)
+            val reply = result.toString()
+
+            val agentBubble = ChatBubble("agent", reply, System.currentTimeMillis())
+            chatList.add(agentBubble)
+            adapter.notifyItemInserted(chatList.size - 1)
+            chatRecycler.scrollToPosition(chatList.size - 1)
+
+            gutsPanel.text = "Done."
+        } catch (e: Exception) {
+            val errorBubble = ChatBubble("agent", "Error: ${e.message}", System.currentTimeMillis())
+            chatList.add(errorBubble)
+            adapter.notifyItemInserted(chatList.size - 1)
+            chatRecycler.scrollToPosition(chatList.size - 1)
+            gutsPanel.text = "Error."
+        }
+
+        saveChatToFile()
+    }
+
+    private fun getDateString(): String {
+        val sdf = SimpleDateFormat("MM_dd_yyyy", Locale.getDefault())
+        return sdf.format(Date())
+    }
+
+    private fun getBaseDir(): File {
+        val dir = File(getExternalFilesDir(null), "ChatMultiAPI")
+        if (!dir.exists()) dir.mkdirs()
+        return dir
+    }
+
+    private fun saveChatToFile() {
+        try {
+            val dir = File(getBaseDir(), "chats")
+            if (!dir.exists()) dir.mkdirs()
+            val filename = "chat_${getDateString()}.json"
+            val file = File(dir, filename)
+
+            val json = buildString {
+                append("[\n")
+                chatList.forEachIndexed { index, bubble ->
+                    append("  {\"sender\":\"${bubble.sender}\",\"text\":")
+                    append("\"${bubble.text.replace("\"", "\\\"")}\",\"timestamp\":${bubble.timestamp}}")
+                    if (index < chatList.size - 1) append(",")
+                    append("\n")
+                }
+                append("]\n")
+            }
+
+            file.writeText(json)
+        } catch (_: Exception) {
+        }
+    }
+
+    private fun saveBubbleToFile(bubble: ChatBubble) {
+        try {
+            val dir = File(getBaseDir(), "bubbles")
+            if (!dir.exists()) dir.mkdirs()
+            val filename = "bubble_${getDateString()}.txt"
+            val file = File(dir, filename)
+            file.writeText(bubble.text)
+            Toast.makeText(this, "Bubble saved", Toast.LENGTH_SHORT).show()
+        } catch (_: Exception) {
+        }
+    }
+}
