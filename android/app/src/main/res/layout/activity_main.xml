@@ -18,9 +18,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Settings button (NEW) -->
+    <ImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="12dp"
+        android:background="@drawable/titanium_button"
+        android:src="@android:drawable/ic_menu_preferences"
+        android:tint="#FFFFFF"
+        android:contentDescription="Settings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Guts panel title -->
     <TextView
-        android:id="@+id/gutsTitle"
+        android:id="@id/gutsTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -30,7 +43,7 @@
         android:textSize="16sp"
         app:layout_constraintTop_toTopOf="@id/faceAvatar"
         app:layout_constraintStart_toEndOf="@id/faceAvatar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnSettings" />
 
     <!-- Guts panel -->
     <TextView
@@ -47,7 +60,7 @@
         android:background="@drawable/titanium_border"
         app:layout_constraintTop_toBottomOf="@id/gutsTitle"
         app:layout_constraintStart_toEndOf="@id/faceAvatar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/btnSettings" />
 
     <!-- Chat bubbles list -->
     <androidx.recyclerview.widget.RecyclerView
