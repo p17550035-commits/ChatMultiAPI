@@ -3,10 +3,9 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url "https://chaquo.com/maven" }
     }
 }
 
 rootProject.name = 'android'
 include ':app'
-
-
