@@ -14,5 +14,11 @@ def handle_message(text: str) -> str:
     if text.startswith("[FILE]"):
         return f"[{now}] Got a file: {text}"
 
-    # Expand this later into multi-agent logic
+    # If user asks for an image, return a sample API image
+    if "image" in text.lower() or "pic" in text.lower():
+        # Example remote image URL (works with Glide)
+        url = "https://picsum.photos/512"
+        return f"[API_IMAGE] {url}"
+
+    # Normal text response
     return f"[{now}] You said: {text}"
