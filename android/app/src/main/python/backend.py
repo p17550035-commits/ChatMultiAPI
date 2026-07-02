@@ -1,16 +1,15 @@
-# backend.py
-
 import datetime
 from providers import (
     detect_provider_from_key,
     send_message_to_provider
 )
-from storage import load_config
+from storage import load_config, get_selected_provider
+
 
 def handle_message(text: str) -> str:
     """
     Unified backend entry point.
-    Routes messages to the correct provider using your existing providers.py.
+    Routes messages to the correct provider using providers.py.
     """
 
     now = datetime.datetime.now().strftime("%m_%d_%Y %H:%M:%S")
@@ -33,14 +32,14 @@ def handle_message(text: str) -> str:
 
     # Auto-detect provider from key if needed
     if provider == "auto":
-        key = cfg["providers"].get("auto_key", "")
-        detected = detect_provider_from_key(key)
+        auto_key = cfg["providers"].get("auto_key", "")
+        detected = detect_provider_from_key(auto_key)
         if detected:
             provider = detected
         else:
             return f"[{now}] Could not auto-detect provider."
 
-    # Call provider using your OG providers.py
+    # Call provider using providers.py
     try:
         reply = send_message_to_provider(provider, text)
         return reply
