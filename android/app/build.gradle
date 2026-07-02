@@ -24,6 +24,16 @@ android {
         }
     }
 
+    // ⭐ REQUIRED FIX: Align Java + Kotlin to JVM 17
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
     sourceSets {
         main {
             python.srcDir "src/main/python"
