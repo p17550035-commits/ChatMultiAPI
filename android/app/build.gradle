@@ -16,7 +16,7 @@ android {
         versionName "1.0"
 
         python {
-            version "3.12"
+            version "3.11"
         }
 
         ndk {
@@ -33,7 +33,7 @@ android {
 
 chaquopy {
     defaultConfig {
-        buildPython "3.12"
+        buildPython "3.11"
         pip {
             install "kivy"
             install "requests"
