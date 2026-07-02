@@ -117,8 +117,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnSend: ImageButton
     private lateinit var btnVoice: ImageButton
     private lateinit var btnFile: ImageButton
-    private lateinit var gutsPanel: TextView
-    private lateinit var btnSettings: ImageButton   // NEW
+    private lateinit var btnSettings: ImageButton
 
     private val chatList = mutableListOf<ChatBubble>()
     private lateinit var adapter: ChatAdapter
@@ -142,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val uri = result.data?.data
             if (uri != null) {
-                gutsPanel.text = "File selected: $uri"
+                Toast.makeText(this, "File selected: $uri", Toast.LENGTH_SHORT).show()
                 sendMessage("[IMAGE] $uri")
             }
         }
@@ -157,7 +156,67 @@ class MainActivity : AppCompatActivity() {
         btnSend = findViewById(R.id.btnSend)
         btnVoice = findViewById(R.id.btnVoice)
         btnFile = findViewById(R.id.btnFile)
-        gutsPanel = findViewById(R.id.gutsPanel)
-        btnSettings = findViewById(R.id.btnSettings)   // NEW
+        btnSettings = findViewById(R.id.btnSettings)
 
-        adapter = ChatAdapter(this, chatList) { bubble
+        adapter = ChatAdapter(this, chatList) { bubble -> saveBubble(bubble) }
+        chatRecycler.layoutManager = LinearLayoutManager(this)
+        chatRecycler.adapter = adapter
+
+        btnSend.setOnClickListener { sendMessage(inputText.text.toString()) }
+        btnVoice.setOnClickListener { startVoiceInput() }
+        btnFile.setOnClickListener { openFilePicker() }
+        btnSettings.setOnClickListener { openSettings() }
+    }
+
+    private fun startVoiceInput() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        }
+        voiceLauncher.launch(intent)
+    }
+
+    private fun openFilePicker() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "*/*"
+        }
+        fileLauncher.launch(intent)
+    }
+
+    private fun openSettings() {
+        val intent = Intent(this, ProviderSettingsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun sendMessage(text: String) {
+        if (text.isBlank()) return
+
+        val bubble = ChatBubble("user", text, System.currentTimeMillis())
+        chatList.add(bubble)
+        adapter.notifyItemInserted(chatList.size - 1)
+        chatRecycler.scrollToPosition(chatList.size - 1)
+
+        inputText.setText("")
+
+        val py = Python.getInstance()
+        val backend = py.getModule("backend")
+
+        val response: PyObject = backend.callAttr("handle_message", text)
+        val reply = response.toString()
+
+        val agentBubble = ChatBubble("agent", reply, System.currentTimeMillis())
+        chatList.add(agentBubble)
+        adapter.notifyItemInserted(chatList.size - 1)
+        chatRecycler.scrollToPosition(chatList.size - 1)
+    }
+
+    private fun saveBubble(bubble: ChatBubble) {
+        val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
+        val filename = "bubble_${sdf.format(Date())}.txt"
+
+        val file = File(filesDir, filename)
+        file.writeText("${bubble.sender}: ${bubble.text}")
+
+        Toast.makeText(this, "Saved bubble to $filename", Toast.LENGTH_SHORT).show()
+    }
+}
