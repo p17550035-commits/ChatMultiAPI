@@ -1,0 +1,105 @@
+===============================
+🔥 CHAT UI — FULL FEATURE LIST
+===============================
+
+✔ RecyclerView chat bubbles (replaces ListView)
+✔ item_bubble.xml support (left/right alignment)
+✔ Neon theme preserved
+
+✔ Provider indicator (top of chat)
+✔ Auto-scroll to bottom
+✔ Loading bubble ("thinking…")
+✔ Error bubble (with retry)
+✔ Resend bubble (long-press or icon)
+
+✔ Tap bubble → Copy text
+✔ Long-press bubble → Save bubble
+✔ Long-press bubble → Save As…
+✔ Long-press bubble → Share bubble
+✔ Long-press bubble → Resend bubble
+
+✔ Save entire chat
+✔ Save entire chat AS…
+✔ Share entire chat (JSON/TXT/ZIP)
+✔ Share INTO app (intent-filter)
+✔ Share OUT of app (ACTION_SEND)
+
+✔ File upload (any file, any folder)
+✔ Image upload (thumbnail preview bubble)
+✔ File preview bubble (icon + filename)
+✔ Image preview bubble (tap to expand)
+
+✔ Voice-to-text (RecognizerIntent)
+✔ Chatbot talk (TextToSpeech toggle)
+
+✔ Scrollback memory (no reset on rotate)
+✔ Works with ApiMaster + ProviderRouter
+✔ Works with custom/local providers
+
+===============================
+🔥 CHAT UI — FILES TO UPDATE
+===============================
+
+activity_chat.xml
+ChatActivity.kt
+item_bubble.xml
+AndroidManifest.xml (intent-filter for Share IN)
+BubbleAdapter.kt (new)
+BubbleModel.kt (new)
+
+===============================
+🔥 PROJECTS TAB — FEATURE LIST
+===============================
+
+✔ Share OUT project (JSON/TXT/ZIP)
+✔ Share IN project (import from other apps)
+✔ Import files/folders into project
+✔ Export project folder
+✔ Export project ZIP
+✔ Project manifest (JSON)
+✔ Project attachments
+✔ Project notes
+✔ Project chat history linking
+✔ Project file preview
+✔ Project image preview
+✔ Project context loading into chat
+
+===============================
+🔥 PROJECTS TAB — FILES TO UPDATE
+===============================
+
+activity_projects.xml
+ProjectsActivity.kt
+ProjectDetailActivity.kt (new)
+AndroidManifest.xml (intent-filter for Share IN)
+ProjectModel.kt (new)
+ProjectAdapter.kt (new)
+
+===============================
+🔥 BACKEND (ALREADY LOCKED)
+===============================
+
+providersurl.kt
+apimaster.kt
+ProviderRouter.kt
+SecurityManager.kt
+app_config.json (encrypted keys)
+
+===============================
+🔥 OPTIONAL FUTURE ADDITIONS
+===============================
+
+✔ Project → Chat context injection
+✔ Multi-file upload
+✔ Multi-image preview
+✔ Chat search
+✔ Project search
+✔ Chat filters (user/agent/files/images)
+✔ Project tagging
+✔ Chat tagging
+✔ Export chat as Markdown
+✔ Export project as Markdown
+
+===============================
+END OF MASTER CHECKLIST
+===============================
