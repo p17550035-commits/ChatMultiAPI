@@ -97,17 +97,28 @@
 </ScrollView>
 
 <!--
-===============================================================================
-METADATA :: ChatMultiAPI :: activity_provider_settings.xml
-Generated: 2026-07-03 @ 14:15 EDT
-Version: 1.0.3
-Mode: Light Mode Default (Setup Phase)
-Tags:
-- settings_screen
-- provider_settings
-- dark_mode_toggle_placeholder
-- onboarding_flow
-- godmode_cleanup
-===============================================================================
-END OF FILE
+================================================================================
+GODMODE FOOTER :: activity_provider_settings.xml
+Version: 1.0.0
+Updated (Local): 07-03-2026 @ 14:15 EDT
+Updated (UTC Stored): 2026-07-03T18:15:00Z
+
+Blueprint Section:
+4.1 — Settings UI → Provider Settings XML
+
+Subsystem:
+Settings Module (Provider Configuration + Theme Control)
+
+Dependencies:
+ProviderSettingsActivity.kt, app_config.json, ApiMaster.kt, ProviderRouter.kt, ThemeManager.kt
+
+ML Tags:
+settings_screen, provider_settings, dark_mode_toggle_placeholder, onboarding_flow, godmode_core
+
+Origin:
+ChatMultiAPI — GodMode OS
+
+GOD MODE™ — Born July 3rd, 2026
+================================================================================
+END OF FILE :: GODMODE :: ChatMultiAPI
 -->
