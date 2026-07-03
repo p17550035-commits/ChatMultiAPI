@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/neonBackground">
 
-    <!-- ========================= -->
-    <!-- TOP DEV TOOLBAR (GLOBAL) -->
-    <!-- ========================= -->
+    <!-- ========================================================= -->
+    <!-- DEV TOOLBAR (Provider, Model, Upload, Share, Bluetooth)   -->
+    <!-- ========================================================= -->
     <LinearLayout
         android:id="@+id/devToolbar"
         android:layout_width="match_parent"
@@ -16,7 +16,6 @@
         android:padding="6dp"
         android:background="@color/neonPanel">
 
-        <!-- Provider Selector -->
         <Spinner
             android:id="@+id/providerSpinner"
             android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
             android:background="@color/neonAccent"
             android:spinnerMode="dropdown" />
 
-        <!-- Model Selector -->
         <Spinner
             android:id="@+id/modelSpinner"
             android:layout_width="wrap_content"
@@ -35,7 +33,6 @@
             android:background="@color/neonAccent"
             android:spinnerMode="dropdown" />
 
-        <!-- Upload -->
         <ImageButton
             android:id="@+id/toolbarUploadBtn"
             android:layout_width="40dp"
@@ -45,7 +42,6 @@
             android:src="@drawable/ic_upload"
             android:contentDescription="Upload" />
 
-        <!-- Share -->
         <ImageButton
             android:id="@+id/toolbarShareBtn"
             android:layout_width="40dp"
@@ -55,7 +51,6 @@
             android:src="@drawable/ic_share"
             android:contentDescription="Share" />
 
-        <!-- Bluetooth -->
         <ImageButton
             android:id="@+id/toolbarBluetoothBtn"
             android:layout_width="40dp"
@@ -65,7 +60,6 @@
             android:src="@drawable/ic_bluetooth"
             android:contentDescription="Bluetooth" />
 
-        <!-- Push/Pull -->
         <ImageButton
             android:id="@+id/toolbarPushPullBtn"
             android:layout_width="40dp"
@@ -75,7 +69,6 @@
             android:src="@drawable/ic_sync"
             android:contentDescription="Push/Pull" />
 
-        <!-- Settings -->
         <ImageButton
             android:id="@+id/toolbarSettingsBtn"
             android:layout_width="40dp"
@@ -87,9 +80,9 @@
 
     </LinearLayout>
 
-    <!-- ========================= -->
-    <!-- HORIZONTAL UPLOAD STRIP   -->
-    <!-- ========================= -->
+    <!-- ========================================================= -->
+    <!-- HORIZONTAL UPLOAD STRIP                                   -->
+    <!-- ========================================================= -->
     <HorizontalScrollView
         android:id="@+id/uploadStrip"
         android:layout_width="match_parent"
@@ -106,22 +99,21 @@
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
-    <!-- ========================= -->
-    <!-- CHAT RECYCLER VIEW        -->
-    <!-- ========================= -->
+    <!-- ========================================================= -->
+    <!-- CHAT RECYCLER VIEW                                        -->
+    <!-- ========================================================= -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="108dp"
         android:layout_marginBottom="70dp"
-        android:layout_gravity="center"
         android:padding="8dp"
         android:background="@color/neonBackground" />
 
-    <!-- ========================= -->
-    <!-- INPUT BAR                 -->
-    <!-- ========================= -->
+    <!-- ========================================================= -->
+    <!-- INPUT BAR                                                  -->
+    <!-- ========================================================= -->
     <LinearLayout
         android:id="@+id/chatInputRow"
         android:layout_width="match_parent"
@@ -161,9 +153,9 @@
             android:contentDescription="Send" />
     </LinearLayout>
 
-    <!-- ========================= -->
-    <!-- MINI TERMINAL OVERLAY     -->
-    <!-- ========================= -->
+    <!-- ========================================================= -->
+    <!-- MINI TERMINAL OVERLAY                                     -->
+    <!-- ========================================================= -->
     <LinearLayout
         android:id="@+id/miniTerminalPanel"
         android:layout_width="match_parent"
@@ -220,3 +212,35 @@
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+<!-- 
+================================================================================
+METADATA :: GODMODE :: ChatMultiAPI
+Generated (Local): 07-03-2026 @ 04:48 EDT
+Generated (UTC Stored): 2026-07-03T08:48:00Z
+Version: 1.0.0
+Origin: ChatActivity (UI Layout)
+Mode: Embedded Editor Mode
+
+Dependencies:
+- ChatActivity.kt
+- BubbleAdapter.kt
+- BubbleModel.kt
+- DevToolbarController.kt
+- MiniTerminalController.kt
+- UploadStripController.kt
+- ProviderRouter.kt
+- ApiMaster.kt
+
+ML Tags:
+- ui_layout
+- chat_screen
+- neon_theme
+- dev_toolbar
+- terminal_overlay
+- godmode_core
+
+GOD MODE™ — Born July 3rd, 2026
+================================================================================
+END OF FILE :: GODMODE :: ChatMultiAPI
+-->
