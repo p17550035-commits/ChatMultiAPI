@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/apiKeysRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Scrollable Main Section -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- OpenAI Section -->
+            <TextView
+                android:id="@+id/openAiLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OpenAI API Key"
+                android:textSize="18sp"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/openAiKeyInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/securityPanel"
+                android:padding="12dp"
+                android:hint="Enter OpenAI key" />
+
+            <!-- Anthropic Section -->
+            <TextView
+                android:id="@+id/anthropicLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anthropic API Key"
+                android:textSize="18sp"
+                android:paddingTop="24dp"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/anthropicKeyInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/securityPanel"
+                android:padding="12dp"
+                android:hint="Enter Anthropic key" />
+
+            <!-- Gemini Section -->
+            <TextView
+                android:id="@+id/geminiLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gemini API Key"
+                android:textSize="18sp"
+                android:paddingTop="24dp"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/geminiKeyInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/securityPanel"
+                android:padding="12dp"
+                android:hint="Enter Gemini key" />
+
+            <!-- Local Provider Section -->
+            <TextView
+                android:id="@+id/localLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Local Provider Key"
+                android:textSize="18sp"
+                android:paddingTop="24dp"
+                android:paddingBottom="8dp" />
+
+            <EditText
+                android:id="@+id/localKeyInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/securityPanel"
+                android:padding="12dp"
+                android:hint="Enter Local provider key" />
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/saveApiKeysBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save API Keys"
+                android:layout_marginTop="24dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Danger Zone (Static Bottom Section) -->
+    <LinearLayout
+        android:id="@+id/apiDangerZone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/apiDangerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danger Zone"
+            android:textSize="18sp"
+            android:textColor="@android:color/holo_red_dark"
+            android:paddingBottom="8dp" />
+
+        <Button
+            android:id="@+id/clearApiKeysBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Clear All API Keys (Irreversible)"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_red_dark" />
+    </LinearLayout>
+
+</LinearLayout>
