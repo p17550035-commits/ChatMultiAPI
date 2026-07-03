@@ -103,7 +103,7 @@
     <!-- CHAT RECYCLER VIEW                                        -->
     <!-- ========================================================= -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chatRecyclerView"
+        android:id="@+id/chatRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="108dp"
@@ -135,7 +135,7 @@
             android:textSize="16sp" />
 
         <ImageButton
-            android:id="@+id/attachBtn"
+            android:id="@+id/chatAttach"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginLeft="8dp"
@@ -144,7 +144,7 @@
             android:contentDescription="Attach" />
 
         <ImageButton
-            android:id="@+id/sendBtn"
+            android:id="@+id/chatSend"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginLeft="8dp"
@@ -218,8 +218,8 @@
 METADATA :: GODMODE :: ChatMultiAPI
 Generated (Local): 07-03-2026 @ 04:48 EDT
 Generated (UTC Stored): 2026-07-03T08:48:00Z
-Version: 1.0.0
-Origin: ChatActivity (UI Layout)
+Version: 1.0.1
+Origin: activity_chat.xml
 Mode: Embedded Editor Mode
 
 Dependencies:
