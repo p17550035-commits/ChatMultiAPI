@@ -1,106 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/securityRoot"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@android:color/background_light">
 
-    <!-- Scrollable Main Section -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- Seed Phrase Section -->
-            <TextView
-                android:id="@+id/seedPhraseLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Seed Phrase"
-                android:textSize="18sp"
-                android:paddingBottom="8dp" />
-
-            <TextView
-                android:id="@+id/seedPhraseText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/securityPanel"
-                android:padding="12dp"
-                android:text="(none)"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/generateSeedBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Generate Seed Phrase"
-                android:layout_marginTop="12dp" />
-
-            <!-- Backup Section -->
-            <TextView
-                android:id="@+id/backupLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Backup"
-                android:textSize="18sp"
-                android:paddingTop="24dp"
-                android:paddingBottom="8dp" />
-
-            <Button
-                android:id="@+id/backupBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Backup Encrypted Config" />
-
-            <!-- Restore Section -->
-            <TextView
-                android:id="@+id/restoreLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Restore"
-                android:textSize="18sp"
-                android:paddingTop="24dp"
-                android:paddingBottom="8dp" />
-
-            <Button
-                android:id="@+id/restoreBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Restore Encrypted Config" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <!-- Danger Zone (Static Bottom Section) -->
     <LinearLayout
-        android:id="@+id/dangerZone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/securityRoot"
         android:orientation="vertical"
-        android:paddingTop="16dp">
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <!-- Seed Phrase Section -->
         <TextView
-            android:id="@+id/dangerLabel"
+            android:id="@+id/seedPhraseLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Danger Zone"
+            android:text="Seed Phrase"
             android:textSize="18sp"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="@android:color/black"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/seedPhraseText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:text="(none)"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/generateSeedBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Generate Seed Phrase"
+            android:layout_marginTop="12dp"
+            android:background="@android:color/holo_blue_light"
+            android:textColor="@android:color/white" />
+
+        <!-- Backup Section -->
+        <TextView
+            android:id="@+id/backupLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backup"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:paddingTop="24dp"
             android:paddingBottom="8dp" />
 
         <Button
-            android:id="@+id/wipeEncryptionBtn"
+            android:id="@+id/backupBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wipe All Encryption (Irreversible)"
-            android:textColor="@android:color/white"
-            android:background="@android:color/holo_red_dark" />
-    </LinearLayout>
+            android:text="Backup Encrypted Config"
+            android:background="@android:color/holo_blue_light"
+            android:textColor="@android:color/white" />
 
-</LinearLayout>
+        <!-- Restore Section -->
+        <TextView
+            android:id="@+id/restoreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restore"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:paddingTop="24dp"
+            android:paddingBottom="8dp" />
+
+        <Button
+            android:id="@+id/restoreBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Restore Encrypted Config"
+            android:background="@android:color/holo_blue_light"
+            android:textColor="@android:color/white" />
+
+        <!-- Danger Zone -->
+        <LinearLayout
+            android:id="@+id/dangerZone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <TextView
+                android:id="@+id/dangerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Danger Zone"
+                android:textSize="18sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:paddingBottom="8dp" />
+
+            <Button
+                android:id="@+id/wipeEncryptionBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Wipe All Encryption (Irreversible)"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_red_dark" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+
+<!--
+===============================================================================
+METADATA :: ChatMultiAPI :: activity_security.xml
+Generated: 2026-07-03 @ 14:23 EDT
+Version: 1.0.4
+Mode: Light Mode Default (Setup Phase)
+Tags:
+- security_screen
+- seed_phrase
+- backup_restore
+- danger_zone
+===============================================================================
+END OF FILE
+-->
