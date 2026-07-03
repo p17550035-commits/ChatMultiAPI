@@ -1,4 +1,4 @@
-// chatactivity.kt — v1.0.0
+// chatactivity.kt — v1.0.1
 
 package com.chatmultiapi.godmode.ui
 
@@ -17,6 +17,7 @@ import com.chatmultiapi.godmode.adapter.BubbleAdapter
 import com.chatmultiapi.godmode.model.BubbleModel
 import com.chatmultiapi.godmode.backend.ProviderRouter
 import com.chatmultiapi.godmode.util.FileUtils
+import com.chatmultiapi.godmode.engine.TimestampEngine
 import java.util.UUID
 
 /**
@@ -31,7 +32,7 @@ import java.util.UUID
  * - old file attach flow
  * - old neon theme
  * - new bubble system
- * - new metadata/timestamp placeholders
+ * - timestamp engine v1 wiring
  */
 class ChatActivity : AppCompatActivity() {
 
@@ -87,8 +88,8 @@ class ChatActivity : AppCompatActivity() {
             role = "user",
             text = text,
             imageUri = null,
-            localTimestamp = generateLocalTimestamp(),
-            utcTimestamp = generateUtcTimestamp(),
+            localTimestamp = TimestampEngine.nowLocal(),
+            utcTimestamp = TimestampEngine.nowUtc(),
             metadataPreview = null,
             dependencies = listOf("bubbleadapter.kt", "item_bubble.xml", "chatactivity.kt"),
             mlTags = listOf("user_message", "chat_bubble", "godmode_core")
@@ -103,8 +104,8 @@ class ChatActivity : AppCompatActivity() {
             role = "assistant",
             text = text,
             imageUri = null,
-            localTimestamp = generateLocalTimestamp(),
-            utcTimestamp = generateUtcTimestamp(),
+            localTimestamp = TimestampEngine.nowLocal(),
+            utcTimestamp = TimestampEngine.nowUtc(),
             metadataPreview = null,
             dependencies = listOf("bubbleadapter.kt", "item_bubble.xml", "chatactivity.kt"),
             mlTags = listOf("assistant_message", "chat_bubble", "godmode_core")
@@ -119,8 +120,8 @@ class ChatActivity : AppCompatActivity() {
             role = "user",
             text = "Attached: $fileName",
             imageUri = uri,
-            localTimestamp = generateLocalTimestamp(),
-            utcTimestamp = generateUtcTimestamp(),
+            localTimestamp = TimestampEngine.nowLocal(),
+            utcTimestamp = TimestampEngine.nowUtc(),
             metadataPreview = null,
             dependencies = listOf("bubbleadapter.kt", "item_bubble.xml", "chatactivity.kt"),
             mlTags = listOf("file_attachment", "chat_bubble", "godmode_core")
@@ -155,17 +156,13 @@ class ChatActivity : AppCompatActivity() {
             }
         }
     }
-
-    // placeholder timestamps (TimestampEngine v1 not implemented yet)
-    private fun generateLocalTimestamp(): String = "07/03/2026 09:34 EDT"
-    private fun generateUtcTimestamp(): String = "2026-07-03T13:34:00Z"
 }
 
 /*
 ================================================================================
 METADATA :: GODMODE :: chatmultiapi
 section: 2.5 chatactivity.kt (merged old/new)
-version: 1.0.0
+version: 1.0.1
 origin: chatactivity.kt
 mode: embedded editor mode
 
@@ -175,6 +172,7 @@ dependencies:
 - bubblemodel.kt
 - providerrouter.kt
 - fileutils.kt
+- timestampengine.kt
 
 ml tags:
 - ui_controller
@@ -182,6 +180,7 @@ ml tags:
 - bubble_system
 - backend_bridge
 - file_attachment
+- timestamp_engine
 - godmode_core
 - v1_ruleset
 
