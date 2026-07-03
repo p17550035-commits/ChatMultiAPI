@@ -1,0 +1,12 @@
+# Custom + Local Provider Architecture
+
+• No forced structure.
+• No required endpoint format.
+• No required model naming.
+• No required JSON schema.
+• User/server defines everything.
+• ProvidersUrl.kt stores custom/local URLs.
+• ProviderRouter pairs key + URL + model.
+• CustomProvider.kt sends raw requests.
+• LocalProvider.kt sends raw requests.
+• Fully future-proof.
