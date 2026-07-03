@@ -1,6 +1,6 @@
-// chatactivity.kt — v1.0.1
+// chatactivity.kt — v1.0.2
 
-package com.chatmultiapi.godmode.ui
+package com.example.chatmultiapi
 
 import android.app.Activity
 import android.content.Intent
@@ -12,28 +12,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.chatmultiapi.godmode.R
-import com.chatmultiapi.godmode.adapter.BubbleAdapter
-import com.chatmultiapi.godmode.model.BubbleModel
-import com.chatmultiapi.godmode.backend.ProviderRouter
-import com.chatmultiapi.godmode.util.FileUtils
-import com.chatmultiapi.godmode.engine.TimestampEngine
+import com.example.chatmultiapi.R
+import com.example.chatmultiapi.BubbleAdapter
+import com.example.chatmultiapi.BubbleModel
+import com.example.chatmultiapi.ProviderRouter
+import com.example.chatmultiapi.FileUtils
+import com.example.chatmultiapi.TimestampEngine
 import java.util.UUID
 
-/**
- * chatactivity.kt — merged old + new (Section 2.5)
- * ------------------------------------------------
- * Purpose:
- * Preserve old backend wiring (ProviderRouter + file attach)
- * while upgrading UI to RecyclerView + BubbleAdapter + BubbleModel.
- *
- * This file intentionally contains:
- * - old message flow
- * - old file attach flow
- * - old neon theme
- * - new bubble system
- * - timestamp engine v1 wiring
- */
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var bubbleRecycler: RecyclerView
@@ -51,12 +37,10 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        // preserve neon theme from legacy version
         window.decorView.setBackgroundColor(
             ContextCompat.getColor(this, R.color.neonBackground)
         )
 
-        // new UI wiring
         bubbleRecycler = findViewById(R.id.chatRecycler)
         inputField = findViewById(R.id.chatInput)
         sendButton = findViewById(R.id.chatSend)
@@ -66,7 +50,6 @@ class ChatActivity : AppCompatActivity() {
         bubbleRecycler.layoutManager = LinearLayoutManager(this)
         bubbleRecycler.adapter = bubbleAdapter
 
-        // preserve old send flow
         sendButton.setOnClickListener {
             val text = inputField.text.toString().trim()
             if (text.isNotEmpty()) {
@@ -76,7 +59,6 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
-        // preserve old file attach flow
         attachButton.setOnClickListener {
             pickFile()
         }
@@ -130,20 +112,17 @@ class ChatActivity : AppCompatActivity() {
         bubbleRecycler.scrollToPosition(bubbleList.size - 1)
     }
 
-    // preserve old backend routing
     private fun sendToProvider(text: String) {
         val reply = ProviderRouter.sendMessage(this, text)
         addAssistantBubble(reply)
     }
 
-    // preserve old file picker
     private fun pickFile() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
         startActivityForResult(intent, FILE_PICK_REQUEST)
     }
 
-    // preserve old file routing
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -162,7 +141,7 @@ class ChatActivity : AppCompatActivity() {
 ================================================================================
 METADATA :: GODMODE :: chatmultiapi
 section: 2.5 chatactivity.kt (merged old/new)
-version: 1.0.1
+version: 1.0.2
 origin: chatactivity.kt
 mode: embedded editor mode
 
