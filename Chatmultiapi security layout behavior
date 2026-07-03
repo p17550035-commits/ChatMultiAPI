@@ -1,0 +1,25 @@
+# Security Page Layout Rules
+
+• Main Content Area
+  - Uses a vertical ScrollView
+  - Contains:
+    - Seed Phrase Section
+    - Backup Section
+    - Restore Section
+  - Scrolls smoothly on all screen sizes
+  - Prevents cramped UI on smaller devices
+  - Keeps critical content accessible
+
+• Bottom “Danger Zone” Section
+  - Remains fully static (not inside the ScrollView)
+  - Always visible at the bottom of the screen
+  - Never scrolls away or hides
+  - Acts as the final safeguard / last opportunity feature
+  - Reinforces seriousness and prevents accidental oversight
+
+• Overall Behavior
+  - Top sections scroll
+  - Bottom danger section stays anchored
+  - Clean minimal UI (light/dark based on Settings)
+  - Small section labels in both XML and Kotlin
+  - Auto‑apply UI mode immediately when changed in Settings
