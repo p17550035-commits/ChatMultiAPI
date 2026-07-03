@@ -1,3 +1,5 @@
+// providersurl.kt — v1.0.1
+
 package com.example.chatmultiapi
 
 object ProvidersUrl {
@@ -12,7 +14,6 @@ object ProvidersUrl {
     const val OPENAI_FILES = "$OPENAI_BASE/files"
     const val OPENAI_MODELS = "$OPENAI_BASE/models"
 
-
     // -----------------------------
     // ANTHROPIC (REAL ENDPOINTS)
     // -----------------------------
@@ -20,7 +21,6 @@ object ProvidersUrl {
     const val ANTHROPIC_MESSAGES = "$ANTHROPIC_BASE/messages"
     const val ANTHROPIC_COMPLETIONS = "$ANTHROPIC_BASE/complete"
     const val ANTHROPIC_MODELS = "$ANTHROPIC_BASE/models"
-
 
     // -----------------------------
     // GROQ (REAL ENDPOINTS)
@@ -30,7 +30,6 @@ object ProvidersUrl {
     const val GROQ_EMBEDDINGS = "$GROQ_BASE/embeddings"
     const val GROQ_MODELS = "$GROQ_BASE/models"
 
-
     // -----------------------------
     // NVIDIA (REAL ENDPOINTS)
     // -----------------------------
@@ -39,33 +38,52 @@ object ProvidersUrl {
     const val NVIDIA_EMBEDDINGS = "$NVIDIA_BASE/embeddings"
     const val NVIDIA_MODELS = "$NVIDIA_BASE/models"
 
-
     // -----------------------------
     // LM STUDIO (REAL ENDPOINTS)
     // -----------------------------
-    // LM Studio uses OpenAI-compatible routes
     const val LMSTUDIO_BASE = "http://localhost:1234/v1"
     const val LMSTUDIO_CHAT = "$LMSTUDIO_BASE/chat/completions"
     const val LMSTUDIO_MODELS = "$LMSTUDIO_BASE/models"
 
-
     // -----------------------------
     // LOCAL PROVIDER (FLEXIBLE)
     // -----------------------------
-    // Local provider is intentionally bare-bones.
-    // User/server defines everything.
-    const val LOCAL_BASE = ""   // user/server decides
-    const val LOCAL_CHAT = ""   // user/server decides
-    const val LOCAL_MODELS = "" // user/server decides
-
+    const val LOCAL_BASE = ""
+    const val LOCAL_CHAT = ""
+    const val LOCAL_MODELS = ""
 
     // -----------------------------
     // CUSTOM PROVIDER (FULLY FLEXIBLE)
     // -----------------------------
-    // Custom provider must accept ANY structure.
-    // No forced endpoints. No assumptions.
-    // User defines base URL, model, path, etc.
     var CUSTOM_BASE: String = ""
     var CUSTOM_CHAT: String = ""
     var CUSTOM_MODELS: String = ""
 }
+
+/*
+================================================================================
+METADATA :: GODMODE :: chatmultiapi
+section: 3.2 providersurl.kt (backend routing — provider endpoints)
+version: 1.0.1
+origin: providersurl.kt
+mode: embedded editor mode
+
+dependencies:
+- providerrouter.kt
+- apimaster.kt
+- localprovider.kt
+
+blueprint:
+- backend_core
+- endpoint_registry
+- provider_catalog
+- v1_ruleset
+
+ml tags:
+- provider_endpoints
+- api_registry
+- backend_system
+- godmode_core
+
+end of file :: godmode :: chatmultiapi
+================================================================================
