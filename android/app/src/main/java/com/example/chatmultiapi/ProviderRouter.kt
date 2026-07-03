@@ -114,3 +114,33 @@ object ProviderRouter {
         )
     }
 }
+
+/*
+================================================================================
+METADATA :: GODMODE :: chatmultiapi
+section: 3.1 providerrouter.kt (backend routing — provider selection + API wiring)
+version: 1.0.1
+origin: providerrouter.kt
+mode: embedded editor mode
+
+dependencies:
+- apimaster.kt
+- providersurl.kt
+- localprovider.kt
+- chatactivity.kt
+
+blueprint:
+- backend_core
+- provider_selection
+- api_routing
+- config_management
+- v1_ruleset
+
+ml tags:
+- backend_router
+- provider_system
+- api_bridge
+- godmode_core
+
+end of file :: godmode :: chatmultiapi
+================================================================================
