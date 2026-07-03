@@ -1,0 +1,27 @@
+# Settings Page — Feature Blueprint (Clean + Professional)
+
+• UI Mode
+  - [ ] Minimal Clean LIGHT
+  - [ ] Minimal Clean DARK
+  - Radio-style behavior (only one active at a time)
+
+• API Key Status
+  - Shows each provider’s key as:
+    - Encrypted / Decrypted
+    - Valid / Invalid
+  - Quick indicators for OpenAI, Anthropic, Gemini, Local
+
+• Storage Location
+  - Display current storage path
+  - Option to change local storage directory
+  - Option to link cloud storage (Google Drive, OneDrive, Dropbox, etc.)
+
+• UI Adjustments
+  - Manual / Automatic sizing to fit environment
+  - Text size selector
+  - Font selector (clean professional fonts only)
+
+• General Behavior
+  - All critical screens (Security, Settings, API Keys) use minimal clean UI
+  - Chat + Projects use neon theme
+  - Settings acts as the control center for all app-wide preferences

@@ -1,0 +1,205 @@
+# ChatMultiAPI — Master Architecture Blueprint
+# (Permanent Reference Document — Save This)
+
+========================================================
+1. TOP‑LEVEL NAVIGATION (5 SEPARATE ACTIVITIES)
+========================================================
+
+Your app consists of five independent screens, each with its
+own .kt file and its own XML layout file:
+
+1. Main UI / Chat
+   - MainActivity.kt
+   - activity_main.xml
+
+2. Projects
+   - ProjectsActivity.kt
+   - activity_projects.xml
+
+3. Settings
+   - ProviderSettingsActivity.kt
+   - activity_provider_settings.xml
+
+4. API Keys
+   - ApiKeysActivity.kt
+   - activity_api_keys.xml
+
+5. Security
+   - SecurityActivity.kt
+   - activity_security.xml
+
+Why this structure:
+- Clean separation of concerns
+- Easy debugging
+- Easy to remember which .kt matches which .xml
+- Zero UI clutter
+- Maximum scalability
+- Perfect for full‑file regen workflow on mobile
+
+
+========================================================
+2. BACKEND ARCHITECTURE (PYTHON)
+========================================================
+
+Python backend files:
+
+- backend.py
+  Unified message router, timestamps, provider routing.
+
+- providers.py
+  OpenAI, Anthropic, Gemini, Local provider logic.
+
+- storage.py
+  Loads config.json (unencrypted fallback).
+
+- config_crypto.py
+  Decrypts encrypted config.enc using seed phrase.
+
+Android Activities call Python functions through Chaquopy.
+
+Why this matters:
+- Kotlin → XML → Python chain stays clean
+- Encryption isolated from provider logic
+- Debugging stays simple
+- No spaghetti code
+
+
+========================================================
+3. SECURITY TAB STRUCTURE (SecurityActivity.kt)
+========================================================
+
+SecurityActivity contains three major sections inside a
+single scrollable layout:
+
+A) Seed Phrase Section (top)
+   - Generate seed phrase
+   - Display seed phrase
+   - Save seed phrase
+   - Validate seed phrase
+   - Encrypt config.enc using seed phrase
+
+B) Backup / Restore Section (middle)
+   - Export encrypted config.enc
+   - Import encrypted config.enc
+   - Validate seed phrase before restore
+   - Success/failure messages
+
+C) Danger Zone (bottom, collapsible)
+   - Reset encryption
+   - Delete config.enc
+   - Delete IV
+   - Clear seed phrase flag
+   - Confirmation dialogs
+   - Hidden behind dropdown/collapse panel
+
+Why this matters:
+- Sensitive operations isolated
+- Users cannot accidentally wipe config
+- Backup/restore stays simple
+- UI stays clean and professional
+
+
+========================================================
+4. API KEYS TAB STRUCTURE (ApiKeysActivity.kt)
+========================================================
+
+This screen is completely separate from Security:
+
+- OpenAI key
+- Anthropic key
+- Gemini key
+- Local provider settings
+- Auto‑detect provider key
+- Save buttons
+- Model selectors
+- Provider routing options
+
+Why this matters:
+- API keys stay away from Danger Zone
+- Users don’t mix encryption with key entry
+- Clean mental model
+- Easy debugging
+- Easy future expansion
+
+
+========================================================
+5. SETTINGS TAB STRUCTURE (ProviderSettingsActivity.kt)
+========================================================
+
+This screen handles general app settings:
+
+- Default provider selection
+- Model selection
+- Routing preferences
+- UI preferences
+- Buttons to open:
+  - Security tab
+  - API Keys tab
+  - Projects tab
+
+Why this matters:
+- Settings stay general
+- Security stays isolated
+- API keys stay isolated
+- Navigation stays simple
+
+
+========================================================
+6. NAVIGATION BUTTONS (VISIBLE FROM ANY TAB)
+========================================================
+
+Every Activity will eventually include navigation buttons:
+
+- Chat
+- Projects
+- Settings
+- API Keys
+- Security
+
+Why this matters:
+- Full visibility
+- Easy access
+- No deep navigation stacks
+- Perfect for your workflow
+
+
+========================================================
+7. DEVELOPMENT WORKFLOW (LOCKED‑IN)
+========================================================
+
+Because you're on a phone:
+
+✔ ALL edits = FULL REGEN  
+✔ NEVER partial edits  
+✔ NEVER snippets  
+✔ ALWAYS full files  
+✔ ALWAYS safety header above file  
+✔ ALWAYS ask for old file before regen  
+✔ ALWAYS commit after paste  
+✔ ALWAYS keep Activities separate
+
+This is now the permanent workflow.
+
+
+========================================================
+8. BUILD ORDER (DOCTOR’S PLAN)
+========================================================
+
+We will build in this order:
+
+1. SecurityActivity.kt + activity_security.xml
+2. ApiKeysActivity.kt + activity_api_keys.xml
+3. Navigation buttons added to MainActivity.kt
+4. ProjectsActivity.kt + activity_projects.xml
+5. Link Activities together
+6. Integrate encryption hooks
+7. Integrate API key saving
+8. Integrate backup/restore
+9. Final polish
+
+This ensures nothing breaks and everything stays modular.
+
+
+========================================================
+END OF BLUEPRINT — SAVE THIS DOCUMENT
+========================================================
