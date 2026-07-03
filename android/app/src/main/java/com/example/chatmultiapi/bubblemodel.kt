@@ -1,6 +1,6 @@
-// bubblemodel.kt — v1.0.0
+// bubblemodel.kt — v1.0.1
 
-package com.chatmultiapi.godmode.model
+package com.example.chatmultiapi
 
 import android.net.Uri
 
@@ -14,6 +14,11 @@ import android.net.Uri
  * - metadata preview
  * - timestamp engine (local + utc)
  * - dependency + ml tag routing
+ *
+ * Notes:
+ * - Legacy namespace preserved (no GodMode package usage)
+ * - Blueprint metadata handled in footer only
+ * - Class name remains capitalized (Kotlin requirement)
  */
 data class BubbleModel(
 
@@ -36,7 +41,7 @@ data class BubbleModel(
 ================================================================================
 METADATA :: GODMODE :: chatmultiapi
 section: 2.3 bubblemodel.kt (chat ui — data model)
-version: 1.0.0
+version: 1.0.1
 origin: bubblemodel.kt
 mode: embedded editor mode
 
@@ -45,13 +50,19 @@ dependencies:
 - bubbleadapter.kt
 - chatactivity.kt
 
+blueprint:
+- data_model_core
+- bubble_structure
+- timestamp_fields
+- metadata_system
+- v1_ruleset
+
 ml tags:
 - data_model
 - chat_bubble
 - timestamp_engine
 - metadata_system
 - godmode_core
-- v1_ruleset
 
 end of file :: godmode :: chatmultiapi
 ================================================================================
