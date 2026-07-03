@@ -46,34 +46,107 @@ object ProviderRouter {
         return providers.getJSONObject("custom").optString("url", "")
     }
 
-    // Main message routing
+    // Get custom model (optional)
+    private fun getCustomModel(context: Context): String {
+        val json = loadConfig(context)
+        val providers = json.getJSONObject("providers")
+        return providers.getJSONObject("custom").optString("model", "")
+    }
+
+    // -----------------------------
+    // MAIN MESSAGE ROUTING
+    // -----------------------------
     fun sendMessage(context: Context, text: String): String {
         val provider = getSelectedProvider(context)
         val key = getProviderKey(context, provider)
 
         return when (provider) {
-            "openai" -> OpenAIProvider.send(text, key)
-            "anthropic" -> AnthropicProvider.send(text, key)
-            "groq" -> GroqProvider.send(text, key)
-            "nvidia" -> NvidiaProvider.send(text, key)
-            "lmstudio" -> LMStudioProvider.send(text)
-            "custom" -> CustomProvider.send(text, key, getCustomUrl(context))
+
+            "openai" -> OpenAIProvider.send(
+                text,
+                key,
+                ProvidersUrl.OPENAI_CHAT
+            )
+
+            "anthropic" -> AnthropicProvider.send(
+                text,
+                key,
+                ProvidersUrl.ANTHROPIC_MESSAGES
+            )
+
+            "groq" -> GroqProvider.send(
+                text,
+                key,
+                ProvidersUrl.GROQ_CHAT
+            )
+
+            "nvidia" -> NvidiaProvider.send(
+                text,
+                key,
+                ProvidersUrl.NVIDIA_CHAT
+            )
+
+            "lmstudio" -> LMStudioProvider.send(
+                text,
+                ProvidersUrl.LMSTUDIO_CHAT
+            )
+
+            "custom" -> CustomProvider.send(
+                text,
+                key,
+                getCustomUrl(context),
+                getCustomModel(context)
+            )
+
             else -> LocalProvider.send(text)
         }
     }
 
-    // File routing
+    // -----------------------------
+    // FILE ROUTING
+    // -----------------------------
     fun sendFile(context: Context, uri: Uri) {
         val provider = getSelectedProvider(context)
         val key = getProviderKey(context, provider)
 
         when (provider) {
-            "openai" -> OpenAIProvider.sendFile(uri, key)
-            "anthropic" -> AnthropicProvider.sendFile(uri, key)
-            "groq" -> GroqProvider.sendFile(uri, key)
-            "nvidia" -> NvidiaProvider.sendFile(uri, key)
-            "lmstudio" -> LMStudioProvider.sendFile(uri)
-            "custom" -> CustomProvider.sendFile(uri, key, getCustomUrl(context))
+
+            "openai" -> OpenAIProvider.sendFile(
+                uri,
+                key,
+                ProvidersUrl.OPENAI_FILES
+            )
+
+            "anthropic" -> AnthropicProvider.sendFile(
+                uri,
+                key,
+                ProvidersUrl.ANTHROPIC_MESSAGES
+            )
+
+            "groq" -> GroqProvider.sendFile(
+                uri,
+                key,
+                ProvidersUrl.GROQ_CHAT
+            )
+
+            "nvidia" -> NvidiaProvider.sendFile(
+                uri,
+                key,
+                ProvidersUrl.NVIDIA_CHAT
+            )
+
+            "lmstudio" -> LMStudioProvider.sendFile(
+                uri,
+                ProvidersUrl.LMSTUDIO_CHAT
+            )
+
+            "custom" -> CustomProvider.sendFile(
+                uri,
+                key,
+                getCustomUrl(context),
+                getCustomModel(context)
+            )
+
             else -> LocalProvider.sendFile(uri)
         }
     }
