@@ -1,0 +1,371 @@
+PROJECT: ChatMultiAPI – Core Architecture Spec
+=============================================
+
+1) Encrypted Config System (Android → Python)
+--------------------------------------------
+- Goal:
+  - Store API keys and provider settings securely on Android.
+  - Python backend decrypts and uses them at runtime.
+
+- Storage:
+  - Encrypted file in app internal storage:
+    - Path example: /data/data/com.example.chatmultiapi/files/config.enc
+
+- Encryption:
+  - Algorithm: AES-256 GCM (preferred).
+  - Key stored via Android Keystore (hardware-backed when available).
+
+- Flow:
+  - Android:
+    - Build JSON config (providers, keys, options).
+    - Encrypt JSON → write to config.enc.
+  - Python (Chaquopy):
+    - Read config.enc.
+    - Decrypt using shared scheme.
+    - Load config into backend for routing.
+
+------------------------------------------------
+
+2) Projects Super Tab (Developer Control Panel)
+-----------------------------------------------
+- Purpose:
+  - Dedicated tab for project-level tools, separate from chat.
+  - Acts like a mini dev console / IDE helper.
+
+- Main Features:
+  - Project browser:
+    - View folder tree and files under app workspace.
+  - Export controls:
+    - Export whole project.
+    - Export selected folders/files.
+    - Export as ZIP.
+    - Export as JSON manifest.
+    - Option to export both ZIP + JSON.
+
+- UI Elements:
+  - Project list (tree view or simple list).
+  - Buttons:
+    - "Export whole project (ZIP)"
+    - "Export whole project (JSON)"
+    - "Export both"
+    - "Export selected"
+    - "Send to AI"
+    - "Send to Chat"
+
+------------------------------------------------
+
+3) Project Dump / Export System
+-------------------------------
+- Export Types:
+  - Full project ZIP:
+    - Includes all relevant files/folders for the app/project.
+  - Full project JSON:
+    - Contains structure, metadata, config, and possibly hashes.
+  - User-selected export:
+    - User chooses specific folders/files to include.
+
+- Use Cases:
+  - Move project to another machine.
+  - Share project with others.
+  - Feed project context to AI for analysis/debugging.
+
+- Android Responsibilities:
+  - Scan project directory tree.
+  - Build ZIP archive.
+  - Build JSON manifest (structure + metadata).
+  - Handle user selection for partial exports.
+
+------------------------------------------------
+
+4) AI Injection Pipeline (Chat + Direct Analysis)
+-------------------------------------------------
+- Goal:
+  - Make AI actually “see” the project, not just chat about it.
+  - Allow both chat-based and direct backend analysis.
+
+- Modes:
+  - Send export to AI via chat:
+    - Attach summary or manifest as a message.
+  - Bypass chat:
+    - Send ZIP/JSON directly to Python backend for analysis.
+  - Hybrid:
+    - Backend analyzes project, then returns a human-readable summary into chat.
+
+- Python Backend:
+  - Receives ZIP/JSON.
+  - Extracts/reads project structure and files.
+  - Builds internal project context.
+  - Provides:
+    - Diagnostics (what’s broken).
+    - Suggestions (what to fix).
+    - Navigation (where key files are).
+    - Possible integration with build logs.
+
+------------------------------------------------
+
+5) Implementation Order (High-Level)
+------------------------------------
+1. Encrypted config system:
+   - Implement Android JSON → encrypt → save.
+   - Implement Python decrypt → load config.
+
+2. Projects Super Tab:
+   - Create layout and navigation.
+   - Add basic buttons and placeholders.
+
+3. Project Dump Engine:
+   - Implement ZIP + JSON export (full + selected).
+   - Wire into Super Tab buttons.
+
+4. AI Injection Pipeline:
+   - Connect exports to Python backend.
+   - Add options to send results into chat or bypass chat.
+
+------------------------------------------------
+
+Notes:
+------
+- Primary UX goal:
+  - Make it easy for user to:
+    - Dump project.
+    - Send it to AI.
+    - Get meaningful, project-aware responses.
+- Encryption is the first step before wiring config into AI routing.
+- Super Tab is the main “pro dev” surface for project-level actions.
+
+ENCRYPTED CONFIG SYSTEM — CORE DESIGN
+=====================================
+
+1) Key Generation (Per Install/Build)
+-------------------------------------
+- Generate a new AES-256 key on first app launch.
+- Store key in Android Keystore (hardware-backed when available).
+- Store IV separately (random 16 bytes).
+- Never store raw key in plaintext.
+- Python backend uses a derived key (exported securely).
+
+Key lifecycle:
+- Install → generate new key
+- App reset → generate new key
+- Backup restore → restore key + config
+
+Files:
+- /files/config.enc      (encrypted JSON)
+- /files/crypto.key      (encrypted AES key blob)
+- /files/crypto.iv       (IV)
+
+-------------------------------------
+
+2) Config Encryption Flow
+-------------------------
+Android:
+- Build JSON config (providers, keys, settings).
+- Encrypt JSON using AES-256 GCM.
+- Save as config.enc.
+
+Python:
+- Load config.enc.
+- Decrypt using same AES key + IV.
+- Return JSON to backend for routing.
+
+-------------------------------------
+
+3) Backup & Restore System
+--------------------------
+Backup includes:
+- config.enc
+- crypto.key
+- crypto.iv
+
+Backup options:
+- Export backup ZIP (encrypted)
+- Export backup JSON (metadata only)
+- User-selected backup (keys only, config only)
+
+Restore options:
+- Restore from ZIP
+- Restore from JSON
+- Restore keys only
+
+-------------------------------------
+
+4) Danger Zone (Reset Encryption)
+---------------------------------
+Purpose:
+- Wipe all keys
+- Wipe config.enc
+- Wipe crypto.key + crypto.iv
+- Force regeneration on next launch
+
+UI:
+- Located in Security Tab or API Key Manager Tab
+- Collapsible dropdown labeled “Danger Zone”
+- Big red warning:
+  “Resetting encryption will permanently erase all API keys and provider settings.”
+
+Actions:
+- Button: “Reset Encryption”
+- Confirmation dialog:
+  “Are you absolutely sure? This cannot be undone.”
+
+-------------------------------------
+
+5) Tabs & Placement
+-------------------
+Recommended layout:
+
+Security Tab:
+- Current encryption status
+- Key generation timestamp
+- Backup options
+- Restore options
+- Danger Zone (dropdown)
+
+API Key Manager Tab:
+- Provider list
+- Add/edit API keys
+- Save → triggers encryption
+- Load → decrypts config.enc
+
+-------------------------------------
+
+6) Implementation Order
+------------------------
+1. AES key generation (Android)
+2. AES encryption/decryption (Android)
+3. Python decryption module
+4. Save/load encrypted config
+5. Backup/restore ZIP + JSON
+6. Danger Zone reset
+7. UI tabs (Security + API Key Manager)
+
+SEED PHRASE RESTORE SYSTEM — CORE DESIGN
+========================================
+
+1) Seed Phrase (9–12 Words)
+---------------------------
+- Generated on first install.
+- Shown once; user must save it (screenshot or write down).
+- Never stored in plaintext.
+- Used to derive AES-256 encryption key.
+- Allows full restore of encrypted config on any device.
+
+Seed phrase properties:
+- 9–12 random words (BIP-39 style).
+- High entropy.
+- Human-friendly.
+- Portable across devices.
+
+----------------------------------------
+
+2) AES Key Derivation from Seed Phrase
+--------------------------------------
+- AES-256 key derived using PBKDF2 or HKDF.
+- Stable: same seed phrase → same AES key.
+- No need to store AES key directly.
+- IV stored separately (random 16 bytes).
+
+Example:
+AES_KEY = PBKDF2(seed_phrase, salt="ChatMultiAPI", iterations=100000)
+
+Outputs:
+- AES_KEY (32 bytes)
+- AES_IV (16 bytes)
+
+----------------------------------------
+
+3) Encrypted Config System
+--------------------------
+Encrypted file:
+- /files/config.enc
+
+Contents:
+- Provider settings
+- API keys
+- Model preferences
+- Routing options
+
+Encryption:
+- AES-256 GCM or CBC
+- Key derived from seed phrase
+- IV stored in /files/crypto.iv
+
+Android:
+- Build JSON config → encrypt → save config.enc
+
+Python:
+- Load config.enc → decrypt using derived AES key → return JSON
+
+----------------------------------------
+
+4) Backup & Restore System
+--------------------------
+Backup includes:
+- config.enc
+- crypto.iv
+
+Backup options:
+- Export encrypted ZIP
+- Export JSON manifest (metadata only)
+- Export selected items (keys only, config only)
+
+Restore flow:
+1. User enters seed phrase.
+2. App regenerates AES key.
+3. App decrypts config.enc.
+4. Provider settings restored.
+
+Seed phrase = master restore key.
+
+----------------------------------------
+
+5) Danger Zone (Reset Encryption)
+---------------------------------
+Purpose:
+- Wipe all encrypted data.
+- Wipe config.enc.
+- Wipe crypto.iv.
+- Wipe backup files.
+- Generate new seed phrase.
+- Generate new AES key.
+- Force user to save new seed phrase.
+
+UI:
+- Located in Security Tab or API Key Manager Tab.
+- Collapsible dropdown labeled “⚠️ Danger Zone”.
+- Big red warning:
+  “Resetting encryption will permanently erase all API keys and provider settings.”
+
+Actions:
+- Button: “Reset Encryption”
+- Confirmation dialog:
+  “Are you absolutely sure? This cannot be undone.”
+
+----------------------------------------
+
+6) Tab Placement
+----------------
+Security Tab:
+- Seed phrase generation
+- Seed phrase restore
+- Backup/restore ZIP
+- Danger Zone reset
+- Encryption status
+
+API Key Manager Tab:
+- Provider list
+- Add/edit API keys
+- Save → triggers encryption
+- Load → decrypts config.enc
+
+----------------------------------------
+
+7) Implementation Order
+------------------------
+1. Seed phrase generator (Android)
+2. AES key derivation (Android + Python)
+3. Encrypted config system
+4. Backup/restore ZIP + JSON
+5. Danger Zone reset
+6. Security Tab UI
+7. API Key Manager Tab UI
