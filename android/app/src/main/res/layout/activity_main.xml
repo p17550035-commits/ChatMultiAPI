@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
 
+    <!-- BLOCK: Historical Guts Panel (Removed)
+         PURPOSE: Left intentionally for comedic history; no runtime effect
+         SAFE: comment only -->
     <!--
         GUTS PANEL (REMOVED)
         This section used to contain gutsTitle + gutsPanel.
@@ -13,7 +17,9 @@
         No longer affects build or layout.
     -->
 
-    <!-- Face / avatar with titanium ring -->
+    <!-- BLOCK: Face Avatar -->
+    <!-- PURPOSE: Displays avatar with titanium ring -->
+    <!-- SAFE: comment only -->
     <ImageView
         android:id="@+id/faceAvatar"
         android:layout_width="72dp"
@@ -25,7 +31,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Settings button -->
+    <!-- BLOCK: Settings Button -->
+    <!-- PURPOSE: Opens SettingsActivity -->
+    <!-- SAFE: comment only -->
     <ImageButton
         android:id="@+id/btnSettings"
         android:layout_width="40dp"
@@ -38,7 +46,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Chat bubbles list -->
+    <!-- BLOCK: Chat Recycler -->
+    <!-- PURPOSE: Displays chat bubbles -->
+    <!-- SAFE: comment only -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecycler"
         android:layout_width="0dp"
@@ -49,7 +59,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Input + buttons container -->
+    <!-- BLOCK: Input Container -->
+    <!-- PURPOSE: Holds voice, file, text input, and send button -->
+    <!-- SAFE: comment only -->
     <LinearLayout
         android:id="@+id/inputContainer"
         android:layout_width="0dp"
@@ -60,6 +72,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- BLOCK: Voice Button -->
+        <!-- PURPOSE: Activates voice input -->
+        <!-- SAFE: comment only -->
         <ImageButton
             android:id="@+id/btnVoice"
             android:layout_width="40dp"
@@ -69,6 +84,9 @@
             android:tint="#FFFFFF"
             android:contentDescription="Voice" />
 
+        <!-- BLOCK: File Button -->
+        <!-- PURPOSE: Opens file picker -->
+        <!-- SAFE: comment only -->
         <ImageButton
             android:id="@+id/btnFile"
             android:layout_width="40dp"
@@ -79,6 +97,9 @@
             android:tint="#FFFFFF"
             android:contentDescription="File" />
 
+        <!-- BLOCK: Input Text -->
+        <!-- PURPOSE: User text entry -->
+        <!-- SAFE: comment only -->
         <EditText
             android:id="@+id/inputText"
             android:layout_width="0dp"
@@ -92,6 +113,9 @@
             android:hint="Say something..."
             android:padding="8dp" />
 
+        <!-- BLOCK: Send Button -->
+        <!-- PURPOSE: Sends chat message -->
+        <!-- SAFE: comment only -->
         <ImageButton
             android:id="@+id/btnSend"
             android:layout_width="40dp"
@@ -103,3 +127,39 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+============================================================
+# METADATA FOOTER — activity_main.xml
+- version: 1.0.0
+- local_timestamp: 07/03/2026 05:14 PM EDT
+- utc_timestamp: 2026-07-03T21:14:00Z
+
+# ML TAGS
+- ml_tags: ["main_ui", "entry_point", "layout_spec", "module_identity"]
+
+# BLUEPRINT SECTION
+- section: "8.1 — MainActivity XML"
+
+# SECTION PURPOSE
+- Defines the entry point UI for ChatMultiAPI.
+- Hosts avatar, settings button, chat preview, and input controls.
+- Provides navigation to Chat, Projects, Settings, API Keys, and Security.
+
+# DEPENDENCIES
+- uses: [
+    "MainActivity.kt",
+    "ChatActivity.kt",
+    "ProjectsActivity.kt",
+    "SettingsActivity.kt",
+    "ApiKeysActivity.kt",
+    "SecurityActivity.kt"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- No GodMode runtime logic.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
