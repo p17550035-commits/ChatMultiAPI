@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@android:color/background_dark">
 
     <!-- Scrollable Main Section -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fadeScrollbars="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,14 +26,16 @@
                 android:layout_height="wrap_content"
                 android:text="OpenAI API Key"
                 android:textSize="18sp"
+                android:textColor="@android:color/white"
                 android:paddingBottom="8dp" />
 
             <EditText
                 android:id="@+id/openAiKeyInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/securityPanel"
+                android:background="@android:color/background_dark"
                 android:padding="12dp"
+                android:textColor="@android:color/white"
                 android:hint="Enter OpenAI key" />
 
             <!-- Anthropic Section -->
@@ -41,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="Anthropic API Key"
                 android:textSize="18sp"
+                android:textColor="@android:color/white"
                 android:paddingTop="24dp"
                 android:paddingBottom="8dp" />
 
@@ -48,8 +53,9 @@
                 android:id="@+id/anthropicKeyInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/securityPanel"
+                android:background="@android:color/background_dark"
                 android:padding="12dp"
+                android:textColor="@android:color/white"
                 android:hint="Enter Anthropic key" />
 
             <!-- Gemini Section -->
@@ -59,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="Gemini API Key"
                 android:textSize="18sp"
+                android:textColor="@android:color/white"
                 android:paddingTop="24dp"
                 android:paddingBottom="8dp" />
 
@@ -66,8 +73,9 @@
                 android:id="@+id/geminiKeyInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/securityPanel"
+                android:background="@android:color/background_dark"
                 android:padding="12dp"
+                android:textColor="@android:color/white"
                 android:hint="Enter Gemini key" />
 
             <!-- Local Provider Section -->
@@ -77,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:text="Local Provider Key"
                 android:textSize="18sp"
+                android:textColor="@android:color/white"
                 android:paddingTop="24dp"
                 android:paddingBottom="8dp" />
 
@@ -84,8 +93,9 @@
                 android:id="@+id/localKeyInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/securityPanel"
+                android:background="@android:color/background_dark"
                 android:padding="12dp"
+                android:textColor="@android:color/white"
                 android:hint="Enter Local provider key" />
 
             <!-- Save Button -->
@@ -94,6 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save API Keys"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_blue_dark"
                 android:layout_marginTop="24dp" />
 
         </LinearLayout>
@@ -126,3 +138,19 @@
     </LinearLayout>
 
 </LinearLayout>
+
+<!-- 
+================================================================================
+METADATA :: ChatMultiAPI :: activity_api_keys.xml
+Generated: 2026-07-03 @ 13:42 EDT
+Version: 1.0.2
+Origin: activity_api_keys.xml
+Mode: Neon Safe Theme
+Tags:
+- ui_layout
+- api_keys
+- neon_theme_safe
+- godmode_cleanup
+================================================================================
+END OF FILE
+-->
