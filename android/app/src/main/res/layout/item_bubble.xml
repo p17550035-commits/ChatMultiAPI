@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bubbleRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="6dp"
     android:orientation="vertical">
 
-    <!-- Text bubble -->
+    <!-- TEXT BUBBLE -->
     <TextView
         android:id="@+id/bubbleText"
         android:layout_width="wrap_content"
@@ -16,15 +17,53 @@
         android:background="@drawable/bubble_background"
         android:visibility="gone" />
 
-    <!-- Image bubble -->
+    <!-- IMAGE BUBBLE -->
     <ImageView
         android:id="@+id/bubbleImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:background="@drawable/titanium_border"
-        android:visibility="gone"
-        android:padding="4dp" />
+        android:padding="4dp"
+        android:visibility="gone" />
+
+    <!-- METADATA PREVIEW (optional toggle) -->
+    <TextView
+        android:id="@+id/bubbleMeta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#AAAAAA"
+        android:textSize="10sp"
+        android:paddingTop="4dp"
+        android:visibility="gone" />
 
 </LinearLayout>
+
+<!-- 
+================================================================================
+METADATA :: GODMODE :: ChatMultiAPI
+Generated (Local): 07-03-2026 @ 05:04 EDT
+Generated (UTC Stored): 2026-07-03T09:04:00Z
+Version: 1.0.0
+Origin: item_bubble.xml (UI Layout)
+Mode: Embedded Editor Mode
+
+Dependencies:
+- BubbleAdapter.kt
+- BubbleModel.kt
+- ChatActivity.kt
+- DevToolbarController.kt
+- UploadStripController.kt
+
+ML Tags:
+- ui_layout
+- chat_bubble
+- neon_theme
+- image_support
+- godmode_core
+
+GOD MODE™ — Born July 3rd, 2026
+================================================================================
+END OF FILE :: GODMODE :: ChatMultiAPI
+-->
