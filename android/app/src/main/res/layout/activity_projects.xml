@@ -7,7 +7,9 @@
     android:padding="16dp"
     android:background="@color/neonBackground">
 
-    <!-- Header -->
+    <!-- BLOCK: Header -->
+    <!-- PURPOSE: Displays the Projects title in neon theme -->
+    <!-- SAFE: comment only, no runtime effect -->
     <TextView
         android:id="@+id/projectsHeader"
         android:layout_width="wrap_content"
@@ -17,7 +19,9 @@
         android:textColor="@color/neonAccent"
         android:paddingBottom="16dp" />
 
-    <!-- Project List -->
+    <!-- BLOCK: Project List -->
+    <!-- PURPOSE: Shows list of projects using ListView -->
+    <!-- SAFE: comment only -->
     <ListView
         android:id="@+id/projectListView"
         android:layout_width="match_parent"
@@ -26,7 +30,9 @@
         android:divider="@color/neonAccent"
         android:dividerHeight="1dp" />
 
-    <!-- New Project Button -->
+    <!-- BLOCK: New Project Button -->
+    <!-- PURPOSE: Button to create a new project -->
+    <!-- SAFE: comment only -->
     <Button
         android:id="@+id/newProjectBtn"
         android:layout_width="match_parent"
@@ -38,3 +44,38 @@
         android:layout_marginTop="16dp" />
 
 </LinearLayout>
+
+<!--
+============================================================
+# METADATA FOOTER — activity_projects.xml
+- version: 1.0.0
+- local_timestamp: 07/03/2026 04:54 PM EDT
+- utc_timestamp: 2026-07-03T20:54:00Z
+
+# ML TAGS
+- ml_tags: ["projects_ui", "layout_spec", "module_identity"]
+
+# BLUEPRINT SECTION
+- section: "3/10 — Projects UI"
+
+# SECTION PURPOSE
+- Defines the UI for managing projects/workspaces.
+- Provides list display, previews, and entry points for project actions.
+- Integrates with storage and project metadata systems.
+
+# DEPENDENCIES
+- uses: [
+    "ProjectsActivity.kt",
+    "ProjectAdapter.kt",
+    "ProjectManager.kt",
+    "storage.py",
+    "metadata_engine"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- No GodMode runtime logic.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
