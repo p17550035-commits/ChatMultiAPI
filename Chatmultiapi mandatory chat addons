@@ -1,0 +1,163 @@
+===========================================
+🔥 MANDATORY CHAT UI FEATURES (LOCKED)
+===========================================
+
+✔ RecyclerView bubbles (modern, fast, metadata-ready)
+✔ item_bubble.xml (left/right alignment, neon theme)
+✔ Provider indicator (top of chat)
+✔ Auto-scroll to bottom
+✔ Loading bubble ("thinking…")
+✔ Error bubble (with retry)
+✔ Resend bubble (long-press or icon)
+
+✔ Tap bubble → Copy text
+✔ Long-press bubble → Save bubble
+✔ Long-press bubble → Save As…
+✔ Long-press bubble → Share bubble
+✔ Long-press bubble → Resend bubble
+
+✔ Save entire chat
+✔ Save entire chat AS…
+✔ Save entire chat in MULTIPLE formats at once:
+   - JSON
+   - TXT
+   - ZIP
+   - Folder
+   - JSON + TXT
+   - JSON + ZIP
+   - TXT + ZIP
+   - JSON + TXT + ZIP + Folder
+
+✔ Share entire chat (JSON/TXT/ZIP/Folder)
+✔ Share INTO app (intent-filter)
+✔ Share OUT of app (ACTION_SEND)
+
+✔ File upload (any file, any folder)
+✔ Image upload (thumbnail preview bubble)
+✔ File preview bubble (icon + filename)
+✔ Image preview bubble (tap to expand)
+
+✔ Voice-to-text (RecognizerIntent)
+✔ Chatbot talk (TextToSpeech toggle)
+
+✔ Scrollback memory (no reset on rotate)
+✔ Works with ApiMaster + ProviderRouter
+✔ Works with custom/local providers
+
+===========================================
+🔥 MANDATORY CHAT FILTERING / TAGGING
+===========================================
+
+✔ Filter chat by:
+   - user messages
+   - AI messages
+   - files only
+   - images only
+   - errors only
+   - metadata-only bubbles
+
+✔ Tag bubbles with:
+   - keywords
+   - project IDs
+   - ML context markers
+   - custom labels
+   - timestamps
+   - provider/model used
+
+✔ Export filtered chat:
+   - only AI responses
+   - only user messages
+   - only tagged bubbles
+   - only metadata bubbles
+   - only file/image bubbles
+
+✔ Temporarily hide chat segments:
+   - hide user messages
+   - hide AI messages
+   - hide files/images
+   - hide metadata
+   - hide everything except what you want to save
+
+===========================================
+🔥 MANDATORY PROJECTS TAB FEATURES (LOCKED)
+===========================================
+
+✔ Share OUT project (JSON/TXT/ZIP/Folder)
+✔ Share IN project (import from other apps)
+✔ Import files/folders into project
+✔ Export project folder
+✔ Export project ZIP
+✔ Project manifest (JSON)
+✔ Project attachments
+✔ Project notes
+✔ Project chat history linking
+✔ Project file preview
+✔ Project image preview
+✔ Project context loading into chat
+
+✔ Tag projects with:
+   - metadata
+   - ML context
+   - keywords
+   - categories
+   - custom labels
+
+✔ Filter projects by:
+   - tags
+   - file types
+   - last modified
+   - linked chats
+   - provider used
+
+===========================================
+🔥 MANDATORY SAVE FORMATS (CHAT + PROJECTS)
+===========================================
+
+✔ Save as JSON (full metadata)
+✔ Save as TXT (clean readable)
+✔ Save as ZIP (bundled)
+✔ Save as folder (workspace export)
+✔ Save multiple formats at once (JSON/TXT/ZIP/Folder)
+
+✔ Bubble-level save formats:
+   - TXT
+   - JSON
+   - TXT + JSON
+
+✔ Project-level save formats:
+   - JSON
+   - TXT
+   - ZIP
+   - Folder
+   - Multi-format combos
+
+===========================================
+🔥 FILES THAT MUST BE UPDATED (LOCKED)
+===========================================
+
+CHAT UI:
+- activity_chat.xml
+- ChatActivity.kt
+- item_bubble.xml
+- BubbleAdapter.kt (new)
+- BubbleModel.kt (new)
+- AndroidManifest.xml (intent-filter for Share IN)
+
+PROJECTS UI:
+- activity_projects.xml
+- ProjectsActivity.kt
+- ProjectDetailActivity.kt (new)
+- ProjectModel.kt (new)
+- ProjectAdapter.kt (new)
+- AndroidManifest.xml (intent-filter for Share IN)
+
+BACKEND (already locked):
+- providersurl.kt
+- apimaster.kt
+- ProviderRouter.kt
+- SecurityManager.kt
+- app_config.json (encrypted keys)
+
+===========================================
+END OF MASTER SPEC
+===========================================
