@@ -1,9 +1,25 @@
 import datetime
+import os
+
 from providers import (
     detect_provider_from_key,
     send_message_to_provider
 )
+
 from storage import load_config, get_selected_provider
+
+# NEW: encrypted config loader
+from config_crypto import decrypt_config
+
+
+def load_encrypted_config(seed_phrase: str):
+    """
+    Load and decrypt config.enc using the seed phrase.
+    Returns a Python dict or None.
+    """
+    files_dir = os.path.join(os.getcwd(), "files")
+    cfg = decrypt_config(files_dir, seed_phrase)
+    return cfg
 
 
 def handle_message(text: str) -> str:
@@ -22,7 +38,7 @@ def handle_message(text: str) -> str:
     if "image" in text.lower():
         return "[API_IMAGE] https://picsum.photos/512"
 
-    # Load provider config
+    # Load provider config (unencrypted fallback)
     cfg = load_config()
     provider = cfg.get("selected", "local")
 
