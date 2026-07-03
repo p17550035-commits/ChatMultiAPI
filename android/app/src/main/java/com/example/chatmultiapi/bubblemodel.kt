@@ -1,64 +1,42 @@
+// bubblemodel.kt — v1.0.0
+
 package com.chatmultiapi.godmode.model
 
 import android.net.Uri
 
 /**
- * BubbleModel — Chat Bubble Data Model (Blueprint v2)
- * ---------------------------------------------------
- * Purpose:
- * Represents a single chat bubble in the UI.
- *
- * What it supports:
- * - Text bubbles
- * - Image bubbles
- * - Metadata preview bubbles
- *
- * What it needs:
- * - item_bubble.xml layout IDs
- * - Timestamp engine (local + UTC)
- * - Dependency list for crash recovery
- * - ML tags for future routing
- *
- * Why descriptors exist:
- * To make debugging easier and keep the machine aware of intent.
+ * BubbleModel — Chat Bubble Data Model (v1)
+ * -----------------------------------------
+ * Pure data model for all chat bubble types.
+ * Supports:
+ * - text bubbles
+ * - image bubbles
+ * - metadata preview
+ * - timestamp engine (local + utc)
+ * - dependency + ml tag routing
  */
 data class BubbleModel(
 
-    /** Unique bubble ID for tracking + RecyclerView diffing */
-    val id: String,
+    val id: String,                 // unique bubble id
+    val role: String,               // "user" or "assistant"
 
-    /** "user" or "assistant" — controls bubble alignment + styling */
-    val role: String,
+    val text: String? = null,       // text bubble
+    val imageUri: Uri? = null,      // image bubble
 
-    /** Text content for text bubbles (bubbleText in XML) */
-    val text: String? = null,
+    val localTimestamp: String,     // visible timestamp
+    val utcTimestamp: String,       // stored timestamp
 
-    /** Image URI for image bubbles (bubbleImage in XML) */
-    val imageUri: Uri? = null,
+    val metadataPreview: String? = null, // optional metadata preview
 
-    /** Local timestamp (MM/DD/YYYY HH:MM EDT) — visible to user */
-    val localTimestamp: String,
-
-    /** UTC timestamp — always stored, hidden unless toggled */
-    val utcTimestamp: String,
-
-    /** Optional metadata preview (bubbleMeta in XML) */
-    val metadataPreview: String? = null,
-
-    /** Dependency list — used for workflow continuity + crash recovery */
-    val dependencies: List<String>,
-
-    /** ML tags — used by GodMode machine for classification + routing */
-    val mlTags: List<String>
+    val dependencies: List<String>, // crash recovery + routing
+    val mlTags: List<String>        // classification + routing
 )
 
 /*
 ================================================================================
 METADATA :: GODMODE :: chatmultiapi
 section: 2.3 bubblemodel.kt (chat ui — data model)
-generated (local): 07/03/2026 @ 08:15 edt
-generated (utc stored): 2026-07-03T12:15:00Z
-version: 2.0.0
+version: 1.0.0
 origin: bubblemodel.kt
 mode: embedded editor mode
 
@@ -66,8 +44,6 @@ dependencies:
 - item_bubble.xml
 - bubbleadapter.kt
 - chatactivity.kt
-- devtoolbarcontroller.kt
-- uploadstripcontroller.kt
 
 ml tags:
 - data_model
@@ -75,24 +51,7 @@ ml tags:
 - timestamp_engine
 - metadata_system
 - godmode_core
-- v2_ruleset
+- v1_ruleset
 
-timestamp rules:
-- local: mm/dd/yyyy hh:mm edt
-- utc: always stored, hidden unless toggled
-- controlled via settingsactivity (local / utc / both)
-
-redundancy rules (blueprint v2):
-- lowercase filenames required
-- descriptors required in all code files
-- version required in metadata footer
-- full-file regeneration only
-- no partial edits
-- metadata footer required
-- ml tags required
-- dependency list required
-
-god mode™ — born july 3rd, 2026
-================================================================================
 end of file :: godmode :: chatmultiapi
-*/
+================================================================================
