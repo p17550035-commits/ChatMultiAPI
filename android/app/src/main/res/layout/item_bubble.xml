@@ -28,7 +28,7 @@
         android:padding="4dp"
         android:visibility="gone" />
 
-    <!-- METADATA PREVIEW (optional toggle) -->
+    <!-- METADATA PREVIEW -->
     <TextView
         android:id="@+id/bubbleMeta"
         android:layout_width="wrap_content"
@@ -42,26 +42,25 @@
 
 <!-- 
 ================================================================================
-METADATA :: GODMODE :: ChatMultiAPI
-Generated (Local): 07-03-2026 @ 05:04 EDT
-Generated (UTC Stored): 2026-07-03T09:04:00Z
+GODMODE FOOTER :: item_bubble.xml
 Version: 1.0.0
-Origin: item_bubble.xml (UI Layout)
-Mode: Embedded Editor Mode
+Updated (Local): 07-03-2026 @ 05:04 EDT
+Updated (UTC Stored): 2026-07-03T09:04:00Z
+
+Blueprint Section:
+2.2 — Chat UI → item_bubble.xml (Bubble Layout)
+
+Subsystem:
+Chat UI (Bubble Rendering Layer)
 
 Dependencies:
-- BubbleAdapter.kt
-- BubbleModel.kt
-- ChatActivity.kt
-- DevToolbarController.kt
-- UploadStripController.kt
+BubbleAdapter.kt, BubbleModel.kt, ChatActivity.kt, DevToolbarController.kt, UploadStripController.kt
 
 ML Tags:
-- ui_layout
-- chat_bubble
-- neon_theme
-- image_support
-- godmode_core
+ui_layout, chat_bubble, neon_theme, image_support, godmode_core
+
+Origin:
+ChatMultiAPI — GodMode OS
 
 GOD MODE™ — Born July 3rd, 2026
 ================================================================================
