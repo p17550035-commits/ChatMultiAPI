@@ -1,4 +1,4 @@
-// chatactivity.kt — v1.0.2
+// chatactivity.kt — v1.0.0
 
 package com.example.chatmultiapi
 
@@ -22,34 +22,41 @@ import java.util.UUID
 
 class ChatActivity : AppCompatActivity() {
 
+    // [UI VARS] declare UI elements + adapters
     private lateinit var bubbleRecycler: RecyclerView
     private lateinit var bubbleAdapter: BubbleAdapter
     private lateinit var inputField: EditText
     private lateinit var sendButton: ImageButton
     private lateinit var attachButton: ImageButton
 
+    // [STATE] bubble list + timestamp mode
     private val bubbleList = mutableListOf<BubbleModel>()
     private var timestampMode: String = "local"
 
+    // [CONST] file picker request code
     private val FILE_PICK_REQUEST = 777
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        // [THEME] apply neon background
         window.decorView.setBackgroundColor(
             ContextCompat.getColor(this, R.color.neonBackground)
         )
 
+        // [UI INIT] bind UI elements
         bubbleRecycler = findViewById(R.id.chatRecycler)
         inputField = findViewById(R.id.chatInput)
         sendButton = findViewById(R.id.chatSend)
         attachButton = findViewById(R.id.chatAttach)
 
+        // [ADAPTER INIT] setup RecyclerView + adapter
         bubbleAdapter = BubbleAdapter(bubbleList, timestampMode)
         bubbleRecycler.layoutManager = LinearLayoutManager(this)
         bubbleRecycler.adapter = bubbleAdapter
 
+        // [SEND FLOW] send button → create bubble + backend call
         sendButton.setOnClickListener {
             val text = inputField.text.toString().trim()
             if (text.isNotEmpty()) {
@@ -59,11 +66,13 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
+        // [ATTACH FLOW] attach button → file picker
         attachButton.setOnClickListener {
             pickFile()
         }
     }
 
+    // [BUBBLE USER] create user bubble
     private fun addUserBubble(text: String) {
         val bubble = BubbleModel(
             id = UUID.randomUUID().toString(),
@@ -80,6 +89,7 @@ class ChatActivity : AppCompatActivity() {
         bubbleRecycler.scrollToPosition(bubbleList.size - 1)
     }
 
+    // [BUBBLE ASSISTANT] create assistant bubble
     private fun addAssistantBubble(text: String) {
         val bubble = BubbleModel(
             id = UUID.randomUUID().toString(),
@@ -96,6 +106,7 @@ class ChatActivity : AppCompatActivity() {
         bubbleRecycler.scrollToPosition(bubbleList.size - 1)
     }
 
+    // [BUBBLE FILE] create file bubble
     private fun addFileBubble(fileName: String, uri: Uri) {
         val bubble = BubbleModel(
             id = UUID.randomUUID().toString(),
@@ -112,17 +123,20 @@ class ChatActivity : AppCompatActivity() {
         bubbleRecycler.scrollToPosition(bubbleList.size - 1)
     }
 
+    // [BACKEND] send text to provider + create assistant bubble
     private fun sendToProvider(text: String) {
         val reply = ProviderRouter.sendMessage(this, text)
         addAssistantBubble(reply)
     }
 
+    // [PICKER] launch file picker
     private fun pickFile() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
         startActivityForResult(intent, FILE_PICK_REQUEST)
     }
 
+    // [RESULT] handle file picker result
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -140,10 +154,13 @@ class ChatActivity : AppCompatActivity() {
 /*
 ================================================================================
 METADATA :: GODMODE :: chatmultiapi
-section: 2.5 chatactivity.kt (merged old/new)
-version: 1.0.2
+section: 2.5 — ChatActivity.kt
+version: 1.0.0
 origin: chatactivity.kt
 mode: embedded editor mode
+
+local timestamp: 07/04/2026 09:49 EDT
+utc timestamp: 2026-07-04T13:49:00Z
 
 dependencies:
 - activity_chat.xml
