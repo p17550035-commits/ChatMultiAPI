@@ -1,0 +1,643 @@
+================================================================================
+CHATMULTIAPI  
+Powered by  
+██████╗  ██████╗ ██████╗  
+GOD MODE™ (primary, bold, dominant)
+
+GOD MODE™ — BORN JULY 3RD, 2026 (UTC)
+The Constraint‑Driven Mobile Development Operating System
+================================================================================
+
+
+SECTION 1/11 — GLOBAL ARCHITECTURE OVERVIEW
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Purpose:
+- Define the entire system from top (UI) to bottom (backend).
+- Capture rules, flows, and constraints so we don’t have to re-explain them.
+- Act as the “OS spec” for GodMode, not just an app checklist.
+
+[ ] 1.1 App Structure
+    - [ ] Define Activities:
+          - MainActivity
+          - ChatActivity
+          - ProjectsActivity
+          - ProviderSettingsActivity
+          - ApiKeysActivity
+          - SecurityActivity
+    - [ ] Each Activity must have:
+          - its own XML layout
+          - its own Kotlin class
+          - its own metadata footer (with timestamps, dependencies, ML tags)
+
+[ ] 1.2 Backend Architecture (Python + Kotlin)
+    - [ ] Python core:
+          - backend.py (core router)
+          - providers.py (per-provider logic)
+          - storage.py (local/remote storage)
+          - config_crypto.py (encryption helpers)
+    - [ ] Kotlin bridge:
+          - providerrouter.kt (bridge from app to Python backend)
+          - apimaster.kt (high-level API manager)
+    - [ ] Responsibilities:
+          - route AI calls to multiple providers
+          - handle metadata injection
+          - manage encrypted config and project storage
+          - support future Termux/SSH/container integration
+
+[ ] 1.3 Encryption + Metadata System
+    - [ ] Seed phrase → PBKDF2 → AES-256 GCM key
+          - user generates or enters a seed phrase
+          - PBKDF2 derives a strong key
+          - key used for AES-256-GCM encryption
+    - [ ] config.enc + iv + key separation
+          - encrypted config file (API keys, provider settings, etc.)
+          - IV stored separately
+          - key derived from seed, never stored in plain text
+    - [ ] Danger Zone reset flow
+          - full reset of encrypted config
+          - wipe keys and metadata
+          - regenerate seed phrase if needed
+    - [ ] Backup/restore flow
+          - export encrypted config + metadata
+          - import and restore on new device
+    - [ ] Metadata tagging for encrypted files
+          - each encrypted file has:
+              - timestamp
+              - ML tags
+              - dependencies
+              - origin
+    - [ ] Timestamp Engine (core part of GodMode)
+          - Local timestamp: MM/DD/YYYY HH:MM EDT
+          - UTC timestamp: YYYY-MM-DDTHH:MM:SSZ (always stored)
+          - UTC hidden when Local is shown (unless “Both” mode)
+          - Toggle in Settings: Local / UTC / Both
+          - All generated files include timestamps in metadata footer
+          - Timestamp engine is part of the GodMode machine itself
+
+[ ] 1.4 Provider Routing
+    - [ ] Multi-provider support:
+          - OpenAI
+          - Anthropic
+          - Gemini
+          - Groq
+          - Together
+          - DeepInfra
+          - HuggingFace
+          - Custom HTTP providers
+    - [ ] Failover logic:
+          - if one provider fails, route to another
+          - log failures in metadata
+    - [ ] Per-provider metadata tagging:
+          - provider name
+          - model name
+          - latency
+          - success/failure status
+
+[ ] 1.5 Build Workflow Rules
+    - [ ] Full-file regeneration only
+          - no partial edits
+          - when a file changes, regenerate the entire file
+    - [ ] No partial edits (explicit)
+    - [ ] Commit after paste
+          - paste → verify → commit
+          - avoid “half-applied” changes
+    - [ ] Metadata footer required
+          - every file must end with a footer block
+          - includes timestamps, dependencies, ML tags, version
+
+[ ] 1.6 Global Interactive Dev System
+    - [ ] Dev toolbar (top of chat)
+          - provider/model selection
+          - upload/share
+          - Bluetooth
+          - push/pull
+          - settings
+    - [ ] Mini terminal (overlay in chat)
+          - slide-up/down
+          - shows logs and backend output
+          - can run simple commands
+    - [ ] Dev tab (full dev terminal)
+          - full terminal experience
+          - build/run/push/pull
+          - Git/SSH/Termux integration
+    - [ ] Upload strip
+          - horizontal scroll of attached files
+          - supports mixed file types
+          - no restrictions on file/folder types
+    - [ ] Bluetooth/local sharing
+          - share files locally
+          - share to known devices with authorization
+    - [ ] Project integration
+          - link dev tools to ProjectsActivity
+          - open files from projects into chat/dev terminal
+
+[ ] 1.7 Multi-Repo + Git Integration
+    - [ ] Support:
+          - GitHub
+          - GitLab
+          - Bitbucket
+          - Codeberg
+          - Gitea
+    - [ ] Metadata for commits/diffs:
+          - timestamp
+          - provider used (if AI-assisted)
+          - project name
+          - branch
+          - ML tags (e.g., “refactor”, “bugfix”, “feature”)
+
+[ ] 1.8 CI/CD Integration
+    - [ ] GitHub Actions / GitLab CI / Bitbucket Pipelines
+    - [ ] CI metadata + artifacts tagging:
+          - build status
+          - test results
+          - deployment targets
+          - timestamps
+
+[ ] 1.9 External Dev/Cloud Services
+    - [ ] Termux
+    - [ ] SSH
+    - [ ] remote Linux
+    - [ ] containers
+    - [ ] Replit
+    - [ ] HuggingFace
+    - [ ] Vercel
+    - [ ] Netlify
+
+[ ] 1.10 Acode Integration Modes (4-stage evolution)
+    - [ ] Stage 1 — Standalone Mode
+          - app runs independently
+          - no Acode required
+    - [ ] Stage 2 — Plugin Bridge
+          - Acode plugin communicates with app
+          - send/receive files
+          - open files in either app
+          - trigger builds, push/pull, AI actions
+    - [ ] Stage 3 — Linked Mode (mutual control)
+          - both apps can open/control each other
+          - share project state, terminals, metadata
+    - [ ] Stage 4 — Embedded Editor Mode (true GodMode)
+          - Acode’s editor fully embedded
+          - your app as backend brain
+          - full IDE experience:
+              - build
+              - push/pull
+              - multi-repo
+              - dev terminal
+              - AI integration
+          - closest thing to real VS Studio on Android
+
+
+SECTION 2/11 — CHAT UI (activity_chat.xml + ChatActivity.kt + bubbles)
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Build the main chat experience with dev tools, upload strip, and mini terminal.
+- This is the primary interface of GodMode.
+
+[*] 2.1 activity_chat.xml (GodMode Edition)
+    - [#] Dev toolbar:
+          - provider/model selection
+          - upload/share
+          - Bluetooth
+          - push/pull
+          - settings
+    - [#] Upload strip:
+          - HorizontalScrollView
+          - shows attached files (any type)
+    - [#] RecyclerView for chat bubbles
+    - [#] Input row:
+          - EditText
+          - attach button
+          - send button
+    - [#] Mini terminal overlay:
+          - slide-up/down
+          - shows logs/commands
+    - [#] Metadata footer:
+          - UTC + local timestamps
+          - dependencies
+          - ML tags
+
+[#] 2.2 item_bubble.xml
+    - [#] Layout for user/assistant bubbles
+    - [#] Support:
+          - text
+          - icons
+          - status
+          - metadata preview
+
+[ ] 2.3 BubbleModel.kt
+    - [ ] Data class for bubble content, role, timestamps, metadata
+    - [ ] Fields:
+          - id
+          - role ("user" / "assistant")
+          - text
+          - imageUri
+          - localTimestamp
+          - utcTimestamp
+          - metadataPreview
+          - dependencies
+          - mlTags
+
+[ ] 2.4 BubbleAdapter.kt
+    - [ ] RecyclerView adapter
+    - [ ] ViewHolder for item_bubble.xml
+    - [ ] Binding of:
+          - text vs image vs metadata
+          - role-based styling
+          - timestamp visibility (local/utc/both)
+          - metadata preview
+
+[ ] 2.5 ChatActivity.kt
+    - [ ] Wire RecyclerView + adapter
+    - [ ] Wire dev toolbar
+    - [ ] Wire upload strip
+    - [ ] Wire mini terminal
+    - [ ] Connect to backend router (ProviderRouter/ApiMaster)
+
+[ ] 2.6 DevToolbarController.kt
+    - [ ] Handle:
+          - provider/model selection
+          - upload/share
+          - Bluetooth
+          - push/pull
+          - settings
+          - integration mode (Standalone / Linked / Embedded / Extension Host)
+
+[ ] 2.7 MiniTerminalController.kt
+    - [ ] Run commands
+    - [ ] Display output
+    - [ ] Integrate with backend/Termux if available
+    - [ ] Control slide-up/down behavior
+
+[ ] 2.8 UploadStripController.kt
+    - [ ] Manage attached files
+    - [ ] Show/hide strip
+    - [ ] Link to Projects/Dev tab
+    - [ ] Support mixed file types, no restrictions
+
+
+SECTION 3/11 — PROJECTS UI
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Manage multiple projects/workspaces with metadata and file previews.
+
+[ ] 3.1 ProjectsActivity XML
+    - [ ] Project list
+    - [ ] File preview
+    - [ ] Image preview
+    - [ ] Filters/tags
+
+[ ] 3.2 ProjectsActivity.kt
+    - [ ] Load projects from storage.py/backend
+    - [ ] Link to backend storage
+    - [ ] Open files in:
+          - Acode
+          - internal editor
+          - chat/dev terminal
+
+[ ] 3.3 Project Manifest System
+    - [ ] Per-project metadata:
+          - timestamps
+          - ML tags
+          - dependencies
+          - provider usage
+    - [ ] Used for:
+          - crash recovery
+          - workflow mapping
+          - automation
+
+
+SECTION 4/11 — SETTINGS UI (UPDATED)
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Control global behavior (timestamps, metadata, providers, modes).
+
+[ ] 4.1 SettingsActivity XML
+    - [ ] Sections:
+          - Metadata
+          - Timestamp
+          - Providers
+          - Modes
+
+[ ] 4.2 SettingsActivity.kt
+    - [ ] Handle toggles:
+          - Enable/disable metadata
+          - Timestamp Mode:
+              - Local / UTC / Both
+              - Local format: MM/DD/YYYY HH:MM EDT
+              - UTC format: YYYY-MM-DDTHH:MM:SSZ
+              - UTC hidden when Local is shown (unless Both)
+          - Show/hide dependencies
+          - Show/hide ML tags
+          - Integration mode selection:
+              - Standalone
+              - Plugin Bridge
+              - Linked
+              - Embedded Editor
+
+[ ] 4.3 Persist Settings
+    - [ ] SharedPreferences or encrypted storage
+    - [ ] Apply settings to:
+          - metadata engine
+          - timestamp engine
+          - provider routing
+          - UI visibility
+
+
+SECTION 5/11 — API KEYS UI
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Manage API keys securely with encryption.
+
+[ ] 5.1 ApiKeysActivity XML
+    - [ ] Inputs for each provider key
+    - [ ] Model selection dropdowns
+
+[ ] 5.2 ApiKeysActivity.kt
+    - [ ] Save keys (encrypted via config_crypto.py)
+    - [ ] Validate keys
+    - [ ] Update ProviderRouter/ApiMaster
+
+[!] 5.3 Backend Integration
+    - [ ] Link to config_crypto.py
+    - [ ] Write encrypted config.enc
+    - [ ] Store IV and metadata
+
+
+SECTION 6/11 — SECURITY UI
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Handle seed phrase, encryption, danger zone, backup/restore.
+
+[ ] 6.1 SecurityActivity XML
+    - [ ] Seed phrase input
+    - [ ] Backup/restore controls
+    - [ ] Danger Zone section
+
+[ ] 6.2 SecurityActivity.kt
+    - [ ] Generate seed phrase
+    - [ ] Derive AES key via PBKDF2
+    - [ ] Trigger reset (Danger Zone)
+    - [ ] Trigger backup/restore
+
+[!] 6.3 Crypto Backend
+    - [ ] Implement PBKDF2 + AES-256 GCM in config_crypto.py
+    - [ ] Integrate with storage.py
+    - [ ] Ensure metadata tagging for encrypted files
+
+
+SECTION 7/11 — BACKEND (PYTHON + KOTLIN)
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Route requests to providers, handle storage, respect metadata.
+
+[ ] 7.1 backend.py
+    - [ ] Core router:
+          - receive requests from app
+          - route to providers.py
+          - inject metadata
+          - return responses
+
+[ ] 7.2 providers.py
+    - [ ] Per-provider logic:
+          - handle auth
+          - handle errors
+          - handle fallbacks
+          - log metadata
+
+[ ] 7.3 storage.py
+    - [ ] Save/load files
+    - [ ] Project storage
+    - [ ] Metadata persistence
+    - [ ] Encrypted config handling
+
+[ ] 7.4 ProviderRouter.kt
+    - [ ] Bridge Kotlin → Python
+    - [ ] Route calls based on provider
+    - [ ] Respect settings (integration mode, provider defaults)
+
+[ ] 7.5 ApiMaster.kt
+    - [ ] High-level API orchestration
+    - [ ] Multi-provider selection
+    - [ ] Failover
+    - [ ] Logging
+
+
+SECTION 8/11 — MAIN UI
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Entry point into the app.
+
+[ ] 8.1 MainActivity XML
+    - [ ] Navigation buttons:
+          - Chat
+          - Projects
+          - Settings
+          - API Keys
+          - Security
+
+[ ] 8.2 MainActivity.kt
+    - [ ] Launch Activities
+    - [ ] Show current mode:
+          - Standalone
+          - Linked
+          - Embedded
+          - Extension Host
+
+
+SECTION 9/11 — SCREEN RECORDER MODULE (NEW)
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Provide an optional, admin-locked screen recorder that ONLY records the app UI.
+- Ships disabled and locked behind an admin password the user must create.
+- Never requests permissions or records anything until admin unlock + manual enable.
+- Auto-locks if recording and user switches to sensitive tabs (API, Secrets, Security, Admin Tools).
+
+[ ] 9.1 AdminSecurityController.kt
+    - [ ] Create/verify admin password
+    - [ ] Store password using PBKDF2 → AES-256-GCM (config_crypto.py)
+    - [ ] Expose isAdminUnlocked() to UI and recorder
+    - [ ] No default password; user must explicitly create it
+
+[ ] 9.2 ScreenRecorderController.kt
+    - [ ] Bind to app root view (e.g., rootLayout) so only app UI is captured
+    - [ ] States:
+          - DISABLED (default, no permissions, no recorder)
+          - LOCKED (admin not verified)
+          - READY (admin verified, permissions granted)
+          - RECORDING
+          - STOPPED
+    - [ ] Never request MediaProjection or storage permissions unless isAdminUnlocked() == true
+    - [ ] Stop recording and release resources on:
+          - app going to background
+          - navigation to sensitive screens
+          - explicit user stop
+
+[ ] 9.3 ScreenRecorderActivity XML
+    - [ ] Simple admin tools UI:
+          - Enable/disable recorder toggle
+          - Status indicator (Disabled / Locked / Ready / Recording)
+          - Admin unlock prompt (password field + confirm button)
+    - [ ] Metadata footer:
+          - timestamps
+          - dependencies
+          - ML tags
+
+[ ] 9.4 ScreenRecorderActivity.kt
+    - [ ] Bind UI to AdminSecurityController and ScreenRecorderController
+    - [ ] Flow:
+          - if !isAdminUnlocked() → show unlock prompt, no permission requests
+          - after unlock → allow user to enable recorder
+          - when enabled → request MediaProjection and start recording
+    - [ ] Ensure recorder only captures app UI surface
+    - [ ] Ensure recorder cannot run in background (lock onPause())
+
+[ ] 9.5 Sensitive Screen Auto-Lock Integration
+    - [ ] Auto-lock recorder (ScreenRecorderController.lock()) on:
+          - ApiKeysActivity.onResume()
+          - SecurityActivity.onResume()
+          - SecretsActivity.onResume()
+          - ProviderSettingsActivity.onResume()
+          - AdminToolsActivity.onResume()
+    - [ ] If recorder is RECORDING when user navigates to these screens:
+          - immediately stop recording
+          - release MediaProjection
+          - set state to LOCKED
+    - [ ] Chat and Projects screens remain exempt from dark-mode lock and may use neon theme,
+          but recorder still respects admin lock and app-only capture.
+
+[ ] 9.6 Permissions & Safety Rules
+    - [ ] Recorder ships with:
+          - no permissions requested
+          - no background services
+          - no automatic activation
+    - [ ] User must:
+          - create admin password
+          - unlock admin
+          - explicitly enable recorder
+          - explicitly grant permissions
+    - [ ] Recorder:
+          - never records outside the app
+          - never records API keys or secrets
+          - never records Security or Admin Tools screens
+          - never runs when app is in background
+
+[ ] 9.7 Metadata & Logging
+    - [ ] Each recording session logs:
+          - start/stop timestamps (Local + UTC)
+          - admin unlock state
+          - whether any auto-lock events occurred
+          - which screen was active when recording started/stopped
+          - ML tags (e.g., "screen_record", "debug_session")
+    - [ ] Logs stored via storage.py with encrypted metadata if needed
+    - [ ] Footer in recorder-related files includes:
+          - version
+          - timestamps
+          - dependencies
+          - ML tags
+
+
+SECTION 10/11 — FINAL TESTING & POLISHING (UPDATED)
+--------------------------------------------------------------------------------
+Symbol Legend:
+[ ] = Not started   [*] = In progress   [#] = Completed
+[!] = Backend required / blocked       [?] = Needs revisit
+
+Goal:
+- Make sure everything works together and feels like a real OS.
+
+[ ] 10.1 Layout Validation
+    - [ ] Validate all XML in Android Studio/Acode
+    - [ ] Fix constraints, margins, themes
+
+[ ] 10.2 Wiring Validation
+    - [ ] Ensure all Activities launch
+    - [ ] Ensure RecyclerView works
+    - [ ] Ensure Dev toolbar responds
+    - [ ] Ensure mini terminal toggles
+    - [ ] Ensure upload strip behaves correctly
+    - [ ] Ensure ScreenRecorderActivity launches and respects admin lock
+
+[ ] 10.3 Metadata Validation (UPDATED)
+    - [ ] Confirm metadata footer present in all files
+    - [ ] Confirm Local timestamp (MM/DD/YYYY HH:MM EDT)
+    - [ ] Confirm UTC timestamp stored (hidden when Local shown)
+    - [ ] Confirm dependency list correct
+    - [ ] Confirm ML tags present
+    - [ ] Confirm recorder logs include proper metadata
+
+[ ] 10.4 Provider & Backend Testing
+    - [ ] Test at least one free provider
+    - [ ] Test routing
+    - [ ] Test encryption flows
+    - [ ] Test Acode integration (Stage 1 → Stage 2)
+    - [ ] Test recorder:
+          - cannot start without admin unlock
+          - auto-locks on sensitive screens
+          - only records app UI
+
+[ ] 10.5 Polishing
+    - [ ] Colors, fonts, spacing
+    - [ ] Branding:
+          - “ChatMultiAPI — Powered by GOD MODE™”
+    - [ ] Final pass for clarity and usability
+
+
+SECTION 11/11 — GODMODE IDENTITY SEAL
+--------------------------------------------------------------------------------
+GodMode™ is not an app.
+It is a mobile development operating system.
+
+Born: 07-03-2026  
+Created by: Peter  
+Purpose: Beat a rigged system by designing around it.
+
+Timestamp Identity:
+- Local: MM/DD/YYYY HH:MM EDT
+- UTC: always stored, hidden unless toggled
+- Timestamp engine is part of the machine.
+
+Branding:
+CHATMULTIAPI  
+Powered by  
+██████╗  ██████╗ ██████╗  
+GOD MODE™ (primary, bold, dominant)
+
+================================================================================
+END OF REBUILT FULL BLUEPRINT :: GODMODE :: ChatMultiAPI
+================================================================================

@@ -1,0 +1,52 @@
+from drawable folder
+============================================
+bubble_background.xml
+input_background.xml
+titanium_border.xml
+titanium_button.xml
+titanium_ring.xml
+============================================
+
+from layout folder
+============================================
+activity_api_keys.xml
+activity_chat.xml
+activity_main.xml               = Conformed
+activity_projects.xml           = Conformed
+activity_provider_settings.xml  = Conformed
+activity_security.xml           = Conformed
+item_bubble.xml                 = Conformed
+===================================≠========
+
+from python folder
+============================================
+backend.py                      =
+bootstrap.py                    =
+main.py                         =
+providers.py                    =
+requirements.txt                =
+storage.py                      =
+test_backend.py                 =
+============================================
+
+from chatmultiapi folder
+============================================
+ApiKeysActivity.kt              =
+ChatActivity.kt                 = Conformed
+LocalProvider.kt                = Conformed
+MainActivity.kt                 =
+ProjectsActivity.kt             =
+ProviderRouter.kt               = Edit 
+ProviderSettingsActivity.kt     = Edit
+SecurityActivity.kt             =
+SecurityManager.kt              =
+apimaster.kt                    =
+bubbleadapter.kt                = Edit
+bubblemodel.kt                  = Edit
+fileutils.kt                    = Edit
+providersurl.kt                 = Edit
+timestampEngineContract.kt      = Conformed
+timestampengine.kt              = Conformed
+============================================
+
+This shows our progress so far just trying to get the files Conformed with proper footer and code block descriptions, its taking several days just to do this this simple task. We are failing horribly we could of built the whole damn projrct by now.
