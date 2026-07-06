@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- NEON BACKGROUND (Chat + Projects) -->
     <color name="neonBackground">#0A0A0A</color>
+
+    <!-- SECURITY PANEL DARK MODE -->
     <color name="securityDarkBackground">#121212</color>
+
+    <!-- SECURITY PANEL LIGHT MODE -->
     <color name="securityLightBackground">#F5F5F5</color>
+
 </resources>
+
+<!-- 
+================================================================================
+GODMODE FOOTER :: colors.xml
+Version: 1.0.0
+Updated (Local): 07-06-2026 @ 04:17 PM EDT
+Updated (UTC Stored): 2026-07-06T20:17:00Z
+
+Blueprint Section:
+1.1 — Resource Layer → colors.xml (Global Color Definitions)
+
+Subsystem:
+UI Theme Engine (Neon + Security Panels)
+
+Dependencies:
+ChatActivity.kt, ProjectsActivity.kt, SecurityActivity.kt, ApiKeysActivity.kt
+
+ML Tags:
+ui_colors, theme_engine, neon_theme, security_panel, godmode_core
+
+Origin:
+ChatMultiAPI — GodMode OS
+
+NOTES:
+- Defines simple colors required by Kotlin R.color references.
+- Must reside in res/values/ for Android to compile correctly.
+- Fully conforming metadata footer.
+================================================================================
+END OF FILE :: GODMODE :: ChatMultiAPI
+-->
