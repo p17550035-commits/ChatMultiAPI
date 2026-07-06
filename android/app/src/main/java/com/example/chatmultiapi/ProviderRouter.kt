@@ -5,10 +5,20 @@ import android.net.Uri
 import org.json.JSONObject
 import java.io.File
 
+/**
+ * BLOCK: ProviderRouter
+ * PURPOSE: Select provider, load config, and route text/files to ApiMaster.
+ * SAFE: comment only
+ */
 object ProviderRouter {
 
     private const val CONFIG_NAME = "app_config.json"
 
+    /**
+     * BLOCK: loadConfig()
+     * PURPOSE: Load provider config JSON from internal storage.
+     * SAFE: comment only
+     */
     private fun loadConfig(context: Context): JSONObject {
         val file = File(context.filesDir, CONFIG_NAME)
         if (!file.exists()) {
@@ -20,11 +30,21 @@ object ProviderRouter {
         return JSONObject(file.readText())
     }
 
+    /**
+     * BLOCK: getSelectedProvider()
+     * PURPOSE: Return active provider from config.
+     * SAFE: comment only
+     */
     private fun getSelectedProvider(context: Context): String {
         val json = loadConfig(context)
         return json.optString("selected", "local")
     }
 
+    /**
+     * BLOCK: getProviderKey()
+     * PURPOSE: Return API key for provider.
+     * SAFE: comment only
+     */
     private fun getProviderKey(context: Context, provider: String): String {
         val json = loadConfig(context)
         val providers = json.getJSONObject("providers")
@@ -36,6 +56,11 @@ object ProviderRouter {
         }
     }
 
+    /**
+     * BLOCK: getCustomUrl()
+     * PURPOSE: Return custom provider URL.
+     * SAFE: comment only
+     */
     private fun getCustomUrl(context: Context): String {
         val json = loadConfig(context)
         return json.getJSONObject("providers")
@@ -43,6 +68,11 @@ object ProviderRouter {
             .optString("url", "")
     }
 
+    /**
+     * BLOCK: getCustomModel()
+     * PURPOSE: Return custom provider model name.
+     * SAFE: comment only
+     */
     private fun getCustomModel(context: Context): String {
         val json = loadConfig(context)
         return json.getJSONObject("providers")
@@ -50,9 +80,9 @@ object ProviderRouter {
             .optString("model", "")
     }
 
-    // -----------------------------
+    // --------------------------------------------------------------------
     // TEXT ROUTING → ApiMaster
-    // -----------------------------
+    // --------------------------------------------------------------------
     fun sendMessage(context: Context, text: String): String {
 
         val provider = getSelectedProvider(context)
@@ -82,9 +112,9 @@ object ProviderRouter {
         )
     }
 
-    // -----------------------------
+    // --------------------------------------------------------------------
     // FILE ROUTING → ApiMaster
-    // -----------------------------
+    // --------------------------------------------------------------------
     fun sendFile(context: Context, uri: Uri) {
 
         val provider = getSelectedProvider(context)
@@ -115,32 +145,35 @@ object ProviderRouter {
     }
 }
 
-/*
-================================================================================
-METADATA :: GODMODE :: chatmultiapi
-section: 3.1 providerrouter.kt (backend routing — provider selection + API wiring)
-version: 1.0.1
-origin: providerrouter.kt
-mode: embedded editor mode
+/* ========================================================================
+   METADATA FOOTER — ProviderRouter.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 10:50 AM EDT
+   utc_timestamp: 2026-07-06T14:50:00Z
 
-dependencies:
-- apimaster.kt
-- providersurl.kt
-- localprovider.kt
-- chatactivity.kt
+   ML TAGS
+   - ml_tags: ["backend_router", "provider_system", "api_bridge", "godmode_core"]
 
-blueprint:
-- backend_core
-- provider_selection
-- api_routing
-- config_management
-- v1_ruleset
+   BLUEPRINT SECTION
+   - section: "3.1 — ProviderRouter.kt"
 
-ml tags:
-- backend_router
-- provider_system
-- api_bridge
-- godmode_core
+   SECTION PURPOSE
+   - Handles provider selection, config loading, and routing text/files to ApiMaster.
+   - Bridges Android → Python backend → external APIs.
 
-end of file :: godmode :: chatmultiapi
-================================================================================
+   DEPENDENCIES
+   - uses: [
+       "ApiMaster.kt",
+       "ProvidersUrl.kt",
+       "LocalProvider.kt",
+       "ChatActivity.kt",
+       "app_config.json"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+*/
