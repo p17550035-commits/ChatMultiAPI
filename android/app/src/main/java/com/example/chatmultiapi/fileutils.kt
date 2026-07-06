@@ -1,5 +1,3 @@
-// fileutils.kt — v1.0.1
-
 package com.example.chatmultiapi
 
 import android.content.Context
@@ -8,31 +6,30 @@ import android.net.Uri
 import android.provider.OpenableColumns
 
 /**
- * fileutils.kt — File Utility Module (Section 3.4)
- * ------------------------------------------------
- * Purpose:
- * Extract filenames from content URIs for file attachment bubbles.
+ * BLOCK: FileUtils
+ * PURPOSE: Extract filenames from content URIs for file attachment bubbles.
+ * SAFE: comment only
  *
  * Responsibilities:
- * - Safely resolve display names from Android content providers
+ * - Resolve display names from Android content providers
  * - Provide fallback names when metadata is missing
  * - Keep logic simple, predictable, and legacy‑compatible
  *
  * Notes:
  * - No GodMode namespace usage (legacy rule)
- * - Only used by ChatActivity + ProviderRouter
+ * - Used by ChatActivity + ProviderRouter
  * - TimestampEngine does not interact with this module
  */
 object FileUtils {
 
     /**
-     * Extract a filename from a content URI.
-     * Returns a safe fallback if metadata is unavailable.
+     * BLOCK: getFileName()
+     * PURPOSE: Extract filename from content URI with safe fallback.
+     * SAFE: comment only
      */
     fun getFileName(context: Context, uri: Uri): String {
         var result: String? = null
 
-        // Try reading metadata from the content resolver
         val cursor: Cursor? = context.contentResolver.query(uri, null, null, null, null)
         cursor?.use {
             val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
@@ -41,7 +38,6 @@ object FileUtils {
             }
         }
 
-        // Fallback: extract from URI path
         if (result == null) {
             result = uri.lastPathSegment ?: "unknown_file"
         }
@@ -50,29 +46,34 @@ object FileUtils {
     }
 }
 
-/*
-================================================================================
-METADATA :: GODMODE :: chatmultiapi
-section: 3.4 fileutils.kt (backend utility — filename extraction)
-version: 1.0.1
-origin: fileutils.kt
-mode: embedded editor mode
+/* ========================================================================
+   METADATA FOOTER — fileutils.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 11:07 AM EDT
+   utc_timestamp: 2026-07-06T15:07:00Z
 
-dependencies:
-- chatactivity.kt
-- providerrouter.kt
+   ML TAGS
+   - ml_tags: ["file_utils", "uri_parser", "metadata_system", "godmode_core"]
 
-blueprint:
-- file_system_core
-- uri_resolution
-- metadata_extraction
-- v1_ruleset
+   BLUEPRINT SECTION
+   - section: "3.4 — fileutils.kt"
 
-ml tags:
-- file_utils
-- uri_parser
-- metadata_system
-- godmode_core
+   SECTION PURPOSE
+   - Extract filenames from content URIs for file bubbles.
+   - Provide safe fallback when metadata is missing.
+   - Used by ChatActivity + ProviderRouter.
 
-end of file :: godmode :: chatmultiapi
-================================================================================
+   DEPENDENCIES
+   - uses: [
+       "ChatActivity.kt",
+       "ProviderRouter.kt",
+       "item_bubble.xml"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+*/
