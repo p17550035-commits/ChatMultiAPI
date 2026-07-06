@@ -23,8 +23,8 @@ data class BubbleModel(
     val dependencies: List<String>, // crash recovery + routing
     val mlTags: List<String>        // classification + routing
 )
-
-/* ========================================================================
+/*
+ ========================================================================
    METADATA FOOTER — BubbleModel.kt
    version: 1.0.0
    local_timestamp: 07/06/2026 11:04 AM EDT
