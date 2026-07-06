@@ -1,9 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:label="ChatMultiAPI"
         android:icon="@mipmap/ic_launcher">
 
+        <!-- Crash Log Viewer Activity -->
+        <activity
+            android:name=".CrashLogActivity"
+            android:exported="false" />
+
+        <!-- Main Launcher Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -18,3 +25,24 @@
     </application>
 
 </manifest>
+
+<!-- ========================================================================
+     METADATA FOOTER — AndroidManifest.xml
+     version: 1.0.1
+     local_timestamp: 07/06/2026 07:45 PM EDT
+     utc_timestamp: 2026-07-06T23:45:00Z
+
+     ML TAGS
+     - ml_tags: ["manifest", "crash_logger", "activity_registration"]
+
+     SECTION PURPOSE
+     - Registers CrashLogActivity for global crash diagnostics.
+     - Maintains MainActivity as launcher.
+     - Minimal, functional, conformity-safe.
+
+     NOTES
+     - No theme required.
+     - No additional modules required.
+     ========================================================================
+     END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
