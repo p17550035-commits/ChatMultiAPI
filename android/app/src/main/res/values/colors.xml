@@ -1,13 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- NEON BACKGROUND (Chat + Projects) -->
+    <!-- ========================================================= -->
+    <!-- CORE NEON THEME COLORS                                    -->
+    <!-- ========================================================= -->
+
+    <!-- Global Neon Background -->
     <color name="neonBackground">#0A0A0A</color>
 
-    <!-- SECURITY PANEL DARK MODE -->
+    <!-- Neon Accent (Buttons, Highlights) -->
+    <color name="neonAccent">#9C27B0</color>
+
+    <!-- Neon Panel (General Panels) -->
+    <color name="neonPanel">#1A1A1A</color>
+
+    <!-- Neon Panel Dark (Chat Input, Terminal) -->
+    <color name="neonPanelDark">#0F0F0F</color>
+
+    <!-- Neon Panel Light (Optional Light Variant) -->
+    <color name="neonPanelLight">#2A2A2A</color>
+
+
+    <!-- ========================================================= -->
+    <!-- SECURITY PANEL COLORS                                      -->
+    <!-- ========================================================= -->
+
+    <!-- Security Panel Dark Mode -->
     <color name="securityDarkBackground">#121212</color>
 
-    <!-- SECURITY PANEL LIGHT MODE -->
+    <!-- Security Panel Light Mode -->
     <color name="securityLightBackground">#F5F5F5</color>
 
 </resources>
@@ -15,9 +36,9 @@
 <!-- 
 ================================================================================
 GODMODE FOOTER :: colors.xml
-Version: 1.0.0
-Updated (Local): 07-06-2026 @ 04:17 PM EDT
-Updated (UTC Stored): 2026-07-06T20:17:00Z
+Version: 2.0.0
+Updated (Local): 07-06-2026 @ 04:26 PM EDT
+Updated (UTC Stored): 2026-07-06T20:26:00Z
 
 Blueprint Section:
 1.1 — Resource Layer → colors.xml (Global Color Definitions)
@@ -26,18 +47,27 @@ Subsystem:
 UI Theme Engine (Neon + Security Panels)
 
 Dependencies:
-ChatActivity.kt, ProjectsActivity.kt, SecurityActivity.kt, ApiKeysActivity.kt
+ChatActivity.kt,
+ProjectsActivity.kt,
+SecurityActivity.kt,
+ApiKeysActivity.kt,
+bubbleadapter.kt,
+item_bubble.xml
 
 ML Tags:
-ui_colors, theme_engine, neon_theme, security_panel, godmode_core
+ui_colors,
+theme_engine,
+neon_theme,
+security_panel,
+godmode_core
 
 Origin:
 ChatMultiAPI — GodMode OS
 
 NOTES:
-- Defines simple colors required by Kotlin R.color references.
-- Must reside in res/values/ for Android to compile correctly.
-- Fully conforming metadata footer.
+- Consolidates ALL simple colors into a single values/colors.xml file.
+- Required for Android to generate R.color.* references correctly.
+- res/color/ folder may remain for future state-list usage.
 ================================================================================
 END OF FILE :: GODMODE :: ChatMultiAPI
 -->
