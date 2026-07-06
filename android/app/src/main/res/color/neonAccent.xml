@@ -1,0 +1,21 @@
+<!--  
+============================================================
+# BLOCK: neonAccent
+# PURPOSE: Accent color for buttons, icons, highlights
+# SAFE: comment only
+============================================================
+-->
+<color name="neonAccent">#5A00FF</color>
+
+<!-- ========================================================================
+   METADATA FOOTER — neonAccent.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["color", "accent", "godmode_core"]
+   blueprint_section: "UI Theme / Neon Layer"
+   dependencies: []
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
