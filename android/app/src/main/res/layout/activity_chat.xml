@@ -4,7 +4,7 @@
     android:id="@+id/chatRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/neonBackground">
+    android:background="@color/neon_background">
 
     <!-- BLOCK: Dev Toolbar -->
     <!-- PURPOSE: Provider/model selection + upload/share/Bluetooth/push-pull/settings -->
@@ -15,14 +15,14 @@
         android:layout_height="48dp"
         android:orientation="horizontal"
         android:padding="6dp"
-        android:background="@color/neonPanel">
+        android:background="@color/neon_panel">
 
         <Spinner
             android:id="@+id/providerSpinner"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="4dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:spinnerMode="dropdown" />
 
         <Spinner
@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:padding="4dp"
             android:layout_marginLeft="6dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:spinnerMode="dropdown" />
 
         <ImageButton
@@ -39,7 +39,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:src="@drawable/ic_upload"
             android:contentDescription="Upload" />
 
@@ -48,7 +48,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:src="@drawable/ic_share"
             android:contentDescription="Share" />
 
@@ -57,7 +57,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:src="@drawable/ic_bluetooth"
             android:contentDescription="Bluetooth" />
 
@@ -66,7 +66,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:src="@drawable/ic_sync"
             android:contentDescription="Push/Pull" />
 
@@ -75,7 +75,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="6dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:src="@drawable/ic_settings"
             android:contentDescription="Settings" />
 
@@ -89,7 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="48dp"
-        android:background="@color/neonPanel"
+        android:background="@color/neon_panel"
         android:padding="6dp"
         android:visibility="gone">
 
@@ -110,7 +110,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginLeft="6dp"
         android:layout_gravity="end"
-        android:background="@color/neonAccent"
+        android:background="@color/neon_accent"
         android:src="@drawable/ic_close"
         android:contentDescription="Clear Upload Strip"
         android:visibility="gone" />
@@ -125,7 +125,7 @@
         android:layout_marginTop="108dp"
         android:layout_marginBottom="70dp"
         android:padding="8dp"
-        android:background="@color/neonBackground" />
+        android:background="@color/neon_background" />
 
     <!-- BLOCK: Input Bar -->
     <!-- PURPOSE: Chat input + attach + send -->
@@ -137,7 +137,7 @@
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="@color/neonPanel">
+        android:background="@color/neon_panel">
 
         <EditText
             android:id="@+id/chatInput"
@@ -146,7 +146,7 @@
             android:layout_weight="1"
             android:hint="Type a message..."
             android:padding="10dp"
-            android:background="@color/neonPanelDark"
+            android:background="@color/neon_panel_dark"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
@@ -155,7 +155,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginLeft="8dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:src="@drawable/ic_attach"
             android:contentDescription="Attach" />
 
@@ -164,7 +164,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginLeft="8dp"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:src="@drawable/ic_send"
             android:contentDescription="Send" />
     </LinearLayout>
@@ -178,7 +178,7 @@
         android:layout_height="300dp"
         android:layout_gravity="bottom"
         android:orientation="vertical"
-        android:background="@color/neonPanelDark"
+        android:background="@color/neon_panel_dark"
         android:padding="8dp"
         android:visibility="gone">
 
@@ -212,7 +212,7 @@
             android:layout_height="wrap_content"
             android:hint="Enter command..."
             android:padding="10dp"
-            android:background="@color/neonPanel"
+            android:background="@color/neon_panel"
             android:textColor="@android:color/white" />
 
         <Button
@@ -220,7 +220,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Run Command"
-            android:background="@color/neonAccent"
+            android:background="@color/neon_accent"
             android:textColor="@android:color/white"
             android:padding="10dp"
             android:layout_marginTop="6dp" />
@@ -258,9 +258,7 @@
 ]
 
 # NOTES
-- Fully regenerated to include uploadStripClearBtn.
-- Non-executable metadata footer.
-- Safe for copy/paste.
+- Fully regenerated with updated color resource names.
 ============================================================
 END OF FILE :: CHATMULTIAPI :: GODMODE
 -->
