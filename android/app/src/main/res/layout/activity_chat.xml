@@ -100,6 +100,21 @@
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
+    <!-- BLOCK: Upload Strip Clear Button -->
+    <!-- PURPOSE: Clear all selected files -->
+    <!-- SAFE: comment only -->
+    <ImageButton
+        android:id="@+id/uploadStripClearBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="6dp"
+        android:layout_gravity="end"
+        android:background="@color/neonAccent"
+        android:src="@drawable/ic_close"
+        android:contentDescription="Clear Upload Strip"
+        android:visibility="gone" />
+
     <!-- BLOCK: Chat Recycler -->
     <!-- PURPOSE: Displays chat bubbles -->
     <!-- SAFE: comment only -->
@@ -217,12 +232,12 @@
 <!--
 ============================================================
 # METADATA FOOTER — activity_chat.xml
-- version: 1.0.0
-- local_timestamp: 07/06/2026 10:01 AM EDT
-- utc_timestamp: 2026-07-06T14:01:00Z
+- version: 1.0.1
+- local_timestamp: 07/06/2026 11:40 AM EDT
+- utc_timestamp: 2026-07-06T15:40:00Z
 
 # ML TAGS
-- ml_tags: ["ui_layout", "chat_screen", "neon_theme", "dev_toolbar", "terminal_overlay", "godmode_core"]
+- ml_tags: ["ui_layout", "chat_screen", "neon_theme", "dev_toolbar", "terminal_overlay", "upload_strip", "godmode_core"]
 
 # BLUEPRINT SECTION
 - section: "2.1 — activity_chat.xml"
@@ -236,7 +251,6 @@
     "ChatActivity.kt",
     "BubbleAdapter.kt",
     "BubbleModel.kt",
-    "DevToolbarController.kt",
     "MiniTerminalController.kt",
     "UploadStripController.kt",
     "ProviderRouter.kt",
@@ -244,7 +258,7 @@
 ]
 
 # NOTES
-- Fully regenerated to remove drift and restore conformity.
+- Fully regenerated to include uploadStripClearBtn.
 - Non-executable metadata footer.
 - Safe for copy/paste.
 ============================================================
