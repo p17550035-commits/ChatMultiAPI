@@ -23,9 +23,9 @@ class BubbleAdapter(
      * SAFE: comment only
      */
     class BubbleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val bubbleText: TextView = itemView.findViewById(R.id.bubbletext)
-        val bubbleImage: ImageView = itemView.findViewById(R.id.bubbleimage)
-        val bubbleMeta: TextView = itemView.findViewById(R.id.bubblemeta)
+        val bubbleText: TextView = itemView.findViewById(R.id.bubbleText)
+        val bubbleImage: ImageView = itemView.findViewById(R.id.bubbleImage)
+        val bubbleMeta: TextView = itemView.findViewById(R.id.bubbleMeta)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BubbleViewHolder {
@@ -101,7 +101,7 @@ class BubbleAdapter(
    utc_timestamp: 2026-07-06T15:01:00Z
 
    ML TAGS
-   - ml_tags: ["ui_adapter", "chat_bubble", "recyclerview", "timestamp_engine", "godmode_core"]
+   - ml_tags: ["ui_adapter", "chat_bubble", "recyclerview", "timestamp_engine"]
 
    BLUEPRINT SECTION
    - section: "2.4 — BubbleAdapter.kt"
@@ -124,5 +124,5 @@ class BubbleAdapter(
    - Non-executable metadata footer.
    - Safe for copy/paste.
    ========================================================================
-   END OF FILE :: CHATMULTIAPI :: GODMODE
+   END OF FILE :: CHATMULTIAPI
 */
