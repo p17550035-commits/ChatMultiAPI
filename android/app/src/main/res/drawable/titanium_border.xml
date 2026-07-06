@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- BLOCK: Border Background -->
+    <!-- PURPOSE: Provides titanium neon border for UI elements -->
+    <!-- SAFE: comment only -->
     <solid android:color="#1E1E1E" />
-    <stroke android:width="2dp" android:color="#C724B1" />
+
+    <!-- BLOCK: Titanium Stroke -->
+    <!-- PURPOSE: Neon magenta edge highlight for GodMode theme -->
+    <!-- SAFE: comment only -->
+    <stroke
+        android:width="2dp"
+        android:color="#C724B1" />
+
+    <!-- BLOCK: Corner Radius -->
+    <!-- PURPOSE: Smooth rounded edges for consistent UI styling -->
+    <!-- SAFE: comment only -->
     <corners android:radius="8dp" />
+
 </shape>
+
+<!--
+============================================================
+# METADATA FOOTER — titanium_border.xml
+- version: 1.0.0
+- local_timestamp: 07/06/2026 09:48 AM EDT
+- utc_timestamp: 2026-07-06T13:48:00Z
+
+# ML TAGS
+- ml_tags: ["drawable", "titanium_theme", "border_style", "ui_accent"]
+
+# BLUEPRINT SECTION
+- section: "2.1 — activity_chat.xml (Drawable Assets)"
+
+# SECTION PURPOSE
+- Defines the titanium neon border used across ChatMultiAPI UI components.
+- Provides consistent styling for buttons, panels, and interactive elements.
+- Reinforces the anodized titanium aesthetic of GodMode.
+
+# DEPENDENCIES
+- uses: [
+    "titanium_button.xml",
+    "titanium_ring.xml",
+    "activity_chat.xml",
+    "bubbleadapter.kt",
+    "bubblemodel.kt"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- Matches GodMode full-file regeneration rules.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
