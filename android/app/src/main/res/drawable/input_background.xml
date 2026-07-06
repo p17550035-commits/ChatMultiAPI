@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- BLOCK: Input Background -->
+    <!-- PURPOSE: Background for text input fields in chat UI -->
+    <!-- SAFE: comment only -->
     <solid android:color="#1E1E1E" />
+
+    <!-- BLOCK: Corner Radius -->
+    <!-- PURPOSE: Smooth rounded edges for titanium theme consistency -->
+    <!-- SAFE: comment only -->
     <corners android:radius="8dp" />
+
 </shape>
+
+<!--
+============================================================
+# METADATA FOOTER — input_background.xml
+- version: 1.0.0
+- local_timestamp: 07/06/2026 09:45 AM EDT
+- utc_timestamp: 2026-07-06T13:45:00Z
+
+# ML TAGS
+- ml_tags: ["drawable", "input_style", "chat_ui", "theme_titanium"]
+
+# BLUEPRINT SECTION
+- section: "2.1 — activity_chat.xml (Drawable Assets)"
+
+# SECTION PURPOSE
+- Defines the background shape used for chat input fields.
+- Ensures consistent titanium neon theme styling across ChatMultiAPI.
+- Supports readability and visual clarity in the chat interface.
+
+# DEPENDENCIES
+- uses: [
+    "activity_chat.xml",
+    "bubbleadapter.kt",
+    "bubblemodel.kt",
+    "titanium_button.xml"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- Matches GodMode full-file regeneration rules.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
