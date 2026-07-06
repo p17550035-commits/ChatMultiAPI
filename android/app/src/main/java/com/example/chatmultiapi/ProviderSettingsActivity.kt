@@ -7,18 +7,27 @@ import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import java.io.File
 
+/**
+ * BLOCK: ProviderSettingsActivity
+ * PURPOSE: Manage provider selection, API keys, custom URLs, and dark mode unlock.
+ * SAFE: comment only
+ */
 class ProviderSettingsActivity : AppCompatActivity() {
 
-    // BLOCK: UI bindings
-    // PURPOSE: Connect Kotlin to XML components.
+    /** BLOCK: UI Bindings
+     *  PURPOSE: Connect Kotlin to XML components.
+     *  SAFE: comment only
+     */
     private lateinit var providerSpinner: Spinner
     private lateinit var keyInput: EditText
     private lateinit var customUrlInput: EditText
     private lateinit var btnSave: Button
     private lateinit var btnLoad: Button
 
-    // BLOCK: Dark Mode UI
-    // PURPOSE: Toggle + disabled message.
+    /** BLOCK: Dark Mode UI
+     *  PURPOSE: Toggle + disabled message.
+     *  SAFE: comment only
+     */
     private lateinit var darkModeToggle: Switch
     private lateinit var darkModeToggleDisabledMsg: TextView
 
@@ -29,7 +38,6 @@ class ProviderSettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_provider_settings)
 
         // BLOCK: Bind XML IDs
-        // PURPOSE: Initialize UI references.
         providerSpinner = findViewById(R.id.providerSpinner)
         keyInput = findViewById(R.id.keyInput)
         customUrlInput = findViewById(R.id.customUrlInput)
@@ -39,23 +47,23 @@ class ProviderSettingsActivity : AppCompatActivity() {
         darkModeToggleDisabledMsg = findViewById(R.id.darkModeToggleDisabledMsg)
 
         // BLOCK: Provider list
-        // PURPOSE: Populate provider dropdown.
         val providers = listOf("local", "groq", "openai", "anthropic", "nvidia", "lmstudio", "custom")
         providerSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, providers)
 
         // BLOCK: Button listeners
-        // PURPOSE: Save/load config.
         btnSave.setOnClickListener { saveConfig() }
         btnLoad.setOnClickListener { loadConfig() }
 
         // BLOCK: Dark Mode setup
-        // PURPOSE: Lock/unlock toggle based on setupComplete.
         initializeDarkModeToggle()
     }
 
+    /**
+     * BLOCK: initializeDarkModeToggle()
+     * PURPOSE: Lock/unlock toggle based on setupComplete.
+     * SAFE: comment only
+     */
     private fun initializeDarkModeToggle() {
-        // BLOCK: Read setupComplete
-        // PURPOSE: Determine toggle availability.
         val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val setupComplete = prefs.getBoolean("setupComplete", false)
 
@@ -70,16 +78,18 @@ class ProviderSettingsActivity : AppCompatActivity() {
         }
 
         // BLOCK: Toggle listener
-        // PURPOSE: Save Dark Mode preference.
         darkModeToggle.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("darkModeEnabled", isChecked).apply()
             Toast.makeText(this, "Dark Mode: $isChecked", Toast.LENGTH_SHORT).show()
         }
     }
 
+    /**
+     * BLOCK: onApiResponseSuccess()
+     * PURPOSE: Unlock Dark Mode after first successful API response.
+     * SAFE: comment only
+     */
     fun onApiResponseSuccess() {
-        // BLOCK: Unlock Dark Mode
-        // PURPOSE: Called after first successful API response.
         val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
         val setupComplete = prefs.getBoolean("setupComplete", false)
 
@@ -92,21 +102,25 @@ class ProviderSettingsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * BLOCK: getConfigFile()
+     * PURPOSE: Centralized config file reference.
+     * SAFE: comment only
+     */
     private fun getConfigFile(): File {
-        // BLOCK: Config file path
-        // PURPOSE: Centralized reference.
         return File(filesDir, configName)
     }
 
+    /**
+     * BLOCK: saveConfig()
+     * PURPOSE: Write provider config to storage.
+     * SAFE: comment only
+     */
     private fun saveConfig() {
-        // BLOCK: Read UI values
-        // PURPOSE: Capture provider + key + URL.
         val provider = providerSpinner.selectedItem.toString()
         val key = keyInput.text.toString().trim()
         val url = customUrlInput.text.toString().trim()
 
-        // BLOCK: Build JSON
-        // PURPOSE: Store provider config.
         val json = JSONObject().apply {
             put("selected", provider)
             put("providers", JSONObject().apply {
@@ -122,8 +136,6 @@ class ProviderSettingsActivity : AppCompatActivity() {
             })
         }
 
-        // BLOCK: Insert key
-        // PURPOSE: Handle custom provider differently.
         val providersObj = json.getJSONObject("providers")
         if (provider == "custom") {
             providersObj.getJSONObject("custom").put("key", key)
@@ -132,35 +144,30 @@ class ProviderSettingsActivity : AppCompatActivity() {
             providersObj.put(provider, key)
         }
 
-        // BLOCK: Write file
-        // PURPOSE: Save config to storage.
         getConfigFile().writeText(json.toString(4))
         Toast.makeText(this, "Saved!", Toast.LENGTH_SHORT).show()
     }
 
+    /**
+     * BLOCK: loadConfig()
+     * PURPOSE: Load provider config from storage.
+     * SAFE: comment only
+     */
     private fun loadConfig() {
-        // BLOCK: Check file
-        // PURPOSE: Avoid crash if missing.
         val file = getConfigFile()
         if (!file.exists()) {
             Toast.makeText(this, "No config found", Toast.LENGTH_SHORT).show()
             return
         }
 
-        // BLOCK: Parse JSON
-        // PURPOSE: Load provider config.
         val json = JSONObject(file.readText())
         val provider = json.getString("selected")
         val providersObj = json.getJSONObject("providers")
 
-        // BLOCK: Update spinner
-        // PURPOSE: Reflect saved provider.
         providerSpinner.setSelection(
             (providerSpinner.adapter as ArrayAdapter<String>).getPosition(provider)
         )
 
-        // BLOCK: Load fields
-        // PURPOSE: Handle custom provider.
         if (provider == "custom") {
             val custom = providersObj.getJSONObject("custom")
             keyInput.setText(custom.getString("key"))
@@ -174,11 +181,35 @@ class ProviderSettingsActivity : AppCompatActivity() {
     }
 }
 
-/* 
-GODMODE FOOTER :: ProviderSettingsActivity.kt
-Version: 1.0.6
-Updated: 07-03-2026 @ 14:45 EDT
-Blueprint: UI Layer → Settings Module → Provider Config
-Dependencies: XML layout, app_config.json, ApiMaster.kt
-END OF FILE
+/* ========================================================================
+   METADATA FOOTER — ProviderSettingsActivity.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 10:53 AM EDT
+   utc_timestamp: 2026-07-06T14:53:00Z
+
+   ML TAGS
+   - ml_tags: ["provider_settings", "config_ui", "dark_mode_unlock", "godmode_core"]
+
+   BLUEPRINT SECTION
+   - section: "5.0 — ProviderSettingsActivity.kt"
+
+   SECTION PURPOSE
+   - Handles provider selection, API key storage, custom URL input, and dark mode unlock.
+   - Interfaces directly with activity_provider_settings.xml.
+   - Writes/reads app_config.json for provider routing.
+
+   DEPENDENCIES
+   - uses: [
+       "activity_provider_settings.xml",
+       "ProviderRouter.kt",
+       "ApiMaster.kt",
+       "app_config.json"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
 */
