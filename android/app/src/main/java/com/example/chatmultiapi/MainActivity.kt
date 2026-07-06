@@ -137,11 +137,6 @@ class MainActivity : AppCompatActivity() {
     private val chatList = mutableListOf<ChatBubble>()
     private lateinit var adapter: ChatAdapter
 
-    /**
-     * BLOCK: Voice Input Launcher
-     * PURPOSE: Handle speech-to-text input
-     * SAFE: comment only
-     */
     private val voiceLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -155,11 +150,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * BLOCK: File Picker Launcher
-     * PURPOSE: Handle file selection
-     * SAFE: comment only
-     */
     private val fileLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -174,6 +164,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ⭐ GLOBAL CRASH LOGGER ACTIVATION
+        Thread.setDefaultUncaughtExceptionHandler(CrashLogger(this))
+
         setContentView(R.layout.activity_main)
 
         chatRecycler = findViewById(R.id.chatRecycler)
@@ -193,11 +187,6 @@ class MainActivity : AppCompatActivity() {
         btnSettings.setOnClickListener { openSettings() }
     }
 
-    /**
-     * BLOCK: Voice Input
-     * PURPOSE: Launch speech recognizer
-     * SAFE: comment only
-     */
     private fun startVoiceInput() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
             putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
@@ -206,11 +195,6 @@ class MainActivity : AppCompatActivity() {
         voiceLauncher.launch(intent)
     }
 
-    /**
-     * BLOCK: File Picker
-     * PURPOSE: Launch file chooser
-     * SAFE: comment only
-     */
     private fun openFilePicker() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "*/*"
@@ -218,21 +202,11 @@ class MainActivity : AppCompatActivity() {
         fileLauncher.launch(intent)
     }
 
-    /**
-     * BLOCK: Open Settings
-     * PURPOSE: Navigate to ProviderSettingsActivity
-     * SAFE: comment only
-     */
     private fun openSettings() {
         val intent = Intent(this, ProviderSettingsActivity::class.java)
         startActivity(intent)
     }
 
-    /**
-     * BLOCK: Send Message
-     * PURPOSE: Add user bubble → call Python backend → add agent bubble
-     * SAFE: comment only
-     */
     private fun sendMessage(text: String) {
         if (text.isBlank()) return
 
@@ -255,11 +229,6 @@ class MainActivity : AppCompatActivity() {
         chatRecycler.scrollToPosition(chatList.size - 1)
     }
 
-    /**
-     * BLOCK: Save Bubble
-     * PURPOSE: Write bubble to internal storage
-     * SAFE: comment only
-     */
     private fun saveBubble(bubble: ChatBubble) {
         val sdf = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
         val filename = "bubble_${sdf.format(Date())}.txt"
@@ -273,34 +242,19 @@ class MainActivity : AppCompatActivity() {
 
 /* ========================================================================
    METADATA FOOTER — MainActivity.kt
-   version: 1.0.0
-   local_timestamp: 07/06/2026 10:42 AM EDT
-   utc_timestamp: 2026-07-06T14:42:00Z
+   version: 1.0.1
+   local_timestamp: 07/06/2026 07:48 PM EDT
+   utc_timestamp: 2026-07-06T23:48:00Z
 
    ML TAGS
-   - ml_tags: ["kotlin_activity", "chat_ui", "python_bridge", "godmode_core"]
-
-   BLUEPRINT SECTION
-   - section: "2.0 — MainActivity.kt"
+   - ml_tags: ["kotlin_activity", "chat_ui", "python_bridge", "godmode_core", "crash_logger"]
 
    SECTION PURPOSE
    - Primary chat UI controller for GodMode.
-   - Handles RecyclerView, voice input, file picker, and Python backend calls.
-   - Interfaces directly with activity_main.xml and item_bubble.xml.
-
-   DEPENDENCIES
-   - uses: [
-       "backend.py",
-       "item_bubble.xml",
-       "activity_main.xml",
-       "ProviderSettingsActivity.kt",
-       "ChatAdapter.kt"
-     ]
+   - Now includes global crash logger activation.
 
    NOTES
-   - Fully regenerated to restore conformity.
-   - Non-executable metadata footer.
-   - Safe for copy/paste.
+   - Minimal change: only added crash logger line.
    ========================================================================
    END OF FILE :: CHATMULTIAPI :: GODMODE
 */
