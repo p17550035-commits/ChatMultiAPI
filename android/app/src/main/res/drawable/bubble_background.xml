@@ -1,15 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- BLOCK: Selected Bubble Background -->
+    <!-- PURPOSE: Purple highlight for selected chat bubble -->
+    <!-- SAFE: comment only -->
     <item android:state_selected="true">
         <shape>
             <solid android:color="#7B2CBF" />
             <corners android:radius="16dp" />
         </shape>
     </item>
+
+    <!-- BLOCK: Default Bubble Background -->
+    <!-- PURPOSE: Standard dark bubble background -->
+    <!-- SAFE: comment only -->
     <item>
         <shape>
             <solid android:color="#1E1E1E" />
             <corners android:radius="16dp" />
         </shape>
     </item>
+
 </selector>
+
+<!--
+============================================================
+# METADATA FOOTER — bubble_background.xml
+- version: 1.0.0
+- local_timestamp: 07/06/2026 09:42 AM EDT
+- utc_timestamp: 2026-07-06T13:42:00Z
+
+# ML TAGS
+- ml_tags: ["drawable", "bubble_style", "chat_ui", "theme_titanium"]
+
+# BLUEPRINT SECTION
+- section: "2.2 — item_bubble.xml (Drawable Assets)"
+
+# SECTION PURPOSE
+- Defines the background selector used for chat bubbles.
+- Provides selected and default states for bubble visuals.
+- Supports titanium neon theme consistency across ChatMultiAPI.
+
+# DEPENDENCIES
+- uses: [
+    "item_bubble.xml",
+    "bubbleadapter.kt",
+    "bubblemodel.kt",
+    "activity_chat.xml"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- Matches GodMode full-file regeneration rules.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
