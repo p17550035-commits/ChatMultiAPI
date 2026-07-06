@@ -1,9 +1,22 @@
+"""
+BLOCK: Provider Routing Engine
+PURPOSE: Detect provider, send messages, and unify API call behavior for GodMode.
+SAFE: comment only
+"""
+
 import requests
+
+# BLOCK: Storage Imports
+# PURPOSE: Retrieve provider keys + config
+# SAFE: comment only
 from storage import get_provider_key, load_config
+
 
 def detect_provider_from_key(key):
     """
-    Auto-detect provider based on API key prefix.
+    BLOCK: Provider Auto-Detection
+    PURPOSE: Determine provider based on API key prefix.
+    SAFE: comment only
     """
     if key.startswith("gsk_"):
         return "groq"
@@ -22,7 +35,9 @@ def detect_provider_from_key(key):
 
 def _post_json(url, headers, payload):
     """
-    Helper for POST requests with JSON.
+    BLOCK: JSON POST Helper
+    PURPOSE: Unified POST request wrapper with error handling.
+    SAFE: comment only
     """
     r = requests.post(url, headers=headers, json=payload, timeout=60)
     r.raise_for_status()
@@ -31,11 +46,16 @@ def _post_json(url, headers, payload):
 
 def send_message_to_provider(provider, message, file_bytes=None):
     """
-    Route message to the correct provider.
+    BLOCK: Provider Router
+    PURPOSE: Route message to correct provider using unified API patterns.
+    SAFE: comment only
     """
+
     key = get_provider_key(provider)
 
-    # GROQ
+    # BLOCK: GROQ
+    # PURPOSE: Groq → OpenAI-compatible endpoint
+    # SAFE: comment only
     if provider == "groq":
         url = "https://api.groq.com/openai/v1/chat/completions"
         headers = {
@@ -49,7 +69,9 @@ def send_message_to_provider(provider, message, file_bytes=None):
         data = _post_json(url, headers, payload)
         return data["choices"][0]["message"]["content"]
 
-    # OPENAI
+    # BLOCK: OPENAI
+    # PURPOSE: OpenAI → GPT-4o-mini
+    # SAFE: comment only
     if provider == "openai":
         url = "https://api.openai.com/v1/chat/completions"
         headers = {
@@ -63,7 +85,9 @@ def send_message_to_provider(provider, message, file_bytes=None):
         data = _post_json(url, headers, payload)
         return data["choices"][0]["message"]["content"]
 
-    # ANTHROPIC
+    # BLOCK: ANTHROPIC
+    # PURPOSE: Claude 3 Haiku
+    # SAFE: comment only
     if provider == "anthropic":
         url = "https://api.anthropic.com/v1/messages"
         headers = {
@@ -79,7 +103,9 @@ def send_message_to_provider(provider, message, file_bytes=None):
         data = _post_json(url, headers, payload)
         return data["content"][0]["text"]
 
-    # NVIDIA NIM
+    # BLOCK: NVIDIA NIM
+    # PURPOSE: NVIDIA → Llama3 instruct
+    # SAFE: comment only
     if provider == "nvidia":
         url = "https://integrate.api.nvidia.com/v1/chat/completions"
         headers = {
@@ -93,7 +119,9 @@ def send_message_to_provider(provider, message, file_bytes=None):
         data = _post_json(url, headers, payload)
         return data["choices"][0]["message"]["content"]
 
-    # LM STUDIO (local)
+    # BLOCK: LM STUDIO
+    # PURPOSE: Local model via LM Studio server
+    # SAFE: comment only
     if provider == "lmstudio":
         url = "http://127.0.0.1:1234/v1/chat/completions"
         headers = {"Content-Type": "application/json"}
@@ -104,7 +132,9 @@ def send_message_to_provider(provider, message, file_bytes=None):
         data = _post_json(url, headers, payload)
         return data["choices"][0]["message"]["content"]
 
-    # CUSTOM PROVIDER
+    # BLOCK: CUSTOM PROVIDER
+    # PURPOSE: User-defined HTTP endpoint
+    # SAFE: comment only
     if provider == "custom":
         cfg = load_config()
         custom = cfg["providers"]["custom"]
@@ -127,3 +157,37 @@ def send_message_to_provider(provider, message, file_bytes=None):
         return data["choices"][0]["message"]["content"]
 
     return "Unknown provider or missing key."
+
+
+# ========================================================================
+# METADATA FOOTER — providers.py
+# version: 1.0.0
+# local_timestamp: 07/06/2026 10:26 AM EDT
+# utc_timestamp: 2026-07-06T14:26:00Z
+#
+# ML TAGS
+# - ml_tags: ["provider_routing", "api_engine", "multi_provider", "godmode_core"]
+#
+# BLUEPRINT SECTION
+# - section: "7.2 — providers.py"
+#
+# SECTION PURPOSE
+# - Implements multi-provider routing for GodMode.
+# - Handles Groq, OpenAI, Anthropic, NVIDIA, LM Studio, and custom providers.
+# - Provides unified JSON POST helper and auto-detection logic.
+#
+# DEPENDENCIES
+# - uses: [
+#     "backend.py",
+#     "storage.py",
+#     "config_crypto.py",
+#     "ProviderRouter.kt",
+#     "ApiMaster.kt"
+# ]
+#
+# NOTES
+# - Fully regenerated to restore conformity.
+# - Non-executable metadata footer.
+# - Safe for copy/paste.
+# ========================================================================
+# END OF FILE :: CHATMULTIAPI :: GODMODE
