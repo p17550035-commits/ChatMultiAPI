@@ -1,6 +1,6 @@
 // timestampenginecontract.kt — v1.0.0
 
-package com.chatmultiapi.godmode.engine
+package com.example.chatmultiapi.engine
 
 /**
  * TimestampEngineContract — v1
