@@ -93,6 +93,17 @@
             android:paddingBottom="20dp"
             android:gravity="center" />
 
+        <!-- REAL DARK MODE TOGGLE -->
+        <Switch
+            android:id="@+id/darkModeToggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enable Dark Mode"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:padding="10dp"
+            android:visibility="gone" />
+
     </LinearLayout>
 </ScrollView>
 
