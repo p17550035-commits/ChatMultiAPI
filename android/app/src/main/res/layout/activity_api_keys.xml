@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/apiKeysRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +8,9 @@
     android:padding="16dp"
     android:background="@android:color/background_dark">
 
-    <!-- Scrollable Main Section -->
+    <!-- BLOCK: Scrollable Main Section -->
+    <!-- PURPOSE: Holds all provider API key inputs -->
+    <!-- SAFE: comment only -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -19,7 +22,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- OpenAI Section -->
+            <!-- BLOCK: OpenAI Section -->
+            <!-- PURPOSE: Input for OpenAI API key -->
+            <!-- SAFE: comment only -->
             <TextView
                 android:id="@+id/openAiLabel"
                 android:layout_width="wrap_content"
@@ -38,7 +43,9 @@
                 android:textColor="@android:color/white"
                 android:hint="Enter OpenAI key" />
 
-            <!-- Anthropic Section -->
+            <!-- BLOCK: Anthropic Section -->
+            <!-- PURPOSE: Input for Anthropic API key -->
+            <!-- SAFE: comment only -->
             <TextView
                 android:id="@+id/anthropicLabel"
                 android:layout_width="wrap_content"
@@ -58,7 +65,9 @@
                 android:textColor="@android:color/white"
                 android:hint="Enter Anthropic key" />
 
-            <!-- Gemini Section -->
+            <!-- BLOCK: Gemini Section -->
+            <!-- PURPOSE: Input for Gemini API key -->
+            <!-- SAFE: comment only -->
             <TextView
                 android:id="@+id/geminiLabel"
                 android:layout_width="wrap_content"
@@ -78,7 +87,9 @@
                 android:textColor="@android:color/white"
                 android:hint="Enter Gemini key" />
 
-            <!-- Local Provider Section -->
+            <!-- BLOCK: Local Provider Section -->
+            <!-- PURPOSE: Input for local provider key -->
+            <!-- SAFE: comment only -->
             <TextView
                 android:id="@+id/localLabel"
                 android:layout_width="wrap_content"
@@ -98,7 +109,9 @@
                 android:textColor="@android:color/white"
                 android:hint="Enter Local provider key" />
 
-            <!-- Save Button -->
+            <!-- BLOCK: Save Button -->
+            <!-- PURPOSE: Saves encrypted API keys -->
+            <!-- SAFE: comment only -->
             <Button
                 android:id="@+id/saveApiKeysBtn"
                 android:layout_width="match_parent"
@@ -111,7 +124,9 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Danger Zone (Static Bottom Section) -->
+    <!-- BLOCK: Danger Zone -->
+    <!-- PURPOSE: Clear all API keys (irreversible) -->
+    <!-- SAFE: comment only -->
     <LinearLayout
         android:id="@+id/apiDangerZone"
         android:layout_width="match_parent"
@@ -139,18 +154,37 @@
 
 </LinearLayout>
 
-<!-- 
-================================================================================
-METADATA :: ChatMultiAPI :: activity_api_keys.xml
-Generated: 2026-07-03 @ 13:42 EDT
-Version: 1.0.2
-Origin: activity_api_keys.xml
-Mode: Neon Safe Theme
-Tags:
-- ui_layout
-- api_keys
-- neon_theme_safe
-- godmode_cleanup
-================================================================================
-END OF FILE
+<!--
+============================================================
+# METADATA FOOTER — activity_api_keys.xml
+- version: 1.0.0
+- local_timestamp: 07/06/2026 09:57 AM EDT
+- utc_timestamp: 2026-07-06T13:57:00Z
+
+# ML TAGS
+- ml_tags: ["ui_layout", "api_keys", "security_ui", "godmode_conform"]
+
+# BLUEPRINT SECTION
+- section: "5.1 — ApiKeysActivity XML"
+
+# SECTION PURPOSE
+- Defines the API key management UI for all providers.
+- Supports encrypted storage via SecurityActivity + config_crypto backend.
+- Includes Danger Zone for irreversible key clearing.
+
+# DEPENDENCIES
+- uses: [
+    "ApiKeysActivity.kt",
+    "SecurityActivity.kt",
+    "ProviderRouter.kt",
+    "apimaster.kt",
+    "config_crypto.py"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- Fully regenerated to remove drift and restore conformity.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
 -->
