@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- ASSISTANT BUBBLE COLOR -->
+    <solid android:color="#1565C0" />
+
+    <!-- ROUNDED CORNERS -->
+    <corners android:radius="12dp" />
+
+    <!-- PADDING -->
+    <padding
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp" />
+</shape>
+
+<!-- 
+================================================================================
+GODMODE FOOTER :: bubble_assistant.xml
+Version: 1.0.0
+Updated (Local): 07-06-2026 @ 04:12 PM EDT
+Updated (UTC Stored): 2026-07-06T20:12:00Z
+
+Blueprint Section:
+2.3 — Chat UI → bubble_assistant.xml (Assistant Bubble Drawable)
+
+Subsystem:
+Chat UI (Bubble Rendering Layer)
+
+Dependencies:
+BubbleAdapter.kt, item_bubble.xml, ChatActivity.kt
+
+ML Tags:
+ui_drawable, chat_bubble, assistant_role, neon_theme, godmode_core
+
+Origin:
+ChatMultiAPI — GodMode OS
+
+NOTES:
+- Simple shape drawable for assistant message bubbles.
+- Fully conforming metadata footer.
+================================================================================
+END OF FILE :: GODMODE :: ChatMultiAPI
+-->
