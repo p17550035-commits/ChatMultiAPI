@@ -1,13 +1,23 @@
+"""
+BLOCK: Storage Engine (Internal Config)
+PURPOSE: Manage provider configuration inside Android's Chaquopy internal storage.
+SAFE: comment only
+"""
+
 import json
 import os
 
-# Internal storage path used by Chaquopy (Android internal app directory)
+# BLOCK: Internal Storage Path
+# PURPOSE: Points to app_config.json inside Android internal app directory
+# SAFE: comment only
 CONFIG_PATH = os.path.join(os.environ.get("HOME", ""), "files", "app_config.json")
+
 
 def load_config():
     """
-    Load provider configuration from internal storage.
-    If the file does not exist, return a default structure.
+    BLOCK: Load Config
+    PURPOSE: Load provider configuration from internal storage.
+    SAFE: comment only
     """
     if not os.path.exists(CONFIG_PATH):
         return {
@@ -29,7 +39,9 @@ def load_config():
         with open(CONFIG_PATH, "r") as f:
             return json.load(f)
     except Exception:
-        # Fallback if file is corrupted
+        # BLOCK: Corruption Fallback
+        # PURPOSE: Provide safe default if config is unreadable
+        # SAFE: comment only
         return {
             "selected": "groq",
             "providers": {
@@ -48,7 +60,9 @@ def load_config():
 
 def save_config(cfg):
     """
-    Save provider configuration to internal storage.
+    BLOCK: Save Config
+    PURPOSE: Write provider configuration to internal storage.
+    SAFE: comment only
     """
     try:
         with open(CONFIG_PATH, "w") as f:
@@ -59,7 +73,9 @@ def save_config(cfg):
 
 def set_provider_key(provider, key):
     """
-    Update the API key for a provider.
+    BLOCK: Set Provider Key
+    PURPOSE: Update API key for a provider.
+    SAFE: comment only
     """
     cfg = load_config()
 
@@ -73,7 +89,9 @@ def set_provider_key(provider, key):
 
 def set_custom_url(url):
     """
-    Update the custom provider URL.
+    BLOCK: Set Custom URL
+    PURPOSE: Update custom provider endpoint.
+    SAFE: comment only
     """
     cfg = load_config()
     cfg["providers"]["custom"]["url"] = url
@@ -82,7 +100,9 @@ def set_custom_url(url):
 
 def set_selected_provider(provider):
     """
-    Update the selected provider.
+    BLOCK: Set Selected Provider
+    PURPOSE: Update active provider.
+    SAFE: comment only
     """
     cfg = load_config()
     cfg["selected"] = provider
@@ -91,7 +111,9 @@ def set_selected_provider(provider):
 
 def get_selected_provider():
     """
-    Return the currently selected provider.
+    BLOCK: Get Selected Provider
+    PURPOSE: Return currently selected provider.
+    SAFE: comment only
     """
     cfg = load_config()
     return cfg.get("selected", "groq")
@@ -99,7 +121,9 @@ def get_selected_provider():
 
 def get_provider_key(provider):
     """
-    Return the API key for a provider.
+    BLOCK: Get Provider Key
+    PURPOSE: Return API key for a provider.
+    SAFE: comment only
     """
     cfg = load_config()
 
@@ -111,7 +135,43 @@ def get_provider_key(provider):
 
 def get_custom_url():
     """
-    Return the custom provider URL.
+    BLOCK: Get Custom URL
+    PURPOSE: Return custom provider endpoint.
+    SAFE: comment only
     """
     cfg = load_config()
     return cfg["providers"]["custom"].get("url", "")
+
+
+# ========================================================================
+# METADATA FOOTER — storage.py
+# version: 1.0.0
+# local_timestamp: 07/06/2026 10:29 AM EDT
+# utc_timestamp: 2026-07-06T14:29:00Z
+#
+# ML TAGS
+# - ml_tags: ["python_storage", "config_manager", "provider_keys", "godmode_core"]
+#
+# BLUEPRINT SECTION
+# - section: "7.3 — storage.py"
+#
+# SECTION PURPOSE
+# - Manages provider configuration for GodMode.
+# - Handles reading/writing app_config.json inside Android internal storage.
+# - Supports custom provider endpoints and key updates.
+#
+# DEPENDENCIES
+# - uses: [
+#     "providers.py",
+#     "backend.py",
+#     "main.py",
+#     "bootstrap.py",
+#     "config_crypto.py"
+# ]
+#
+# NOTES
+# - Fully regenerated to restore conformity.
+# - Non-executable metadata footer.
+# - Safe for copy/paste.
+# ========================================================================
+# END OF FILE :: CHATMULTIAPI :: GODMODE
