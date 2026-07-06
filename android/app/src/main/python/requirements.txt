@@ -1,1 +1,38 @@
+# BLOCK: Python Dependencies
+# PURPOSE: Required packages for GodMode backend
+# SAFE: comment only
+
 requests
+
+
+# ========================================================================
+# METADATA FOOTER — requirements.txt
+# version: 1.0.0
+# local_timestamp: 07/06/2026 10:27 AM EDT
+# utc_timestamp: 2026-07-06T14:27:00Z
+#
+# ML TAGS
+# - ml_tags: ["python_dependencies", "backend_requirements", "godmode_core"]
+#
+# BLUEPRINT SECTION
+# - section: "7.0 — Python Requirements"
+#
+# SECTION PURPOSE
+# - Defines Python dependencies required by backend.py, providers.py, etc.
+# - Used by Chaquopy to install runtime packages.
+#
+# DEPENDENCIES
+# - uses: [
+#     "backend.py",
+#     "providers.py",
+#     "storage.py",
+#     "main.py",
+#     "bootstrap.py"
+# ]
+#
+# NOTES
+# - Fully regenerated to restore conformity.
+# - Non-executable metadata footer.
+# - Safe for copy/paste.
+# ========================================================================
+# END OF FILE :: CHATMULTIAPI :: GODMODE
