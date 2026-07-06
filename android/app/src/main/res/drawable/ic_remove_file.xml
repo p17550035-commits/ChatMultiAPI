@@ -1,0 +1,29 @@
+<!--  
+============================================================
+# BLOCK: ic_remove_file
+# PURPOSE: Remove file icon for UploadStripController
+# SAFE: comment only
+============================================================
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/neonAccent"
+        android:pathData="M18.3,5.71L12,12l6.3,6.29 -1.41,1.41L12,13.41l-4.89,4.89 -1.41,-1.41L10.59,12 5.71,7.11 7.12,5.7 12,10.59l4.88,-4.88z"/>
+</vector>
+
+<!-- ========================================================================
+   METADATA FOOTER — ic_remove_file.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["icon", "remove", "upload_strip", "godmode_core"]
+   blueprint_section: "UploadStripController / UI"
+   dependencies: ["neonAccent"]
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
