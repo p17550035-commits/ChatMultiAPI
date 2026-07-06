@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/neonBackground">
+    android:background="@color/neon_background">
 
     <!-- BLOCK: Header -->
     <!-- PURPOSE: Displays the Projects title in neon theme -->
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="Projects"
         android:textSize="24sp"
-        android:textColor="@color/neonAccent"
+        android:textColor="@color/neon_accent"
         android:paddingBottom="16dp" />
 
     <!-- BLOCK: Project List -->
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@color/neonAccent"
+        android:divider="@color/neon_accent"
         android:dividerHeight="1dp" />
 
     <!-- BLOCK: New Project Button -->
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="New Project"
         android:textColor="@android:color/white"
-        android:background="@color/neonAccent"
+        android:background="@color/neon_accent"
         android:padding="12dp"
         android:layout_marginTop="16dp" />
 
