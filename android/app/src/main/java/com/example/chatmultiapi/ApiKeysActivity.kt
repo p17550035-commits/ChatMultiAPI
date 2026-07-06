@@ -50,4 +50,82 @@ class ApiKeysActivity : AppCompatActivity() {
         val saveBtn = findViewById<Button>(R.id.saveApiKeysBtn)
         saveBtn.setOnClickListener {
             prefs.edit().apply {
-                putString("openai_key", openAiInput.text
+                putString("openai_key", openAiInput.text.toString())
+                putString("anthropic_key", anthropicInput.text.toString())
+                putString("gemini_key", geminiInput.text.toString())
+                putString("local_key", localInput.text.toString())
+                apply()
+            }
+        }
+
+        // BLOCK: Danger Zone
+        // PURPOSE: Clear all API keys
+        val clearBtn = findViewById<Button>(R.id.clearApiKeysBtn)
+        clearBtn.setOnClickListener {
+            prefs.edit().apply {
+                remove("openai_key")
+                remove("anthropic_key")
+                remove("gemini_key")
+                remove("local_key")
+                apply()
+            }
+
+            openAiInput.setText("")
+            anthropicInput.setText("")
+            geminiInput.setText("")
+            localInput.setText("")
+        }
+    }
+
+    /**
+     * BLOCK: applyUiMode()
+     * PURPOSE: Apply light/dark mode for security panel
+     * SAFE: comment only
+     */
+    private fun applyUiMode() {
+        val mode = prefs.getString("critical_ui_mode", "light")
+
+        if (mode == "dark") {
+            window.decorView.setBackgroundColor(
+                ContextCompat.getColor(this, R.color.securityDarkBackground)
+            )
+        } else {
+            window.decorView.setBackgroundColor(
+                ContextCompat.getColor(this, R.color.securityLightBackground)
+            )
+        }
+    }
+}
+
+/* ========================================================================
+   METADATA FOOTER — ApiKeysActivity.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 10:40 AM EDT
+   utc_timestamp: 2026-07-06T14:40:00Z
+
+   ML TAGS
+   - ml_tags: ["kotlin_activity", "api_keys", "security_panel", "godmode_core"]
+
+   BLUEPRINT SECTION
+   - section: "5.1 — ApiKeysActivity.kt"
+
+   SECTION PURPOSE
+   - Handles API key storage for all providers.
+   - Controls critical UI mode (light/dark) for security panel.
+   - Interfaces directly with activity_api_keys.xml.
+
+   DEPENDENCIES
+   - uses: [
+       "activity_api_keys.xml",
+       "storage.py",
+       "ProviderRouter.kt",
+       "ApiMaster.kt"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+*/
