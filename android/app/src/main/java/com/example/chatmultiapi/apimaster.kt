@@ -5,13 +5,18 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.File
 
+/**
+ * BLOCK: ApiMaster
+ * PURPOSE: Unified API engine for all providers (text + file upload).
+ * SAFE: comment only
+ */
 object ApiMaster {
 
     private val client = OkHttpClient()
 
-    // -----------------------------
+    // --------------------------------------------------------------------
     // SEND TEXT (ALL PROVIDERS)
-    // -----------------------------
+    // --------------------------------------------------------------------
     fun sendText(
         provider: String,
         text: String,
@@ -26,6 +31,7 @@ object ApiMaster {
 
         val json = JSONObject()
 
+        // BLOCK: Provider-specific JSON body
         when (provider) {
 
             "openai" -> {
@@ -79,6 +85,7 @@ object ApiMaster {
             json.toString()
         )
 
+        // BLOCK: Build request with provider-specific headers
         val request = Request.Builder()
             .url(url)
             .apply {
@@ -106,9 +113,9 @@ object ApiMaster {
         }
     }
 
-    // -----------------------------
+    // --------------------------------------------------------------------
     // SEND FILE (ALL PROVIDERS)
-    // -----------------------------
+    // --------------------------------------------------------------------
     fun sendFile(
         provider: String,
         uri: Uri,
@@ -133,6 +140,7 @@ object ApiMaster {
             )
             .build()
 
+        // BLOCK: Build request with provider-specific headers
         val request = Request.Builder()
             .url(url)
             .apply {
@@ -159,3 +167,36 @@ object ApiMaster {
         }
     }
 }
+
+/* ========================================================================
+   METADATA FOOTER — ApiMaster.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 10:59 AM EDT
+   utc_timestamp: 2026-07-06T14:59:00Z
+
+   ML TAGS
+   - ml_tags: ["api_engine", "provider_bridge", "http_client", "godmode_core"]
+
+   BLUEPRINT SECTION
+   - section: "3.2 — ApiMaster.kt"
+
+   SECTION PURPOSE
+   - Unified API engine for all providers (OpenAI, Groq, Anthropic, NVIDIA, LM Studio, custom).
+   - Handles text requests and file uploads.
+   - Applies provider-specific headers and JSON formats.
+
+   DEPENDENCIES
+   - uses: [
+       "ProviderRouter.kt",
+       "ProvidersUrl.kt",
+       "LocalProvider.kt",
+       "OkHttpClient"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+*/
