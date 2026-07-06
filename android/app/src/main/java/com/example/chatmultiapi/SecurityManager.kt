@@ -11,6 +11,11 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
+/**
+ * BLOCK: SecurityManager
+ * PURPOSE: Seed phrase generation, AES key derivation, encrypted config handling.
+ * SAFE: comment only
+ */
 object SecurityManager {
 
     private const val PREFS_NAME = "security_prefs"
@@ -26,11 +31,20 @@ object SecurityManager {
         "matrix","orbit","signal","turbo","vertex","zenith","nova","fusion"
     )
 
+    /**
+     * BLOCK: getPrefs()
+     * PURPOSE: Access SharedPreferences for security metadata.
+     * SAFE: comment only
+     */
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    // 1) Seed phrase generation (12 words)
+    /**
+     * BLOCK: generateSeedPhrase()
+     * PURPOSE: Generate 12‑word seed phrase from wordList.
+     * SAFE: comment only
+     */
     fun generateSeedPhrase(): String {
         val rnd = SecureRandom()
         val words = mutableListOf<String>()
@@ -41,7 +55,11 @@ object SecurityManager {
         return words.joinToString(" ")
     }
 
-    // 2) Derive AES key from seed phrase (PBKDF2)
+    /**
+     * BLOCK: deriveKeyFromSeed()
+     * PURPOSE: PBKDF2 → AES‑256 key derivation from seed phrase.
+     * SAFE: comment only
+     */
     private fun deriveKeyFromSeed(seedPhrase: String): SecretKeySpec {
         val factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
         val spec = PBEKeySpec(
@@ -55,7 +73,11 @@ object SecurityManager {
         return SecretKeySpec(keyBytes, "AES")
     }
 
-    // 3) IV handling
+    /**
+     * BLOCK: getOrCreateIv()
+     * PURPOSE: Retrieve or generate AES IV (16 bytes).
+     * SAFE: comment only
+     */
     private fun getOrCreateIv(context: Context): IvParameterSpec {
         val prefs = getPrefs(context)
         val existing = prefs.getString(KEY_IV, null)
@@ -70,7 +92,11 @@ object SecurityManager {
         }
     }
 
-    // 4) Encrypt JSON config with seed phrase
+    /**
+     * BLOCK: encryptAndSaveConfig()
+     * PURPOSE: AES‑CBC encrypt config JSON → save to config.enc.
+     * SAFE: comment only
+     */
     fun encryptAndSaveConfig(context: Context, seedPhrase: String, configJson: JSONObject) {
         val key = deriveKeyFromSeed(seedPhrase)
         val iv = getOrCreateIv(context)
@@ -82,13 +108,16 @@ object SecurityManager {
         val file = File(context.filesDir, "config.enc")
         file.writeBytes(encBytes)
 
-        // Mark that seed phrase has been used/saved
         getPrefs(context).edit()
             .putBoolean(KEY_SEED_PHRASE_SAVED, true)
             .apply()
     }
 
-    // 5) Decrypt JSON config with seed phrase
+    /**
+     * BLOCK: loadAndDecryptConfig()
+     * PURPOSE: AES‑CBC decrypt config.enc → return JSON.
+     * SAFE: comment only
+     */
     fun loadAndDecryptConfig(context: Context, seedPhrase: String): JSONObject? {
         val file = File(context.filesDir, "config.enc")
         if (!file.exists()) return null
@@ -106,7 +135,11 @@ object SecurityManager {
         return JSONObject(text)
     }
 
-    // 6) Helper: build sample config
+    /**
+     * BLOCK: buildSampleConfig()
+     * PURPOSE: Provide sample provider config for testing.
+     * SAFE: comment only
+     */
     fun buildSampleConfig(): JSONObject {
         val obj = JSONObject()
         obj.put("default_provider", "openai")
@@ -123,7 +156,11 @@ object SecurityManager {
         return obj
     }
 
-    // 7) Danger reset: wipe config + IV
+    /**
+     * BLOCK: resetEncryption()
+     * PURPOSE: Wipe config.enc + IV + seed flag.
+     * SAFE: comment only
+     */
     fun resetEncryption(context: Context) {
         val file = File(context.filesDir, "config.enc")
         if (file.exists()) file.delete()
@@ -134,7 +171,11 @@ object SecurityManager {
             .apply()
     }
 
-    // 8) Hex helpers
+    /**
+     * BLOCK: Hex Helpers
+     * PURPOSE: Convert bytes ↔ hex strings.
+     * SAFE: comment only
+     */
     private fun ByteArray.toHex(): String {
         return joinToString("") { "%02x".format(it) }
     }
@@ -144,10 +185,44 @@ object SecurityManager {
         val data = ByteArray(len / 2)
         var i = 0
         while (i < len) {
-            data[i / 2] = ((Character.digit(this[i], 16) shl 4) +
-                    Character.digit(this[i + 1], 16)).toByte()
+            data[i / 2] = (
+                (Character.digit(this[i], 16) shl 4) +
+                Character.digit(this[i + 1], 16)
+            ).toByte()
             i += 2
         }
         return data
     }
 }
+
+/* ========================================================================
+   METADATA FOOTER — SecurityManager.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 10:56 AM EDT
+   utc_timestamp: 2026-07-06T14:56:00Z
+
+   ML TAGS
+   - ml_tags: ["crypto_engine", "seed_phrase", "aes_encryption", "godmode_core"]
+
+   BLUEPRINT SECTION
+   - section: "6.1 — SecurityManager.kt"
+
+   SECTION PURPOSE
+   - Implements seed phrase generation, AES key derivation, IV management.
+   - Encrypts/decrypts config.enc using AES‑CBC.
+   - Provides danger zone reset and sample config builder.
+
+   DEPENDENCIES
+   - uses: [
+       "SecurityActivity.kt",
+       "config.enc",
+       "app_settings SharedPreferences"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+*/
