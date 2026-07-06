@@ -1,24 +1,11 @@
-// bubblemodel.kt — v1.0.1
-
 package com.example.chatmultiapi
 
 import android.net.Uri
 
 /**
- * BubbleModel — Chat Bubble Data Model (v1)
- * -----------------------------------------
- * Pure data model for all chat bubble types.
- * Supports:
- * - text bubbles
- * - image bubbles
- * - metadata preview
- * - timestamp engine (local + utc)
- * - dependency + ml tag routing
- *
- * Notes:
- * - Legacy namespace preserved (no GodMode package usage)
- * - Blueprint metadata handled in footer only
- * - Class name remains capitalized (Kotlin requirement)
+ * BLOCK: BubbleModel
+ * PURPOSE: Pure data model for chat bubbles (text, image, metadata, timestamps).
+ * SAFE: comment only
  */
 data class BubbleModel(
 
@@ -37,32 +24,34 @@ data class BubbleModel(
     val mlTags: List<String>        // classification + routing
 )
 
-/*
-================================================================================
-METADATA :: GODMODE :: chatmultiapi
-section: 2.3 bubblemodel.kt (chat ui — data model)
-version: 1.0.1
-origin: bubblemodel.kt
-mode: embedded editor mode
+/* ========================================================================
+   METADATA FOOTER — BubbleModel.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 11:04 AM EDT
+   utc_timestamp: 2026-07-06T15:04:00Z
 
-dependencies:
-- item_bubble.xml
-- bubbleadapter.kt
-- chatactivity.kt
+   ML TAGS
+   - ml_tags: ["data_model", "chat_bubble", "timestamp_engine", "metadata_system", "godmode_core"]
 
-blueprint:
-- data_model_core
-- bubble_structure
-- timestamp_fields
-- metadata_system
-- v1_ruleset
+   BLUEPRINT SECTION
+   - section: "2.3 — BubbleModel.kt"
 
-ml tags:
-- data_model
-- chat_bubble
-- timestamp_engine
-- metadata_system
-- godmode_core
+   SECTION PURPOSE
+   - Defines unified bubble structure for chat UI.
+   - Supports text, image, metadata preview, timestamps, and ML routing tags.
+   - Used by BubbleAdapter, ChatActivity, and timestamp engine.
 
-end of file :: godmode :: chatmultiapi
-================================================================================
+   DEPENDENCIES
+   - uses: [
+       "item_bubble.xml",
+       "BubbleAdapter.kt",
+       "ChatActivity.kt"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+*/
