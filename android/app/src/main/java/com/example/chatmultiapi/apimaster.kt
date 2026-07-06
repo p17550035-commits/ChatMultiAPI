@@ -2,6 +2,8 @@ package com.example.chatmultiapi
 
 import android.net.Uri
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import java.io.File
 
@@ -80,10 +82,11 @@ object ApiMaster {
             }
         }
 
-        val body = RequestBody.create(
-            MediaType.parse("application/json"),
-            json.toString()
-        )
+        // -----------------------------
+        // OkHttp 4.x FIXED BODY CREATION
+        // -----------------------------
+        val mediaType = "application/json".toMediaType()
+        val body = json.toString().toRequestBody(mediaType)
 
         // BLOCK: Build request with provider-specific headers
         val request = Request.Builder()
@@ -107,7 +110,7 @@ object ApiMaster {
 
         return try {
             val response = client.newCall(request).execute()
-            response.body()?.string() ?: "$provider Error: Empty response"
+            response.body?.string() ?: "$provider Error: Empty response"
         } catch (e: Exception) {
             "$provider Error: ${e.message}"
         }
@@ -131,13 +134,15 @@ object ApiMaster {
 
         val file = File(uri.path ?: return)
 
+        // -----------------------------
+        // OkHttp 4.x FIXED FILE BODY
+        // -----------------------------
+        val fileMediaType = "application/octet-stream".toMediaType()
+        val fileBody = file.readBytes().toRequestBody(fileMediaType)
+
         val body = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
-            .addFormDataPart(
-                "file",
-                file.name,
-                RequestBody.create(MediaType.parse("application/octet-stream"), file)
-            )
+            .addFormDataPart("file", file.name, fileBody)
             .build()
 
         // BLOCK: Build request with provider-specific headers
@@ -161,12 +166,13 @@ object ApiMaster {
 
         try {
             val response = client.newCall(request).execute()
-            println("$provider File Upload Response: ${response.body()?.string()}")
+            println("$provider File Upload Response: ${response.body?.string()}")
         } catch (e: Exception) {
             println("$provider File Upload Error: ${e.message}")
         }
     }
 }
+
 /*
  ========================================================================
    METADATA FOOTER — ApiMaster.kt
@@ -175,7 +181,7 @@ object ApiMaster {
    utc_timestamp: 2026-07-06T14:59:00Z
 
    ML TAGS
-   - ml_tags: ["api_engine", "provider_bridge", "http_client", "godmode_core"]
+   - ml_tags: ["api_engine", "provider_bridge", "http_client"]
 
    BLUEPRINT SECTION
    - section: "3.2 — ApiMaster.kt"
@@ -184,6 +190,7 @@ object ApiMaster {
    - Unified API engine for all providers (OpenAI, Groq, Anthropic, NVIDIA, LM Studio, custom).
    - Handles text requests and file uploads.
    - Applies provider-specific headers and JSON formats.
+   - Updated for OkHttp 4.x compatibility.
 
    DEPENDENCIES
    - uses: [
@@ -196,7 +203,6 @@ object ApiMaster {
    NOTES
    - Fully regenerated to restore conformity.
    - Non-executable metadata footer.
-   - Safe for copy/paste.
    ========================================================================
-   END OF FILE :: CHATMULTIAPI :: GODMODE
+   END OF FILE :: CHATMULTIAPI
 */
