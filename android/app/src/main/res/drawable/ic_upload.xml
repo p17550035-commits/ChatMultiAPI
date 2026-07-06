@@ -11,19 +11,19 @@
     android:viewportWidth="24"
     android:viewportHeight="24">
     <path
-        android:fillColor="@color/neonAccent"
-        android:pathData="M5,20h14v-2H5v2zM12,2l-5.5,5.5 1.41,1.41L11,6.83V16h2V6.83l3.09,3.09 1.41,-1.41L12,2z"/>
+        android:fillColor="@color/neon_accent"
+        android:pathData="M5,20h14v-2H5v2zm7,-18l-5,5h3v6h4v-6h3l-5,-5z"/>
 </vector>
 
 <!-- ========================================================================
    METADATA FOOTER — ic_upload.xml
-   version: 1.0.0
+   version: 1.0.1
    local_timestamp: <fill>
    utc_timestamp: <fill>
 
    ml_tags: ["icon", "upload", "godmode_core"]
    blueprint_section: "UI / Dev Toolbar"
-   dependencies: ["neonAccent"]
+   dependencies: ["neon_accent"]
 
    END OF FILE :: CHATMULTIAPI :: GODMODE
 ========================================================================= -->
