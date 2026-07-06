@@ -1,0 +1,21 @@
+<!--  
+============================================================
+# BLOCK: neonPanel
+# PURPOSE: Panel background color for GodMode UI
+# SAFE: comment only
+============================================================
+-->
+<color name="neonPanel">#14141C</color>
+
+<!-- ========================================================================
+   METADATA FOOTER — neonPanel.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["color", "panel", "godmode_core"]
+   blueprint_section: "UI Theme / Neon Layer"
+   dependencies: []
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
