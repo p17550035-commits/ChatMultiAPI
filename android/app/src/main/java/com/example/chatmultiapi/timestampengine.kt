@@ -1,6 +1,6 @@
 // timestampengine.kt — v1.0.0
 
-package com.chatmultiapi.godmode.engine
+package com.example.chatmultiapi.engine
 
 import java.time.ZoneId
 import java.time.ZonedDateTime
