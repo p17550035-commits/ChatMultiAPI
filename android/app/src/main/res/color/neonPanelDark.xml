@@ -1,0 +1,21 @@
+<!--  
+============================================================
+# BLOCK: neonPanelDark
+# PURPOSE: Darker panel variant for depth layering
+# SAFE: comment only
+============================================================
+-->
+<color name="neonPanelDark">#0F0F15</color>
+
+<!-- ========================================================================
+   METADATA FOOTER — neonPanelDark.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["color", "panel_dark", "godmode_core"]
+   blueprint_section: "UI Theme / Neon Layer"
+   dependencies: []
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
