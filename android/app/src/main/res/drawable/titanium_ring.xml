@@ -1,12 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- BLOCK: Titanium Sweep Gradient -->
+    <!-- PURPOSE: Creates circular anodized titanium rainbow ring -->
+    <!-- SAFE: comment only -->
     <gradient
         android:type="sweep"
         android:startColor="#7B2CBF"
         android:centerColor="#4A8FE7"
         android:endColor="#3DDC84" />
+
+    <!-- BLOCK: Titanium Gold Stroke -->
+    <!-- PURPOSE: Gold metallic outer ring highlight -->
+    <!-- SAFE: comment only -->
     <stroke
         android:width="3dp"
         android:color="#FFD700" />
+
+    <!-- BLOCK: Circular Radius -->
+    <!-- PURPOSE: Forces perfect circle for avatar ring -->
+    <!-- SAFE: comment only -->
     <corners android:radius="999dp" />
+
 </shape>
+
+<!--
+============================================================
+# METADATA FOOTER — titanium_ring.xml
+- version: 1.0.0
+- local_timestamp: 07/06/2026 09:52 AM EDT
+- utc_timestamp: 2026-07-06T13:52:00Z
+
+# ML TAGS
+- ml_tags: ["drawable", "titanium_theme", "avatar_ring", "ui_accent"]
+
+# BLUEPRINT SECTION
+- section: "2.1 — activity_chat.xml (Drawable Assets)"
+
+# SECTION PURPOSE
+- Defines the anodized titanium ring used for avatar and circular UI elements.
+- Provides metallic rainbow sweep effect consistent with GodMode’s titanium aesthetic.
+- Supports neon magenta + rainbow titanium theme across ChatMultiAPI.
+
+# DEPENDENCIES
+- uses: [
+    "activity_chat.xml",
+    "faceAvatar",
+    "titanium_button.xml",
+    "titanium_border.xml"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- Matches GodMode full-file regeneration rules.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
