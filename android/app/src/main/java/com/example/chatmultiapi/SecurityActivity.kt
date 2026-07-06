@@ -8,9 +8,17 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
+/**
+ * BLOCK: SecurityActivity
+ * PURPOSE: Seed phrase generation, encrypted config backup/restore, and danger zone actions.
+ * SAFE: comment only
+ */
 class SecurityActivity : AppCompatActivity() {
 
-    // SharedPreferences for UI mode
+    /** BLOCK: SharedPreferences
+     *  PURPOSE: Store critical UI mode (light/dark)
+     *  SAFE: comment only
+     */
     private lateinit var prefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,10 +27,10 @@ class SecurityActivity : AppCompatActivity() {
 
         prefs = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
-        // Apply UI mode immediately
+        // BLOCK: Apply UI Mode
         applyUiMode()
 
-        // Seed phrase section
+        // BLOCK: Seed Phrase Section
         val seedPhraseText = findViewById<TextView>(R.id.seedPhraseText)
         val generateSeedBtn = findViewById<Button>(R.id.generateSeedBtn)
 
@@ -31,26 +39,30 @@ class SecurityActivity : AppCompatActivity() {
             seedPhraseText.text = seed
         }
 
-        // Backup section
+        // BLOCK: Backup Section
         val backupBtn = findViewById<Button>(R.id.backupBtn)
         backupBtn.setOnClickListener {
             SecurityManager.backupEncryptedConfig(this)
         }
 
-        // Restore section
+        // BLOCK: Restore Section
         val restoreBtn = findViewById<Button>(R.id.restoreBtn)
         restoreBtn.setOnClickListener {
             SecurityManager.restoreEncryptedConfig(this)
         }
 
-        // Danger zone section
+        // BLOCK: Danger Zone
         val wipeBtn = findViewById<Button>(R.id.wipeEncryptionBtn)
         wipeBtn.setOnClickListener {
             SecurityManager.resetEncryption(this)
         }
     }
 
-    // Apply UI mode (light/dark)
+    /**
+     * BLOCK: applyUiMode()
+     * PURPOSE: Apply light/dark mode for security panel
+     * SAFE: comment only
+     */
     private fun applyUiMode() {
         val mode = prefs.getString("critical_ui_mode", "light")
 
@@ -65,3 +77,35 @@ class SecurityActivity : AppCompatActivity() {
         }
     }
 }
+
+/* ========================================================================
+   METADATA FOOTER — SecurityActivity.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 10:54 AM EDT
+   utc_timestamp: 2026-07-06T14:54:00Z
+
+   ML TAGS
+   - ml_tags: ["security_ui", "seed_phrase", "encrypted_backup", "godmode_core"]
+
+   BLUEPRINT SECTION
+   - section: "6.0 — SecurityActivity.kt"
+
+   SECTION PURPOSE
+   - Handles seed phrase generation, encrypted config backup/restore, and wipe actions.
+   - Controls critical UI mode (light/dark) for the security panel.
+   - Interfaces directly with activity_security.xml.
+
+   DEPENDENCIES
+   - uses: [
+       "SecurityManager.kt",
+       "activity_security.xml",
+       "app_settings SharedPreferences"
+     ]
+
+   NOTES
+   - Fully regenerated to restore conformity.
+   - Non-executable metadata footer.
+   - Safe for copy/paste.
+   ========================================================================
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+*/
