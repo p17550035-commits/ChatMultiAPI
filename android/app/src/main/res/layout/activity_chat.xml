@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/chatRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/neonBackground">
 
-    <!-- ========================================================= -->
-    <!-- DEV TOOLBAR (Provider, Model, Upload, Share, Bluetooth)   -->
-    <!-- ========================================================= -->
+    <!-- BLOCK: Dev Toolbar -->
+    <!-- PURPOSE: Provider/model selection + upload/share/Bluetooth/push-pull/settings -->
+    <!-- SAFE: comment only -->
     <LinearLayout
         android:id="@+id/devToolbar"
         android:layout_width="match_parent"
@@ -80,9 +81,9 @@
 
     </LinearLayout>
 
-    <!-- ========================================================= -->
-    <!-- HORIZONTAL UPLOAD STRIP                                   -->
-    <!-- ========================================================= -->
+    <!-- BLOCK: Upload Strip -->
+    <!-- PURPOSE: Horizontal scroll of attached files -->
+    <!-- SAFE: comment only -->
     <HorizontalScrollView
         android:id="@+id/uploadStrip"
         android:layout_width="match_parent"
@@ -99,9 +100,9 @@
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
-    <!-- ========================================================= -->
-    <!-- CHAT RECYCLER VIEW                                        -->
-    <!-- ========================================================= -->
+    <!-- BLOCK: Chat Recycler -->
+    <!-- PURPOSE: Displays chat bubbles -->
+    <!-- SAFE: comment only -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecycler"
         android:layout_width="match_parent"
@@ -111,9 +112,9 @@
         android:padding="8dp"
         android:background="@color/neonBackground" />
 
-    <!-- ========================================================= -->
-    <!-- INPUT BAR                                                  -->
-    <!-- ========================================================= -->
+    <!-- BLOCK: Input Bar -->
+    <!-- PURPOSE: Chat input + attach + send -->
+    <!-- SAFE: comment only -->
     <LinearLayout
         android:id="@+id/chatInputRow"
         android:layout_width="match_parent"
@@ -153,9 +154,9 @@
             android:contentDescription="Send" />
     </LinearLayout>
 
-    <!-- ========================================================= -->
-    <!-- MINI TERMINAL OVERLAY                                     -->
-    <!-- ========================================================= -->
+    <!-- BLOCK: Mini Terminal -->
+    <!-- PURPOSE: Slide-up terminal overlay for logs + commands -->
+    <!-- SAFE: comment only -->
     <LinearLayout
         android:id="@+id/miniTerminalPanel"
         android:layout_width="match_parent"
@@ -213,34 +214,39 @@
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-<!-- 
-================================================================================
-METADATA :: GODMODE :: ChatMultiAPI
-Generated (Local): 07-03-2026 @ 04:48 EDT
-Generated (UTC Stored): 2026-07-03T08:48:00Z
-Version: 1.0.1
-Origin: activity_chat.xml
-Mode: Embedded Editor Mode
+<!--
+============================================================
+# METADATA FOOTER — activity_chat.xml
+- version: 1.0.0
+- local_timestamp: 07/06/2026 10:01 AM EDT
+- utc_timestamp: 2026-07-06T14:01:00Z
 
-Dependencies:
-- ChatActivity.kt
-- BubbleAdapter.kt
-- BubbleModel.kt
-- DevToolbarController.kt
-- MiniTerminalController.kt
-- UploadStripController.kt
-- ProviderRouter.kt
-- ApiMaster.kt
+# ML TAGS
+- ml_tags: ["ui_layout", "chat_screen", "neon_theme", "dev_toolbar", "terminal_overlay", "godmode_core"]
 
-ML Tags:
-- ui_layout
-- chat_screen
-- neon_theme
-- dev_toolbar
-- terminal_overlay
-- godmode_core
+# BLUEPRINT SECTION
+- section: "2.1 — activity_chat.xml"
 
-GOD MODE™ — Born July 3rd, 2026
-================================================================================
-END OF FILE :: GODMODE :: ChatMultiAPI
+# SECTION PURPOSE
+- Defines the main chat UI including dev toolbar, upload strip, chat bubbles, input bar, and mini terminal.
+- Serves as the primary interface for GodMode’s chat, dev tools, and backend routing.
+
+# DEPENDENCIES
+- uses: [
+    "ChatActivity.kt",
+    "BubbleAdapter.kt",
+    "BubbleModel.kt",
+    "DevToolbarController.kt",
+    "MiniTerminalController.kt",
+    "UploadStripController.kt",
+    "ProviderRouter.kt",
+    "ApiMaster.kt"
+]
+
+# NOTES
+- Fully regenerated to remove drift and restore conformity.
+- Non-executable metadata footer.
+- Safe for copy/paste.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
 -->
