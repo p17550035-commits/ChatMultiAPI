@@ -16,10 +16,15 @@ import androidx.core.content.ContextCompat
 class SecurityActivity : AppCompatActivity() {
 
     /** BLOCK: SharedPreferences
-     *  PURPOSE: Store critical UI mode (light/dark)
+     *  PURPOSE: Store critical UI mode (light/dark) + seed phrase persistence
      *  SAFE: comment only
      */
     private lateinit var prefs: SharedPreferences
+
+    /** BLOCK: Seed Phrase
+     *  PURPOSE: Permanent root key for encryption/decryption
+     */
+    private lateinit var seedPhrase: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +35,42 @@ class SecurityActivity : AppCompatActivity() {
         // BLOCK: Apply UI Mode
         applyUiMode()
 
+        // ------------------------------------------------------------
+        // BLOCK: Initialize Seed Phrase (permanent + safe)
+        // ------------------------------------------------------------
+        val securityPrefs = getSharedPreferences("security_prefs", MODE_PRIVATE)
+
+        seedPhrase = if (securityPrefs.getBoolean("seed_phrase_saved", false)) {
+            // Load previously saved seed phrase
+            securityPrefs.getString("seed_phrase", "") ?: SecurityManager.generateSeedPhrase()
+        } else {
+            // First-time setup → generate new seed phrase
+            val newSeed = SecurityManager.generateSeedPhrase()
+            securityPrefs.edit()
+                .putBoolean("seed_phrase_saved", true)
+                .putString("seed_phrase", newSeed)
+                .apply()
+            newSeed
+        }
+
         // BLOCK: Seed Phrase Section
         val seedPhraseText = findViewById<TextView>(R.id.seedPhraseText)
         val generateSeedBtn = findViewById<Button>(R.id.generateSeedBtn)
 
+        // Display current seed phrase
+        seedPhraseText.text = seedPhrase
+
         generateSeedBtn.setOnClickListener {
-            val seed = SecurityManager.generateSeedPhrase()
-            seedPhraseText.text = seed
+            val newSeed = SecurityManager.generateSeedPhrase()
+            seedPhrase = newSeed
+
+            // Persist new seed
+            securityPrefs.edit()
+                .putBoolean("seed_phrase_saved", true)
+                .putString("seed_phrase", newSeed)
+                .apply()
+
+            seedPhraseText.text = newSeed
         }
 
         // BLOCK: Backup Section
@@ -48,13 +82,24 @@ class SecurityActivity : AppCompatActivity() {
         // BLOCK: Restore Section
         val restoreBtn = findViewById<Button>(R.id.restoreBtn)
         restoreBtn.setOnClickListener {
-            SecurityManager.restoreEncryptedConfig(this)
+            SecurityManager.restoreEncryptedConfig(this, seedPhrase)
         }
 
         // BLOCK: Danger Zone
         val wipeBtn = findViewById<Button>(R.id.wipeEncryptionBtn)
         wipeBtn.setOnClickListener {
             SecurityManager.resetEncryption(this)
+
+            // Reset seed phrase after wipe
+            val newSeed = SecurityManager.generateSeedPhrase()
+            seedPhrase = newSeed
+
+            securityPrefs.edit()
+                .putBoolean("seed_phrase_saved", true)
+                .putString("seed_phrase", newSeed)
+                .apply()
+
+            seedPhraseText.text = newSeed
         }
     }
 
@@ -85,7 +130,7 @@ class SecurityActivity : AppCompatActivity() {
    utc_timestamp: 2026-07-06T14:54:00Z
 
    ML TAGS
-   - ml_tags: ["security_ui", "seed_phrase", "encrypted_backup", "godmode_core"]
+   - ml_tags: ["security_ui", "seed_phrase", "encrypted_backup"]
 
    BLUEPRINT SECTION
    - section: "6.0 — SecurityActivity.kt"
@@ -107,5 +152,5 @@ class SecurityActivity : AppCompatActivity() {
    - Non-executable metadata footer.
    - Safe for copy/paste.
    ========================================================================
-   END OF FILE :: CHATMULTIAPI :: GODMODE
+   END OF FILE :: CHATMULTIAPI
 */
