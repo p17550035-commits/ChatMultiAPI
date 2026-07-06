@@ -31,20 +31,10 @@ object SecurityManager {
         "matrix","orbit","signal","turbo","vertex","zenith","nova","fusion"
     )
 
-    /**
-     * BLOCK: getPrefs()
-     * PURPOSE: Access SharedPreferences for security metadata.
-     * SAFE: comment only
-     */
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    /**
-     * BLOCK: generateSeedPhrase()
-     * PURPOSE: Generate 12‑word seed phrase from wordList.
-     * SAFE: comment only
-     */
     fun generateSeedPhrase(): String {
         val rnd = SecureRandom()
         val words = mutableListOf<String>()
@@ -55,11 +45,6 @@ object SecurityManager {
         return words.joinToString(" ")
     }
 
-    /**
-     * BLOCK: deriveKeyFromSeed()
-     * PURPOSE: PBKDF2 → AES‑256 key derivation from seed phrase.
-     * SAFE: comment only
-     */
     private fun deriveKeyFromSeed(seedPhrase: String): SecretKeySpec {
         val factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
         val spec = PBEKeySpec(
@@ -73,11 +58,6 @@ object SecurityManager {
         return SecretKeySpec(keyBytes, "AES")
     }
 
-    /**
-     * BLOCK: getOrCreateIv()
-     * PURPOSE: Retrieve or generate AES IV (16 bytes).
-     * SAFE: comment only
-     */
     private fun getOrCreateIv(context: Context): IvParameterSpec {
         val prefs = getPrefs(context)
         val existing = prefs.getString(KEY_IV, null)
@@ -92,11 +72,6 @@ object SecurityManager {
         }
     }
 
-    /**
-     * BLOCK: encryptAndSaveConfig()
-     * PURPOSE: AES‑CBC encrypt config JSON → save to config.enc.
-     * SAFE: comment only
-     */
     fun encryptAndSaveConfig(context: Context, seedPhrase: String, configJson: JSONObject) {
         val key = deriveKeyFromSeed(seedPhrase)
         val iv = getOrCreateIv(context)
@@ -113,11 +88,6 @@ object SecurityManager {
             .apply()
     }
 
-    /**
-     * BLOCK: loadAndDecryptConfig()
-     * PURPOSE: AES‑CBC decrypt config.enc → return JSON.
-     * SAFE: comment only
-     */
     fun loadAndDecryptConfig(context: Context, seedPhrase: String): JSONObject? {
         val file = File(context.filesDir, "config.enc")
         if (!file.exists()) return null
@@ -135,11 +105,6 @@ object SecurityManager {
         return JSONObject(text)
     }
 
-    /**
-     * BLOCK: buildSampleConfig()
-     * PURPOSE: Provide sample provider config for testing.
-     * SAFE: comment only
-     */
     fun buildSampleConfig(): JSONObject {
         val obj = JSONObject()
         obj.put("default_provider", "openai")
@@ -156,11 +121,6 @@ object SecurityManager {
         return obj
     }
 
-    /**
-     * BLOCK: resetEncryption()
-     * PURPOSE: Wipe config.enc + IV + seed flag.
-     * SAFE: comment only
-     */
     fun resetEncryption(context: Context) {
         val file = File(context.filesDir, "config.enc")
         if (file.exists()) file.delete()
@@ -172,10 +132,33 @@ object SecurityManager {
     }
 
     /**
-     * BLOCK: Hex Helpers
-     * PURPOSE: Convert bytes ↔ hex strings.
+     * BLOCK: backupEncryptedConfig()
+     * PURPOSE: Copy config.enc → config.bak (raw encrypted backup).
      * SAFE: comment only
      */
+    fun backupEncryptedConfig(context: Context) {
+        val src = File(context.filesDir, "config.enc")
+        if (!src.exists()) return
+
+        val dst = File(context.filesDir, "config.bak")
+        dst.writeBytes(src.readBytes())
+    }
+
+    /**
+     * BLOCK: restoreEncryptedConfig()
+     * PURPOSE: Copy config.bak → config.enc and decrypt using seedPhrase.
+     * SAFE: comment only
+     */
+    fun restoreEncryptedConfig(context: Context, seedPhrase: String): JSONObject? {
+        val bak = File(context.filesDir, "config.bak")
+        if (!bak.exists()) return null
+
+        val dst = File(context.filesDir, "config.enc")
+        dst.writeBytes(bak.readBytes())
+
+        return loadAndDecryptConfig(context, seedPhrase)
+    }
+
     private fun ByteArray.toHex(): String {
         return joinToString("") { "%02x".format(it) }
     }
@@ -202,7 +185,7 @@ object SecurityManager {
    utc_timestamp: 2026-07-06T14:56:00Z
 
    ML TAGS
-   - ml_tags: ["crypto_engine", "seed_phrase", "aes_encryption", "godmode_core"]
+   - ml_tags: ["crypto_engine", "seed_phrase", "aes_encryption"]
 
    BLUEPRINT SECTION
    - section: "6.1 — SecurityManager.kt"
@@ -210,19 +193,19 @@ object SecurityManager {
    SECTION PURPOSE
    - Implements seed phrase generation, AES key derivation, IV management.
    - Encrypts/decrypts config.enc using AES‑CBC.
-   - Provides danger zone reset and sample config builder.
+   - Provides backup/restore helpers for encrypted config.
 
    DEPENDENCIES
    - uses: [
        "SecurityActivity.kt",
        "config.enc",
+       "config.bak",
        "app_settings SharedPreferences"
      ]
 
    NOTES
    - Fully regenerated to restore conformity.
    - Non-executable metadata footer.
-   - Safe for copy/paste.
    ========================================================================
-   END OF FILE :: CHATMULTIAPI :: GODMODE
+   END OF FILE :: CHATMULTIAPI
 */
