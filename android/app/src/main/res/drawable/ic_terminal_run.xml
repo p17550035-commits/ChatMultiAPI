@@ -1,0 +1,29 @@
+<!--  
+============================================================
+# BLOCK: ic_terminal_run
+# PURPOSE: Run command icon for MiniTerminalController
+# SAFE: comment only
+============================================================
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/neonAccent"
+        android:pathData="M8,5v14l11,-7z"/>
+</vector>
+
+<!-- ========================================================================
+   METADATA FOOTER — ic_terminal_run.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["icon", "terminal", "run", "godmode_core"]
+   blueprint_section: "MiniTerminalController / UI"
+   dependencies: ["neonAccent"]
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
