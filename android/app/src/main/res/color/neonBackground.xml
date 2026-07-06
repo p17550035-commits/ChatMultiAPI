@@ -1,0 +1,21 @@
+<!--  
+============================================================
+# BLOCK: neonBackground
+# PURPOSE: Global background color for GodMode UI
+# SAFE: comment only
+============================================================
+-->
+<color name="neonBackground">#0A0A0F</color>
+
+<!-- ========================================================================
+   METADATA FOOTER — neonBackground.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["color", "ui_theme", "godmode_core"]
+   blueprint_section: "UI Theme / Neon Layer"
+   dependencies: []
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
