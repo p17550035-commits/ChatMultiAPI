@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="8dp"
+    android:background="#000000">
+
+    <!-- Avatar -->
+    <ImageView
+        android:id="@+id/faceAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:src="@mipmap/ic_launcher"
+        android:background="@drawable/titanium_ring"
+        android:scaleType="centerCrop" />
+
+    <!-- Chat -->
+    <ImageButton
+        android:id="@+id/btnChat"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/titanium_button"
+        android:src="@android:drawable/ic_menu_view"
+        android:tint="#FFFFFF"
+        android:contentDescription="Chat" />
+
+    <!-- Projects -->
+    <ImageButton
+        android:id="@+id/btnProjects"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/titanium_button"
+        android:src="@android:drawable/ic_menu_agenda"
+        android:tint="#FFFFFF"
+        android:contentDescription="Projects" />
+
+    <!-- Terminal (placeholder) -->
+    <ImageButton
+        android:id="@+id/btnTerminal"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/titanium_button"
+        android:src="@android:drawable/ic_menu_manage"
+        android:tint="#FFFFFF"
+        android:contentDescription="Terminal" />
+
+    <!-- API -->
+    <ImageButton
+        android:id="@+id/btnAPI"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/titanium_button"
+        android:src="@android:drawable/ic_menu_info_details"
+        android:tint="#FFFFFF"
+        android:contentDescription="API" />
+
+    <!-- Security -->
+    <ImageButton
+        android:id="@+id/btnSecurity"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/titanium_button"
+        android:src="@android:drawable/ic_lock_lock"
+        android:tint="#FFFFFF"
+        android:contentDescription="Security" />
+
+    <!-- Settings -->
+    <ImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/titanium_button"
+        android:src="@android:drawable/ic_menu_preferences"
+        android:tint="#FFFFFF"
+        android:contentDescription="Settings" />
+
+</LinearLayout>
+
+<!--
+============================================================
+# METADATA FOOTER — top_bar.xml
+- version: 1.0.0
+- local_timestamp: 07/07/2026 06:13 AM EDT
+- utc_timestamp: 2026-07-07T10:13:00Z
+
+# ML TAGS
+- ml_tags: ["titanium_top_bar", "ui_include", "navigation_bar", "global_header"]
+
+# SECTION PURPOSE
+- Reusable titanium top bar for all Activities.
+- Provides navigation to Chat, Projects, Terminal, API, Security, Settings.
+- Ensures uniform UI across entire app.
+
+# NOTES
+- Terminal button is placeholder until full terminal module is implemented.
+- Safe for copy/paste.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
