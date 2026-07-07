@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ic_launcher_background"/>
+    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+</adaptive-icon>
+
+<!-- ========================================================================
+     METADATA FOOTER — ic_launcher.xml
+     version: 1.0.0
+     local_timestamp: 07/06/2026 08:06 PM EDT
+     utc_timestamp: 2026-07-07T00:06:00Z
+
+     ML TAGS
+     - ml_tags: ["adaptive_icon", "launcher_icon", "android_required"]
+
+     SECTION PURPOSE
+     - Defines adaptive launcher icon for modern Android.
+
+     NOTES
+     - Minimal, functional, required for Android 8+.
+     ========================================================================
+     END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
