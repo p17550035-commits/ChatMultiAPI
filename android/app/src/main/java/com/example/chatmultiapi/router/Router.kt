@@ -29,8 +29,9 @@ import com.chatmultiapi.projects.ProjectsActivity
 import com.chatmultiapi.chat.ChatActivity
 
 
+
 // ============================================================================
-// CLUSTER A — MODULE-LOCAL WIRING (3-SEGMENT BUNDLES)
+// CLUSTER A — MODULE-LOCAL WIRING (POLISHED)
 // ============================================================================
 // Each module has EXACTLY 3 segments:
 // (XML) → (Frontend) → (Backend)
@@ -39,22 +40,23 @@ import com.chatmultiapi.chat.ChatActivity
 // ============================================================================
 
 /*
+=========================
 MODULE 1 — SECURITY (Segments 1–3)
-----------------------------------
-(1) activity_security.xml  → UI skin
-(2) SecurityActivity.kt    → UI logic
-(3) SecurityManager.kt     → backend engine
+=========================
+(1) activity_security.xml  — XML skin
+(2) SecurityActivity.kt    — UI logic
+(3) SecurityManager.kt     — backend engine
 
 Internal Wiring:
 • (2) inflates (1)
 • (2) listens for UI events
-• (2) calls (3) for logic
+• (2) calls (3)
 • (3) returns results to (2)
 • (2) updates (1)
-----------------------------------
+-------------------------
 
 MODULE 2 — API (Segments 4–6)
-----------------------------------
+=========================
 (4) activity_api.xml
 (5) APIActivity.kt
 (6) APIManager.kt
@@ -63,10 +65,10 @@ Internal Wiring:
 • (5) inflates (4)
 • (5) calls (6)
 • (6) powers API logic
-----------------------------------
+-------------------------
 
 MODULE 3 — TERMINAL (Segments 7–9)
-----------------------------------
+=========================
 (7) activity_terminal.xml
 (8) TerminalActivity.kt
 (9) TerminalManager.kt
@@ -75,10 +77,10 @@ Internal Wiring:
 • (8) inflates (7)
 • (8) calls (9)
 • (9) handles terminal engine
-----------------------------------
+-------------------------
 
 MODULE 4 — PROJECTS (Segments 10–12)
-----------------------------------
+=========================
 (10) activity_projects.xml
 (11) ProjectsActivity.kt
 (12) ProjectsManager.kt
@@ -86,10 +88,10 @@ MODULE 4 — PROJECTS (Segments 10–12)
 Internal Wiring:
 • (11) inflates (10)
 • (11) calls (12)
-----------------------------------
+-------------------------
 
 MODULE 5 — CHAT (Segments 13–15)
-----------------------------------
+=========================
 (13) activity_chat.xml
 (14) ChatActivity.kt
 (15) ChatManager.kt
@@ -97,12 +99,13 @@ MODULE 5 — CHAT (Segments 13–15)
 Internal Wiring:
 • (14) inflates (13)
 • (14) calls (15)
-----------------------------------
+-------------------------
 */
 
 
+
 // ============================================================================
-// CLUSTER B — CROSS-MODULE WIRING (INTER-MODULE CONNECTIONS)
+// CLUSTER B — CROSS-MODULE WIRING (POLISHED)
 // ============================================================================
 // These are NOT internal 3-segment bundles.
 // These are module-to-module connections.
@@ -110,8 +113,10 @@ Internal Wiring:
 // ============================================================================
 
 /*
+=========================
 CROSS-MODULE CONNECTIONS
--------------------------
+=========================
+
 Security → API
 • SecurityManager may call APIManager for remote operations.
 
@@ -130,6 +135,7 @@ Chat → Security
 */
 
 
+
 // ============================================================================
 // CLUSTER C — DEBUGGING MAP (SEGMENT → FILE → MODULE → LAYER)
 // ============================================================================
@@ -138,8 +144,10 @@ Chat → Security
 // ============================================================================
 
 /*
+=========================
 DEBUGGING MAP
--------------
+=========================
+
 Segment 1  → activity_security.xml   → Security → XML
 Segment 2  → SecurityActivity.kt     → Security → Frontend
 Segment 3  → SecurityManager.kt      → Security → Backend
@@ -159,8 +167,9 @@ Segment 12 → ProjectsManager.kt      → Projects → Backend
 Segment 13 → activity_chat.xml       → Chat → XML
 Segment 14 → ChatActivity.kt         → Chat → Frontend
 Segment 15 → ChatManager.kt          → Chat → Backend
--------------
+-------------------------
 */
+
 
 
 // ============================================================================
@@ -194,28 +203,33 @@ object Router {
 }
 
 
+
 // ============================================================================
 // CLUSTER E — ARCHITECTURE RULES (SEGMENTS + DEPENDENCIES)
 // ============================================================================
 
 /*
+=========================
 SEGMENT NUMBERING RULES
-------------------------
+=========================
 Module 1 → (1)(2)(3)
 Module 2 → (4)(5)(6)
 Module 3 → (7)(8)(9)
 Module 4 → (10)(11)(12)
 Module 5 → (13)(14)(15)
 
+=========================
 DEPENDENCY CHAINS
-------------------------
+=========================
 (Backend) ⇒ (Frontend) ⇒ (XML)
-(3) ⇒ (2) ⇒ (1)
-(6) ⇒ (5) ⇒ (4)
-(9) ⇒ (8) ⇒ (7)
+
+(3)  ⇒ (2)  ⇒ (1)
+(6)  ⇒ (5)  ⇒ (4)
+(9)  ⇒ (8)  ⇒ (7)
 (12) ⇒ (11) ⇒ (10)
 (15) ⇒ (14) ⇒ (13)
 */
+
 
 
 // ============================================================================
@@ -224,8 +238,8 @@ DEPENDENCY CHAINS
 
 /*
 Router.kt — Master Wiring Atlas
-Version: 3.0.0
-Generated: Tuesday, July 07, 2026 — 16:37 EDT
+Version: 3.1.0
+Generated: Tuesday, July 07, 2026 — 16:52 EDT
 Location: Reston, Virginia, United States
 User: Peter
 
