@@ -3,17 +3,20 @@
 
     <application
         android:label="ChatMultiAPI"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme">
 
         <!-- Crash Log Viewer Activity -->
         <activity
             android:name=".CrashLogActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme" />
 
         <!-- Main Launcher Activity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,20 +31,20 @@
 
 <!-- ========================================================================
      METADATA FOOTER — AndroidManifest.xml
-     version: 1.0.1
-     local_timestamp: 07/06/2026 07:45 PM EDT
-     utc_timestamp: 2026-07-06T23:45:00Z
+     version: 1.0.2
+     local_timestamp: 07/06/2026 08:41 PM EDT
+     utc_timestamp: 2026-07-07T00:41:00Z
 
      ML TAGS
-     - ml_tags: ["manifest", "crash_logger", "activity_registration"]
+     - ml_tags: ["manifest", "crash_logger", "activity_registration", "theme_fix"]
 
      SECTION PURPOSE
      - Registers CrashLogActivity for global crash diagnostics.
      - Maintains MainActivity as launcher.
-     - Minimal, functional, conformity-safe.
+     - Adds required AppTheme to prevent pre-launch crash.
 
      NOTES
-     - No theme required.
+     - AppTheme is minimal and safe.
      - No additional modules required.
      ========================================================================
      END OF FILE :: CHATMULTIAPI :: GODMODE
