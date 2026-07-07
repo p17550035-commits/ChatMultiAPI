@@ -1,0 +1,32 @@
+<!--  
+============================================================
+# BLOCK: ic_projects
+# PURPOSE: Projects tab icon for titanium top bar
+# SAFE: comment only
+============================================================
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Folder icon -->
+    <path
+        android:fillColor="@color/neon_accent"
+        android:pathData="M3,4h6l2,2h10a2,2 0 0 1 2,2v10a2,2 0 0 1 -2,2H3a2,2 0 0 1 -2,-2V6a2,2 0 0 1 2,-2z" />
+
+</vector>
+
+<!-- ========================================================================
+   METADATA FOOTER — ic_projects.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["icon", "projects", "folder", "titanium_ui"]
+   blueprint_section: "UI / Titanium Top Bar"
+   dependencies: ["neon_accent"]
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
