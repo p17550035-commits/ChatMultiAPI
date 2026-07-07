@@ -15,15 +15,21 @@ import android.content.Intent
 // • XML is the least important logic-wise
 // • XML is the first thing you visually see
 //
-// XML is ALWAYS Segment 1.
+// XML is ALWAYS Segment 1 for the FIRST module.
+// Future modules increment by +3:
+// Module 2 XML = Segment 4
+// Module 3 XML = Segment 7
+// Module 4 XML = Segment 10
+// etc.
+//
 // ============================================================================
 //
 // Examples:
 // (1) activity_security.xml
-// (1) activity_api.xml
-// (1) activity_terminal.xml
-// (1) activity_projects.xml
-// (1) activity_chat.xml
+// (4) activity_api.xml
+// (7) activity_terminal.xml
+// (10) activity_projects.xml
+// (13) activity_chat.xml
 //
 // ============================================================================
 
@@ -47,15 +53,21 @@ import android.content.Intent
 // • they translate UI events into backend calls
 // • they are the “UI brain” but not the “system brain”
 //
-// Frontend is ALWAYS Segment 2.
+// Frontend is ALWAYS Segment 2 for the FIRST module.
+// Future modules increment by +3:
+// Module 2 Frontend = Segment 5
+// Module 3 Frontend = Segment 8
+// Module 4 Frontend = Segment 11
+// etc.
+//
 // ============================================================================
 //
 // Examples:
 // (2) SecurityActivity.kt
-// (2) APIActivity.kt
-// (2) TerminalActivity.kt
-// (2) ProjectsActivity.kt
-// (2) ChatActivity.kt
+// (5) APIActivity.kt
+// (8) TerminalActivity.kt
+// (11) ProjectsActivity.kt
+// (14) ChatActivity.kt
 //
 // ============================================================================
 
@@ -79,15 +91,21 @@ import android.content.Intent
 // • backend is the engine
 // • backend is the deepest layer
 //
-// Backend is ALWAYS Segment 3.
+// Backend is ALWAYS Segment 3 for the FIRST module.
+// Future modules increment by +3:
+// Module 2 Backend = Segment 6
+// Module 3 Backend = Segment 9
+// Module 4 Backend = Segment 12
+// etc.
+//
 // ============================================================================
 //
 // Examples:
 // (3) SecurityManager.kt
-// (3) APIManager.kt
-// (3) TerminalManager.kt
-// (3) ProjectsManager.kt
-// (3) ChatManager.kt
+// (6) APIManager.kt
+// (9) TerminalManager.kt
+// (12) ProjectsManager.kt
+// (15) ChatManager.kt
 //
 // ============================================================================
 
@@ -162,9 +180,16 @@ object Router {
 // 1. VERTICAL (NORTH → SOUTH) — CODE SEGMENTS
 //    Code flows downward:
 //
-//        Segment 1 → XML (skin)
-//        Segment 2 → Frontend (UI logic)
-//        Segment 3 → Backend (engine)
+//        (1) XML
+//        (2) Frontend
+//        (3) Backend
+//
+//    Then increments by +3 for each module:
+//
+//        (4)(5)(6)  → API Module
+//        (7)(8)(9)  → Terminal Module
+//        (10)(11)(12) → Projects Module
+//        (13)(14)(15) → Chat Module
 //
 //    This is how humans READ and WRITE code.
 //
@@ -173,6 +198,10 @@ object Router {
 //    Dependencies flow sideways:
 //
 //        (3) Backend ⇒ (2) Frontend ⇒ (1) XML
+//        (6) Backend ⇒ (5) Frontend ⇒ (4) XML
+//        (9) Backend ⇒ (8) Frontend ⇒ (7) XML
+//        (12) Backend ⇒ (11) Frontend ⇒ (10) XML
+//        (15) Backend ⇒ (14) Frontend ⇒ (13) XML
 //
 //    This is how humans MAP relationships.
 //
@@ -199,7 +228,7 @@ object Router {
 //
 // Dependencies MUST be written in this EXACT format:
 //
-//    (3) Backend ==> (2) Frontend ==> (1) XML
+//    (Backend) ==> (Frontend) ==> (XML)
 //
 // Examples:
 //
@@ -207,16 +236,16 @@ object Router {
 //    (3) SecurityManager.kt ==> (2) SecurityActivity.kt ==> (1) activity_security.xml
 //
 // API Module:
-//    (3) APIManager.kt ==> (2) APIActivity.kt ==> (1) activity_api.xml
+//    (6) APIManager.kt ==> (5) APIActivity.kt ==> (4) activity_api.xml
 //
 // Terminal Module:
-//    (3) TerminalManager.kt ==> (2) TerminalActivity.kt ==> (1) activity_terminal.xml
+//    (9) TerminalManager.kt ==> (8) TerminalActivity.kt ==> (7) activity_terminal.xml
 //
 // Projects Module:
-//    (3) ProjectsManager.kt ==> (2) ProjectsActivity.kt ==> (1) activity_projects.xml
+//    (12) ProjectsManager.kt ==> (11) ProjectsActivity.kt ==> (10) activity_projects.xml
 //
 // Chat Module:
-//    (3) ChatManager.kt ==> (2) ChatActivity.kt ==> (1) activity_chat.xml
+//    (15) ChatManager.kt ==> (14) ChatActivity.kt ==> (13) activity_chat.xml
 //
 //
 // ---------------------------------------------------------------------------
@@ -236,8 +265,8 @@ object Router {
 // ============================================================================
 //
 // Router.kt — Central Wiring Hub
-// Version: 1.0.0
-// Generated: Tuesday, July 07, 2026 — 14:43 EDT
+// Version: 2.0.0
+// Generated: Tuesday, July 07, 2026 — 15:00 EDT
 // Location: Reston, Virginia, United States
 // User: Peter
 //
