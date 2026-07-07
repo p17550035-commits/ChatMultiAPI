@@ -55,6 +55,11 @@ android {
     }
 
     buildTypes {
+        // ⭐ ADDED: Force debug to use your keystore
+        debug {
+            signingConfig signingConfigs.release
+        }
+
         release {
             signingConfig signingConfigs.release
         }
