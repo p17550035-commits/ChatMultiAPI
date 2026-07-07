@@ -43,9 +43,9 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x android/gradlew
 
-    # ⭐ ADDED: Decode keystore before building
+    # ⭐ FIXED: Decode keystore in the correct folder (android/app)
     - name: Decode keystore
-      working-directory: android
+      working-directory: android/app
       run: |
         echo "$KEYSTORE_B64" | base64 --decode > my-release-key.jks
 
