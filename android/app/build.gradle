@@ -43,6 +43,22 @@ android {
             python.srcDir "src/main/python"
         }
     }
+
+    // ⭐ ADDED: Signing configuration for GitHub Actions
+    signingConfigs {
+        release {
+            storeFile file("my-release-key.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
 }
 
 chaquopy {
