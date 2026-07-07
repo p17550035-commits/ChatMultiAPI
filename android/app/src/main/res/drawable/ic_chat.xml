@@ -1,0 +1,32 @@
+<!--  
+============================================================
+# BLOCK: ic_chat
+# PURPOSE: Chat tab icon for titanium top bar
+# SAFE: comment only
+============================================================
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Speech bubble outline -->
+    <path
+        android:fillColor="@color/neon_accent"
+        android:pathData="M4,2h16a2,2 0 0 1 2,2v12a2,2 0 0 1 -2,2h-6l-4,4v-4H4a2,2 0 0 1 -2,-2V4a2,2 0 0 1 2,-2z" />
+
+</vector>
+
+<!-- ========================================================================
+   METADATA FOOTER — ic_chat.xml
+   version: 1.0.0
+   local_timestamp: <fill>
+   utc_timestamp: <fill>
+
+   ml_tags: ["icon", "chat", "speech_bubble", "godmode_core"]
+   blueprint_section: "UI / Titanium Top Bar"
+   dependencies: ["neon_accent"]
+
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
