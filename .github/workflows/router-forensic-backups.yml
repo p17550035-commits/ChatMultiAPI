@@ -1,0 +1,37 @@
+name: Router-Forensic-Backups
+
+on:
+  push:
+    paths:
+      - "android/app/src/main/java/com/example/chatmultiapi/router/Router.kt"
+    paths-ignore:
+      - "android/app/src/main/java/com/example/chatmultiapi/router/Router_backup.kt"
+
+  workflow_dispatch:
+
+jobs:
+  backup-router:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create forensic backup folder
+        run: |
+          mkdir -p ChatMultiAPI/backups/router
+
+      - name: Generate timestamp
+        id: ts
+        run: echo "timestamp=$(date +"%Y%m%d_%H%M%S")" >> $GITHUB_OUTPUT
+
+      - name: Create forensic backup of Router.kt
+        run: |
+          cp android/app/src/main/java/com/example/chatmultiapi/router/Router.kt \
+             ChatMultiAPI/backups/router/Router_${{ steps.ts.outputs.timestamp }}.kt
+
+      - name: Commit forensic backup
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Forensic backup of Router.kt at ${{ steps.ts.outputs.timestamp }}"
+          file_pattern: "ChatMultiAPI/backups/router/*.kt"
