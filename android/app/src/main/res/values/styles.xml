@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="@android:style/Theme.Material.Light" />
+</resources>
+
+<!-- ========================================================================
+     METADATA FOOTER — styles.xml
+     version: 1.0.0
+     local_timestamp: 07/06/2026 08:38 PM EDT
+     utc_timestamp: 2026-07-07T00:38:00Z
+
+     ML TAGS
+     - ml_tags: ["styles", "theme", "android_required"]
+
+     SECTION PURPOSE
+     - Defines the minimal theme required for Android to launch activities.
+     ========================================================================
+     END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
