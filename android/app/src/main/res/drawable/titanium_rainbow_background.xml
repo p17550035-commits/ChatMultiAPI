@@ -5,9 +5,9 @@
     <gradient
         android:type="linear"
         android:angle="0"
-        android:startColor="#FF00FF"   <!-- Magenta -->
-        android:centerColor="#8000FF"  <!-- Purple -->
-        android:endColor="#00FFFF"     <!-- Cyan -->
+        android:startColor="#FF00FF"
+        android:centerColor="#8000FF"
+        android:endColor="#00FFFF"
         android:useLevel="false" />
 
     <corners android:radius="0dp" />
