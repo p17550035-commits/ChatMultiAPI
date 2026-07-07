@@ -37,14 +37,14 @@ jobs:
         ln -s /opt/hostedtoolcache/Python/3.11.9/x86_64/bin/python3.11 /usr/local/bin/python3.11 || true
 
     - name: Grant execute permission for gradlew
-      run: chmod +x android/gradlew
+      run: chmod +x ChatMultiAPI/android/gradlew
 
     - name: Build APK (debug logging enabled)
-      working-directory: android
+      working-directory: ChatMultiAPI/android
       run: ./gradlew assembleDebug --debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: android/app/build/outputs/apk/**/*.apk
+        path: ChatMultiAPI/android/app/build/outputs/apk/**/*.apk
