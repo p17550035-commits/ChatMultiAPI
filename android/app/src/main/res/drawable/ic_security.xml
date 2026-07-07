@@ -1,0 +1,33 @@
+<!--  
+============================================================
+# BLOCK: ic_security
+# PURPOSE: Security tab icon for titanium top bar
+# SAFE: comment only
+============================================================
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Lock body -->
+    <path
+        android:fillColor="@color/neon_accent"
+        android:pathData="M6,10h12a2,2 0 0 1 2,2v8a2,2 0 0 1 -2,2H6a2,2 0 0 1 -2,-2v-8a2,2 0 0 1 2,-2z" />
+
+    <!-- Lock shackle -->
+    <path
+        android:fillColor="@color/neon_accent"
+        android:pathData="M12,2a4,4 0 0 1 4,4v4h-2V6a2,2 0 0 0 -4,0v4H8V6a4,4 0 0 1 4,-4z" />
+
+</vector>
+
+<!-- ========================================================================
+   METADATA FOOTER — ic_security.xml
+   version: 1.0.0
+   ml_tags: ["icon", "security", "lock", "titanium_ui"]
+   blueprint_section: "UI / Titanium Top Bar"
+   dependencies: ["neon_accent"]
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
