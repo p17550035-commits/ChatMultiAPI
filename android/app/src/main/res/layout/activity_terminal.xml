@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/terminalRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/titanium_rainbow_background">
+
+    <!-- BLOCK: Titanium Top Bar -->
+    <!-- PURPOSE: Chat, Projects, Terminal, API, Security, Settings -->
+    <!-- SAFE: comment only -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_margin="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnChat"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_view"
+            android:tint="#FFFFFF"
+            android:contentDescription="Chat" />
+
+        <ImageButton
+            android:id="@+id/btnProjects"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_agenda"
+            android:tint="#FFFFFF"
+            android:contentDescription="Projects" />
+
+        <ImageButton
+            android:id="@+id/btnTerminal"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_manage"
+            android:tint="#FFFFFF"
+            android:contentDescription="Terminal" />
+
+        <ImageButton
+            android:id="@+id/btnAPI"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:tint="#FFFFFF"
+            android:contentDescription="API" />
+
+        <ImageButton
+            android:id="@+id/btnSecurity"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_lock_lock"
+            android:tint="#FFFFFF"
+            android:contentDescription="Security" />
+
+        <ImageButton
+            android:id="@+id/btnSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:tint="#FFFFFF"
+            android:contentDescription="Settings" />
+    </LinearLayout>
+
+    <!-- BLOCK: Placeholder Terminal Label -->
+    <!-- PURPOSE: Temporary content until shell is implemented -->
+    <TextView
+        android:id="@+id/terminalPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terminal module placeholder.\nFull shell coming soon."
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+============================================================
+# METADATA FOOTER — activity_terminal.xml
+- version: 1.0.0
+- local_timestamp: 07/07/2026 09:19 AM EDT
+- utc_timestamp: 2026-07-07T13:19:00Z
+
+# ML TAGS
+- ml_tags: [
+    "terminal_ui",
+    "layout_spec",
+    "module_identity",
+    "titanium_rainbow",
+    "tab_navigation"
+]
+
+# BLUEPRINT SECTION
+- section: "5/10 — Terminal UI"
+
+# SECTION PURPOSE
+- Defines placeholder UI for terminal module.
+- Provides conformity with titanium top bar.
+- Temporary layout until full shell implementation is chosen.
+
+# DEPENDENCIES
+- uses: [
+    "TerminalActivity.kt",
+    "titanium_rainbow_background",
+    "titanium_button",
+    "titanium_button_active"
+]
+
+# NOTES
+- Non-executable metadata footer.
+- Safe for copy/paste.
+- No GodMode runtime logic.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
