@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<color xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#FFFFFF" />
+
+<!-- ========================================================================
+     METADATA FOOTER — ic_launcher_background.xml
+     version: 1.0.0
+     local_timestamp: 07/06/2026 08:06 PM EDT
+     utc_timestamp: 2026-07-07T00:06:00Z
+
+     ML TAGS
+     - ml_tags: ["launcher_background", "adaptive_icon"]
+
+     SECTION PURPOSE
+     - Background layer for adaptive launcher icon.
+
+     NOTES
+     - Solid white for minimal setup.
+     ========================================================================
+     END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
