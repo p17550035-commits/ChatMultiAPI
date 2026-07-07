@@ -4,142 +4,180 @@ import android.content.Context
 import android.content.Intent
 
 // ============================================================================
-// SEGMENT 1 — XML (MAKEUP LAYER)
+// ROUTER — CENTRAL WIRING BRAINSTEM
 // ============================================================================
-// XML is NOT logic. XML is NOT UI behavior. XML is NOT wiring.
-// XML is ONLY makeup: buttons, colors, icons, shapes, spacing, padding.
+// Router.kt contains ALL wiring clusters:
+// • Cluster A — Module-local wiring (3-segment bundles)
+// • Cluster B — Cross-module wiring (inter-module connections)
+// • Cluster C — Debugging map (segment → file → module → layer)
+// • Cluster D — Navigation wiring (toSecurity(), etc.)
+// • Cluster E — Architecture rules (segment numbering, dependency chains)
+// • Cluster F — Metadata + ML tags
 //
-// XML sits at the TOP because:
-// • humans read top-down
-// • XML is the skin
-// • XML is the least important logic-wise
-// • XML is the first thing you visually see
-//
-// XML is ALWAYS Segment 1 for the FIRST module.
-// Future modules increment by +3:
-// Module 2 XML = Segment 4
-// Module 3 XML = Segment 7
-// Module 4 XML = Segment 10
-// etc.
-//
-// ============================================================================
-//
-// Examples:
-// (1) activity_security.xml
-// (4) activity_api.xml
-// (7) activity_terminal.xml
-// (10) activity_projects.xml
-// (13) activity_chat.xml
-//
+// Modules keep their own code files.
+// Router.kt keeps ALL wiring + ALL maps.
 // ============================================================================
 
 
-
 // ============================================================================
-// SEGMENT 2 — FRONTEND (ACTIVITY UI LOGIC)
+// IMPORTS — MODULE ENTRY POINTS
 // ============================================================================
-// Activities handle:
-// • button clicks
-// • calling Router
-// • inflating XML
-// • basic UI behavior
-//
-// Activities DO NOT contain backend logic.
-// Activities DO NOT contain engines.
-// Activities DO NOT contain heavy lifting.
-//
-// Activities sit in the MIDDLE because:
-// • they bridge XML (skin) and backend (engine)
-// • they translate UI events into backend calls
-// • they are the “UI brain” but not the “system brain”
-//
-// Frontend is ALWAYS Segment 2 for the FIRST module.
-// Future modules increment by +3:
-// Module 2 Frontend = Segment 5
-// Module 3 Frontend = Segment 8
-// Module 4 Frontend = Segment 11
-// etc.
-//
-// ============================================================================
-//
-// Examples:
-// (2) SecurityActivity.kt
-// (5) APIActivity.kt
-// (8) TerminalActivity.kt
-// (11) ProjectsActivity.kt
-// (14) ChatActivity.kt
-//
-// ============================================================================
-
-
-
-// ============================================================================
-// SEGMENT 3 — BACKEND (MANAGER ENGINE)
-// ============================================================================
-// Managers handle:
-// • engines
-// • crypto
-// • seed logic
-// • config logic
-// • file logic
-// • API logic
-// • heavy lifting
-//
-// Backend sits at the BOTTOM because:
-// • humans write logic downward
-// • backend is the foundation
-// • backend is the engine
-// • backend is the deepest layer
-//
-// Backend is ALWAYS Segment 3 for the FIRST module.
-// Future modules increment by +3:
-// Module 2 Backend = Segment 6
-// Module 3 Backend = Segment 9
-// Module 4 Backend = Segment 12
-// etc.
-//
-// ============================================================================
-//
-// Examples:
-// (3) SecurityManager.kt
-// (6) APIManager.kt
-// (9) TerminalManager.kt
-// (12) ProjectsManager.kt
-// (15) ChatManager.kt
-//
-// ============================================================================
-
-
-
-// ============================================================================
-// ROUTER — BACKEND LOGIC (BRAINSTEM)
-// ============================================================================
-// The Router is the CENTRAL HUB.
-// The Router is the BRAINSTEM.
-// The Router is the WIRING ATLAS.
-//
-// Router connects:
-// • Segment 3 (Backend)
-// • Segment 2 (Frontend)
-// • Segment 1 (XML)
-//
-// Router NEVER contains UI.
-// Router NEVER contains XML.
-// Router NEVER contains engines.
-//
-// Router ONLY handles:
-// • navigation
-// • wiring
-// • module switching
-// • clean architecture
-//
-// ============================================================================
-
 import com.chatmultiapi.security.SecurityActivity
 import com.chatmultiapi.api.APIActivity
 import com.chatmultiapi.terminal.TerminalActivity
 import com.chatmultiapi.projects.ProjectsActivity
 import com.chatmultiapi.chat.ChatActivity
+
+
+
+// ============================================================================
+// CLUSTER A — MODULE-LOCAL WIRING (POLISHED)
+// ============================================================================
+// Each module has EXACTLY 3 segments:
+// (XML) → (Frontend) → (Backend)
+// Numbered in blocks of 3 to prevent collisions.
+// This cluster shows HOW each module internally connects.
+// ============================================================================
+
+/*
+=========================
+MODULE 1 — SECURITY (Segments 1–3)
+=========================
+(1) activity_security.xml  — XML skin
+(2) SecurityActivity.kt    — UI logic
+(3) SecurityManager.kt     — backend engine
+
+Internal Wiring:
+• (2) inflates (1)
+• (2) listens for UI events
+• (2) calls (3)
+• (3) returns results to (2)
+• (2) updates (1)
+-------------------------
+
+MODULE 2 — API (Segments 4–6)
+=========================
+(4) activity_api.xml
+(5) APIActivity.kt
+(6) APIManager.kt
+
+Internal Wiring:
+• (5) inflates (4)
+• (5) calls (6)
+• (6) powers API logic
+-------------------------
+
+MODULE 3 — TERMINAL (Segments 7–9)
+=========================
+(7) activity_terminal.xml
+(8) TerminalActivity.kt
+(9) TerminalManager.kt
+
+Internal Wiring:
+• (8) inflates (7)
+• (8) calls (9)
+• (9) handles terminal engine
+-------------------------
+
+MODULE 4 — PROJECTS (Segments 10–12)
+=========================
+(10) activity_projects.xml
+(11) ProjectsActivity.kt
+(12) ProjectsManager.kt
+
+Internal Wiring:
+• (11) inflates (10)
+• (11) calls (12)
+-------------------------
+
+MODULE 5 — CHAT (Segments 13–15)
+=========================
+(13) activity_chat.xml
+(14) ChatActivity.kt
+(15) ChatManager.kt
+
+Internal Wiring:
+• (14) inflates (13)
+• (14) calls (15)
+-------------------------
+*/
+
+
+
+// ============================================================================
+// CLUSTER B — CROSS-MODULE WIRING (POLISHED)
+// ============================================================================
+// These are NOT internal 3-segment bundles.
+// These are module-to-module connections.
+// Kept separate so wiring never collides.
+// ============================================================================
+
+/*
+=========================
+CROSS-MODULE CONNECTIONS
+=========================
+
+Security → API
+• SecurityManager may call APIManager for remote operations.
+
+API → Terminal
+• APIActivity may open TerminalActivity for logs or debugging.
+
+Terminal → Projects
+• TerminalManager may push output into ProjectsManager.
+
+Projects → Chat
+• ProjectsActivity may open ChatActivity for collaboration.
+
+Chat → Security
+• ChatManager may request SecurityManager for encryption.
+-------------------------
+*/
+
+
+
+// ============================================================================
+// CLUSTER C — DEBUGGING MAP (SEGMENT → FILE → MODULE → LAYER)
+// ============================================================================
+// This map tells you EXACTLY where a problem is.
+// If Android logs say “Error in Segment 8” → TerminalActivity.kt.
+// ============================================================================
+
+/*
+=========================
+DEBUGGING MAP
+=========================
+
+Segment 1  → activity_security.xml   → Security → XML
+Segment 2  → SecurityActivity.kt     → Security → Frontend
+Segment 3  → SecurityManager.kt      → Security → Backend
+
+Segment 4  → activity_api.xml        → API → XML
+Segment 5  → APIActivity.kt          → API → Frontend
+Segment 6  → APIManager.kt           → API → Backend
+
+Segment 7  → activity_terminal.xml   → Terminal → XML
+Segment 8  → TerminalActivity.kt     → Terminal → Frontend
+Segment 9  → TerminalManager.kt      → Terminal → Backend
+
+Segment 10 → activity_projects.xml   → Projects → XML
+Segment 11 → ProjectsActivity.kt     → Projects → Frontend
+Segment 12 → ProjectsManager.kt      → Projects → Backend
+
+Segment 13 → activity_chat.xml       → Chat → XML
+Segment 14 → ChatActivity.kt         → Chat → Frontend
+Segment 15 → ChatManager.kt          → Chat → Backend
+-------------------------
+*/
+
+
+
+// ============================================================================
+// CLUSTER D — ROUTER NAVIGATION (ENTRY POINTS)
+// ============================================================================
+// These are the ONLY functions that actually run code.
+// Everything above is wiring + maps.
+// ============================================================================
 
 object Router {
 
@@ -167,117 +205,50 @@ object Router {
 
 
 // ============================================================================
-// FOOTER — WIRING SYSTEM DESCRIPTION (READ THIS FIRST)
+// CLUSTER E — ARCHITECTURE RULES (SEGMENTS + DEPENDENCIES)
 // ============================================================================
-//
-// This footer explains EXACTLY how the wiring system works.
-// ANYONE — including future you — can understand the architecture instantly.
-//
-// ---------------------------------------------------------------------------
-// HOW THE WIRING SYSTEM WORKS (VERTICAL + HORIZONTAL)
-// ---------------------------------------------------------------------------
-//
-// 1. VERTICAL (NORTH → SOUTH) — CODE SEGMENTS
-//    Code flows downward:
-//
-//        (1) XML
-//        (2) Frontend
-//        (3) Backend
-//
-//    Then increments by +3 for each module:
-//
-//        (4)(5)(6)  → API Module
-//        (7)(8)(9)  → Terminal Module
-//        (10)(11)(12) → Projects Module
-//        (13)(14)(15) → Chat Module
-//
-//    This is how humans READ and WRITE code.
-//
-//
-// 2. HORIZONTAL (EAST → WEST) — DEPENDENCY GROUPS
-//    Dependencies flow sideways:
-//
-//        (3) Backend ⇒ (2) Frontend ⇒ (1) XML
-//        (6) Backend ⇒ (5) Frontend ⇒ (4) XML
-//        (9) Backend ⇒ (8) Frontend ⇒ (7) XML
-//        (12) Backend ⇒ (11) Frontend ⇒ (10) XML
-//        (15) Backend ⇒ (14) Frontend ⇒ (13) XML
-//
-//    This is how humans MAP relationships.
-//
-//
-// ---------------------------------------------------------------------------
-// WHY THIS SYSTEM IS PERFECT
-// ---------------------------------------------------------------------------
-//
-// • Vertical segments grow DOWNWARD forever.
-// • Horizontal dependencies grow UPWARD forever.
-// • They NEVER collide.
-// • They NEVER interfere.
-// • They NEVER drift.
-// • Debugging becomes stupidly simple.
-// • Every module is a self-contained bundle.
-// • Every dependency is traceable.
-// • Every segment number matches the dependency map.
-// • Even a kid could debug this.
-//
-//
-// ---------------------------------------------------------------------------
-// HOW TO WRITE DEPENDENCIES
-// ---------------------------------------------------------------------------
-//
-// Dependencies MUST be written in this EXACT format:
-//
-//    (Backend) ==> (Frontend) ==> (XML)
-//
-// Examples:
-//
-// Security Module:
-//    (3) SecurityManager.kt ==> (2) SecurityActivity.kt ==> (1) activity_security.xml
-//
-// API Module:
-//    (6) APIManager.kt ==> (5) APIActivity.kt ==> (4) activity_api.xml
-//
-// Terminal Module:
-//    (9) TerminalManager.kt ==> (8) TerminalActivity.kt ==> (7) activity_terminal.xml
-//
-// Projects Module:
-//    (12) ProjectsManager.kt ==> (11) ProjectsActivity.kt ==> (10) activity_projects.xml
-//
-// Chat Module:
-//    (15) ChatManager.kt ==> (14) ChatActivity.kt ==> (13) activity_chat.xml
-//
-//
-// ---------------------------------------------------------------------------
-// WHY DEPENDENCIES GO ABOVE METADATA
-// ---------------------------------------------------------------------------
-//
-// • Dependencies grow UPWARD (east→west).
-// • Code grows DOWNWARD (north→south).
-// • Metadata stays at the bottom.
-// • ML tags stay at the bottom.
-// • Timestamp stays at the bottom.
-//
-// This creates a PERFECT separation of concerns.
-//
+
+/*
+=========================
+SEGMENT NUMBERING RULES
+=========================
+Module 1 → (1)(2)(3)
+Module 2 → (4)(5)(6)
+Module 3 → (7)(8)(9)
+Module 4 → (10)(11)(12)
+Module 5 → (13)(14)(15)
+
+=========================
+DEPENDENCY CHAINS
+=========================
+(Backend) ⇒ (Frontend) ⇒ (XML)
+
+(3)  ⇒ (2)  ⇒ (1)
+(6)  ⇒ (5)  ⇒ (4)
+(9)  ⇒ (8)  ⇒ (7)
+(12) ⇒ (11) ⇒ (10)
+(15) ⇒ (14) ⇒ (13)
+*/
+
+
+
 // ============================================================================
-// METADATA + ML TAGS + TIMESTAMP
+// CLUSTER F — METADATA + ML TAGS
 // ============================================================================
-//
-// Router.kt — Central Wiring Hub
-// Version: 2.0.1
-// Generated: Tuesday, July 07, 2026 — 15:45 EDT
-// Location: Arlington, Virginia, United States
-// User: Peter
-//
-// ML-TAGS:
-// <ml-router>
-// <ml-navigation>
-// <ml-brainstem>
-// <ml-wiring-atlas>
-// <ml-clean-architecture>
-// <ml-modular-system>
-//
-// ============================================================================
+
+/*
+Router.kt — Master Wiring Atlas
+Version: 3.1.0
+Generated: Tuesday, July 07, 2026 — 16:52 EDT
+Location: Reston, Virginia, United States
+User: Peter
+
+ML-TAGS:
+<ml-router>
+<ml-wiring-atlas>
+<ml-clustered-wiring>
+<ml-debug-map>
+<ml-clean-architecture>
+*/
 
 // ============================== END OF FILE ==============================
