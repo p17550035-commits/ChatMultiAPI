@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - "app/src/main/java/com/chatmultiapi/router/Router.kt"
+    paths-ignore:
+      - "app/src/main/java/com/chatmultiapi/router/Router_backup.kt"
+
   workflow_dispatch:
 
 jobs:
