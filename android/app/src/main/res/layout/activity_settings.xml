@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settingsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/titanium_rainbow_background">
+
+    <!-- Titanium Top Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_margin="12dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnChat"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_view"
+            android:tint="#FFFFFF"
+            android:contentDescription="Chat" />
+
+        <ImageButton
+            android:id="@+id/btnProjects"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_agenda"
+            android:tint="#FFFFFF"
+            android:contentDescription="Projects" />
+
+        <ImageButton
+            android:id="@+id/btnTerminal"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_manage"
+            android:tint="#FFFFFF"
+            android:contentDescription="Terminal" />
+
+        <ImageButton
+            android:id="@+id/btnAPI"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:tint="#FFFFFF"
+            android:contentDescription="API" />
+
+        <ImageButton
+            android:id="@+id/btnSecurity"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_lock_lock"
+            android:tint="#FFFFFF"
+            android:contentDescription="Security" />
+
+        <ImageButton
+            android:id="@+id/btnSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/titanium_button"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:tint="#FFFFFF"
+            android:contentDescription="Settings" />
+    </LinearLayout>
+
+    <!-- Placeholder Settings Label -->
+    <TextView
+        android:id="@+id/settingsPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings module placeholder.\nFull settings system coming soon."
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+============================================================
+# METADATA FOOTER — activity_settings.xml
+version: 1.0.0
+local_timestamp: 07/07/2026 09:40 AM EDT
+utc_timestamp: 2026-07-07T13:40:00Z
+
+ml_tags: [
+    "settings_ui",
+    "layout_spec",
+    "module_identity",
+    "titanium_rainbow",
+    "tab_navigation"
+]
+
+section: "8/10 — Settings UI"
+
+purpose:
+- Defines placeholder UI for Settings module.
+- Matches SettingsActivity.kt titanium version.
+- Provides conformity with titanium top bar.
+
+dependencies: [
+    "SettingsActivity.kt",
+    "titanium_rainbow_background",
+    "titanium_button",
+    "titanium_button_active"
+]
+
+notes:
+- Safe for copy/paste.
+- No drift. No cascade.
+============================================================
+END OF FILE :: CHATMULTIAPI :: GODMODE
+-->
