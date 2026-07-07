@@ -58,4 +58,36 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent(this, TerminalActivity::class.java))
         }
 
-        btnAPI.setOnClickListener
+        btnAPI.setOnClickListener {
+            setActiveTab(btnAPI)
+            startActivity(Intent(this, ApiActivity::class.java))
+        }
+
+        btnSecurity.setOnClickListener {
+            setActiveTab(btnSecurity)
+            startActivity(Intent(this, SecurityActivity::class.java))
+        }
+
+        btnSettings.setOnClickListener {
+            setActiveTab(btnSettings)
+            // Already here
+        }
+
+        // Placeholder content
+        settingsPlaceholder = findViewById(R.id.settingsPlaceholder)
+        settingsPlaceholder.text = "Settings module placeholder.\nFull settings system coming soon."
+    }
+
+    /** BLOCK: setActiveTab */
+    private fun setActiveTab(active: ImageButton) {
+        val buttons = listOf(btnChat, btnProjects, btnTerminal, btnAPI, btnSecurity, btnSettings)
+
+        buttons.forEach { btn ->
+            btn.setBackgroundResource(R.drawable.titanium_button)
+            btn.alpha = 0.6f
+        }
+
+        active.setBackgroundResource(R.drawable.titanium_button_active)
+        active.alpha = 1.0f
+    }
+}
