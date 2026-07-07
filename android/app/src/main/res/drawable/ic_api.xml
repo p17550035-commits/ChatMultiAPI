@@ -1,0 +1,37 @@
+<!--  
+============================================================
+# BLOCK: ic_api
+# PURPOSE: API tab icon for titanium top bar
+# SAFE: comment only
+============================================================
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- API brackets: < > -->
+    <path
+        android:fillColor="@color/neon_accent"
+        android:pathData="M8,7l-4,5 4,5" />
+
+    <path
+        android:fillColor="@color/neon_accent"
+        android:pathData="M16,7l4,5 -4,5" />
+
+    <!-- Slash in the middle -->
+    <path
+        android:fillColor="@color/neon_accent"
+        android:pathData="M11,7h2v10h-2z" />
+
+</vector>
+
+<!-- ========================================================================
+   METADATA FOOTER — ic_api.xml
+   version: 1.0.0
+   ml_tags: ["icon", "api", "code", "brackets", "titanium_ui"]
+   blueprint_section: "UI / Titanium Top Bar"
+   dependencies: ["neon_accent"]
+   END OF FILE :: CHATMULTIAPI :: GODMODE
+========================================================================= -->
