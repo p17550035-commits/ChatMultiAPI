@@ -122,7 +122,7 @@ class ChatAdapter(
 
 /**
  * BLOCK: MainActivity
- * PURPOSE: Primary chat UI controller for GodMode
+ * PURPOSE: Primary chat UI controller for GodMode + titanium top bar navigation
  * SAFE: comment only
  */
 class MainActivity : AppCompatActivity() {
@@ -132,6 +132,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnSend: ImageButton
     private lateinit var btnVoice: ImageButton
     private lateinit var btnFile: ImageButton
+
+    // Top bar buttons
+    private lateinit var btnChat: ImageButton
+    private lateinit var btnProjects: ImageButton
+    private lateinit var btnTerminal: ImageButton
+    private lateinit var btnAPI: ImageButton
+    private lateinit var btnSecurity: ImageButton
     private lateinit var btnSettings: ImageButton
 
     private val chatList = mutableListOf<ChatBubble>()
@@ -175,6 +182,13 @@ class MainActivity : AppCompatActivity() {
         btnSend = findViewById(R.id.btnSend)
         btnVoice = findViewById(R.id.btnVoice)
         btnFile = findViewById(R.id.btnFile)
+
+        // Top bar buttons
+        btnChat = findViewById(R.id.btnChat)
+        btnProjects = findViewById(R.id.btnProjects)
+        btnTerminal = findViewById(R.id.btnTerminal)
+        btnAPI = findViewById(R.id.btnAPI)
+        btnSecurity = findViewById(R.id.btnSecurity)
         btnSettings = findViewById(R.id.btnSettings)
 
         adapter = ChatAdapter(this, chatList) { bubble -> saveBubble(bubble) }
@@ -184,7 +198,53 @@ class MainActivity : AppCompatActivity() {
         btnSend.setOnClickListener { sendMessage(inputText.text.toString()) }
         btnVoice.setOnClickListener { startVoiceInput() }
         btnFile.setOnClickListener { openFilePicker() }
-        btnSettings.setOnClickListener { openSettings() }
+
+        // Top bar navigation wiring
+        btnChat.setOnClickListener {
+            setActiveTab(btnChat)
+            // Already on Chat; no navigation needed
+        }
+
+        btnProjects.setOnClickListener {
+            setActiveTab(btnProjects)
+            startActivity(Intent(this, ProjectsActivity::class.java))
+        }
+
+        btnTerminal.setOnClickListener {
+            setActiveTab(btnTerminal)
+            Toast.makeText(this, "Terminal module coming soon.", Toast.LENGTH_SHORT).show()
+        }
+
+        btnAPI.setOnClickListener {
+            setActiveTab(btnAPI)
+            startActivity(Intent(this, ApiKeysActivity::class.java))
+        }
+
+        btnSecurity.setOnClickListener {
+            setActiveTab(btnSecurity)
+            startActivity(Intent(this, SecurityActivity::class.java))
+        }
+
+        btnSettings.setOnClickListener {
+            setActiveTab(btnSettings)
+            startActivity(Intent(this, ProviderSettingsActivity::class.java))
+        }
+
+        // Default active tab: Chat
+        setActiveTab(btnChat)
+    }
+
+    private fun setActiveTab(active: ImageButton) {
+        val tabs = listOf(btnChat, btnProjects, btnTerminal, btnAPI, btnSecurity, btnSettings)
+        tabs.forEach { button ->
+            button.scaleX = 1.0f
+            button.scaleY = 1.0f
+            button.alpha = 1.0f
+        }
+        // Neon-style subtle indent effect (no extra resources required)
+        active.scaleX = 0.95f
+        active.scaleY = 0.95f
+        active.alpha = 1.0f
     }
 
     private fun startVoiceInput() {
@@ -200,11 +260,6 @@ class MainActivity : AppCompatActivity() {
             type = "*/*"
         }
         fileLauncher.launch(intent)
-    }
-
-    private fun openSettings() {
-        val intent = Intent(this, ProviderSettingsActivity::class.java)
-        startActivity(intent)
     }
 
     private fun sendMessage(text: String) {
@@ -242,19 +297,29 @@ class MainActivity : AppCompatActivity() {
 
 /* ========================================================================
    METADATA FOOTER — MainActivity.kt
-   version: 1.0.1
-   local_timestamp: 07/06/2026 07:48 PM EDT
-   utc_timestamp: 2026-07-06T23:48:00Z
+   version: 1.0.0
+   local_timestamp: 07/07/2026 06:10 AM EDT
+   utc_timestamp: 2026-07-07T10:10:00Z
 
    ML TAGS
-   - ml_tags: ["kotlin_activity", "chat_ui", "python_bridge", "godmode_core", "crash_logger"]
+   - ml_tags: [
+       "kotlin_activity",
+       "chat_ui",
+       "python_bridge",
+       "godmode_core",
+       "crash_logger",
+       "titanium_top_bar",
+       "tab_navigation"
+     ]
 
    SECTION PURPOSE
    - Primary chat UI controller for GodMode.
-   - Now includes global crash logger activation.
+   - Includes titanium top bar navigation for Chat, Projects, Terminal (placeholder), API, Security, and Settings.
+   - Preserves global crash logger activation and existing chat pipeline.
 
    NOTES
-   - Minimal change: only added crash logger line.
+   - Terminal button is a placeholder; wiring to full TerminalActivity will be added when terminal module is implemented.
+   - Safe for full-file replacement in ChatMultiAPI :: GodMode.
    ========================================================================
    END OF FILE :: CHATMULTIAPI :: GODMODE
 */
