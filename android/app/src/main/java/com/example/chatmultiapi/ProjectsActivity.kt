@@ -1,155 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/projectsRoot"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/titanium_rainbow_background">
+package com.example.chatmultiapi
 
-    <!-- BLOCK: Titanium Top Bar -->
-    <!-- PURPOSE: Chat, Projects, Terminal, API, Security, Settings -->
-    <!-- SAFE: comment only -->
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:orientation="horizontal"
-        android:gravity="end"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+import android.os.Bundle
+import android.widget.Button
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
-        <ImageButton
-            android:id="@+id/btnChat"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/titanium_button"
-            android:src="@android:drawable/ic_menu_view"
-            android:tint="#FFFFFF"
-            android:contentDescription="Chat" />
+/**
+ * BLOCK: ProjectsActivity
+ * PURPOSE: Display project list + create new projects
+ * SAFE: comment only
+ */
+class ProjectsActivity : AppCompatActivity() {
 
-        <ImageButton
-            android:id="@+id/btnProjects"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/titanium_button"
-            android:src="@android:drawable/ic_menu_agenda"
-            android:tint="#FFFFFF"
-            android:contentDescription="Projects" />
+    /** BLOCK: UI Elements
+     *  PURPOSE: ListView + New Project button
+     *  SAFE: comment only
+     */
+    private lateinit var projectListView: ListView
+    private lateinit var newProjectBtn: Button
 
-        <ImageButton
-            android:id="@+id/btnTerminal"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/titanium_button"
-            android:src="@android:drawable/ic_menu_manage"
-            android:tint="#FFFFFF"
-            android:contentDescription="Terminal" />
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_projects)
 
-        <ImageButton
-            android:id="@+id/btnAPI"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/titanium_button"
-            android:src="@android:drawable/ic_menu_info_details"
-            android:tint="#FFFFFF"
-            android:contentDescription="API" />
+        // BLOCK: Neon Background
+        // PURPOSE: Apply neon theme to project zone
+        window.decorView.setBackgroundColor(
+            ContextCompat.getColor(this, R.color.neonBackground)
+        )
 
-        <ImageButton
-            android:id="@+id/btnSecurity"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/titanium_button"
-            android:src="@android:drawable/ic_lock_lock"
-            android:tint="#FFFFFF"
-            android:contentDescription="Security" />
+        projectListView = findViewById(R.id.projectListView)
+        newProjectBtn = findViewById(R.id.newProjectBtn)
 
-        <ImageButton
-            android:id="@+id/btnSettings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/titanium_button"
-            android:src="@android:drawable/ic_menu_preferences"
-            android:tint="#FFFFFF"
-            android:contentDescription="Settings" />
-    </LinearLayout>
+        // BLOCK: Load Existing Projects
+        // PURPOSE: Populate ListView with saved projects
+        val projects = ProjectManager.loadProjects(this)
+        val adapter = ProjectAdapter(this, projects)
+        projectListView.adapter = adapter
 
-    <!-- BLOCK: Header -->
-    <!-- PURPOSE: Projects title in titanium-rainbow theme -->
-    <!-- SAFE: comment only -->
-    <TextView
-        android:id="@+id/projectsHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Projects"
-        android:textSize="24sp"
-        android:textColor="#FF66FF"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintStart_toStartOf="parent" />
+        // BLOCK: Create New Project
+        // PURPOSE: Add new project + refresh list
+        newProjectBtn.setOnClickListener {
+            ProjectManager.createNewProject(this)
+            val updated = ProjectManager.loadProjects(this)
+            projectListView.adapter = ProjectAdapter(this, updated)
+        }
+    }
+}
 
-    <!-- BLOCK: Project List -->
-    <!-- PURPOSE: ListView for project items -->
-    <!-- SAFE: comment only -->
-    <ListView
-        android:id="@+id/projectListView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:divider="#FF66FF"
-        android:dividerHeight="1dp"
-        app:layout_constraintTop_toBottomOf="@id/projectsHeader"
-        app:layout_constraintBottom_toTopOf="@id/newProjectBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+/* ========================================================================
+   METADATA FOOTER — ProjectsActivity.kt
+   version: 1.0.0
+   local_timestamp: 07/06/2026 10:46 AM EDT
+   utc_timestamp: 2026-07-06T14:46:00Z
 
-    <!-- BLOCK: New Project Button -->
-    <!-- PURPOSE: Create new project -->
-    <!-- SAFE: comment only -->
-    <Button
-        android:id="@+id/newProjectBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="New Project"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/titanium_button"
-        android:padding="12dp"
-        android:layout_margin="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+   ML TAGS
+   - ml_tags: ["kotlin_activity", "projects_ui", "neon_theme", "godmode_core"]
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+   BLUEPRINT SECTION
+   - section: "4.0 — ProjectsActivity.kt"
 
-<!--
-============================================================
-# METADATA FOOTER — activity_projects.xml
-- version: 1.0.0
-- local_timestamp: 07/07/2026 08:10 AM EDT
-- utc_timestamp: 2026-07-07T12:10:00Z
-
-# ML TAGS
-- ml_tags: [
-    "projects_ui",
-    "titanium_rainbow",
-    "tab_navigation",
-    "layout_spec",
-    "godmode_core"
-]
-
-# SECTION PURPOSE
-- Upgraded to titanium-rainbow theme to match Chat screen.
-- Adds full titanium top bar with uniform conformity.
-- Preserves project list + new project button.
-- Safe for full-file replacement.
-
-============================================================
-END OF FILE :: CHATMULTIAPI :: GODMODE
--->
+   SECTION PURPOSE
+   - Displays project list and allows creation of new projects.
+   - Interfaces directly with activity
