@@ -4,19 +4,19 @@
     <application
         android:label="ChatMultiAPI"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <!-- Crash Log Viewer Activity -->
         <activity
             android:name=".CrashLogActivity"
             android:exported="false"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <!-- Main Launcher Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,21 +31,21 @@
 
 <!-- ========================================================================
      METADATA FOOTER — AndroidManifest.xml
-     version: 1.0.2
-     local_timestamp: 07/06/2026 08:41 PM EDT
-     utc_timestamp: 2026-07-07T00:41:00Z
+     version: 1.0.3
+     local_timestamp: 07/07/2026 04:19 AM EDT
+     utc_timestamp: 2026-07-07T08:19:00Z
 
      ML TAGS
-     - ml_tags: ["manifest", "crash_logger", "activity_registration", "theme_fix"]
+     - ml_tags: ["manifest", "theme_fix", "appcompat_required"]
 
      SECTION PURPOSE
-     - Registers CrashLogActivity for global crash diagnostics.
-     - Maintains MainActivity as launcher.
-     - Adds required AppTheme to prevent pre-launch crash.
+     - Applies a valid AppCompat theme required by AppCompatActivity.
+     - Prevents the IllegalStateException pre-launch crash.
+     - Ensures MainActivity and CrashLogActivity can initialize normally.
 
      NOTES
-     - AppTheme is minimal and safe.
-     - No additional modules required.
+     - No other modules or resources changed.
+     - AppCompat theme is mandatory for your activity base class.
      ========================================================================
      END OF FILE :: CHATMULTIAPI :: GODMODE
 -->
