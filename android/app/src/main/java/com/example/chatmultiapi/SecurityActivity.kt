@@ -1,9 +1,11 @@
 package com.example.chatmultiapi
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,36 +17,82 @@ import androidx.core.content.ContextCompat
  */
 class SecurityActivity : AppCompatActivity() {
 
-    /** BLOCK: SharedPreferences
-     *  PURPOSE: Store critical UI mode (light/dark) + seed phrase persistence
-     *  SAFE: comment only
-     */
+    /** BLOCK: SharedPreferences */
     private lateinit var prefs: SharedPreferences
 
-    /** BLOCK: Seed Phrase
-     *  PURPOSE: Permanent root key for encryption/decryption
-     */
+    /** BLOCK: Seed Phrase */
     private lateinit var seedPhrase: String
+
+    /** BLOCK: Titanium Top Bar Buttons */
+    private lateinit var btnChat: ImageButton
+    private lateinit var btnProjects: ImageButton
+    private lateinit var btnTerminal: ImageButton
+    private lateinit var btnAPI: ImageButton
+    private lateinit var btnSecurity: ImageButton
+    private lateinit var btnSettings: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_security)
 
+        // Titanium background
+        window.decorView.setBackgroundResource(R.drawable.titanium_rainbow_background)
+
         prefs = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
-        // BLOCK: Apply UI Mode
+        // Apply UI mode
         applyUiMode()
 
+        // Titanium top bar binding
+        btnChat = findViewById(R.id.btnChat)
+        btnProjects = findViewById(R.id.btnProjects)
+        btnTerminal = findViewById(R.id.btnTerminal)
+        btnAPI = findViewById(R.id.btnAPI)
+        btnSecurity = findViewById(R.id.btnSecurity)
+        btnSettings = findViewById(R.id.btnSettings)
+
+        // Active tab highlight
+        setActiveTab(btnSecurity)
+
+        // Navigation wiring
+        btnChat.setOnClickListener {
+            setActiveTab(btnChat)
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
+        btnProjects.setOnClickListener {
+            setActiveTab(btnProjects)
+            startActivity(Intent(this, ProjectsActivity::class.java))
+        }
+
+        btnTerminal.setOnClickListener {
+            setActiveTab(btnTerminal)
+            startActivity(Intent(this, TerminalActivity::class.java))
+        }
+
+        btnAPI.setOnClickListener {
+            setActiveTab(btnAPI)
+            startActivity(Intent(this, ApiActivity::class.java))
+        }
+
+        btnSecurity.setOnClickListener {
+            setActiveTab(btnSecurity)
+            // Already here
+        }
+
+        btnSettings.setOnClickListener {
+            setActiveTab(btnSettings)
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
         // ------------------------------------------------------------
-        // BLOCK: Initialize Seed Phrase (permanent + safe)
+        // Seed Phrase Initialization
         // ------------------------------------------------------------
         val securityPrefs = getSharedPreferences("security_prefs", MODE_PRIVATE)
 
         seedPhrase = if (securityPrefs.getBoolean("seed_phrase_saved", false)) {
-            // Load previously saved seed phrase
             securityPrefs.getString("seed_phrase", "") ?: SecurityManager.generateSeedPhrase()
         } else {
-            // First-time setup → generate new seed phrase
             val newSeed = SecurityManager.generateSeedPhrase()
             securityPrefs.edit()
                 .putBoolean("seed_phrase_saved", true)
@@ -53,18 +101,16 @@ class SecurityActivity : AppCompatActivity() {
             newSeed
         }
 
-        // BLOCK: Seed Phrase Section
+        // Seed phrase UI
         val seedPhraseText = findViewById<TextView>(R.id.seedPhraseText)
         val generateSeedBtn = findViewById<Button>(R.id.generateSeedBtn)
 
-        // Display current seed phrase
         seedPhraseText.text = seedPhrase
 
         generateSeedBtn.setOnClickListener {
             val newSeed = SecurityManager.generateSeedPhrase()
             seedPhrase = newSeed
 
-            // Persist new seed
             securityPrefs.edit()
                 .putBoolean("seed_phrase_saved", true)
                 .putString("seed_phrase", newSeed)
@@ -73,24 +119,23 @@ class SecurityActivity : AppCompatActivity() {
             seedPhraseText.text = newSeed
         }
 
-        // BLOCK: Backup Section
+        // Backup
         val backupBtn = findViewById<Button>(R.id.backupBtn)
         backupBtn.setOnClickListener {
             SecurityManager.backupEncryptedConfig(this)
         }
 
-        // BLOCK: Restore Section
+        // Restore
         val restoreBtn = findViewById<Button>(R.id.restoreBtn)
         restoreBtn.setOnClickListener {
             SecurityManager.restoreEncryptedConfig(this, seedPhrase)
         }
 
-        // BLOCK: Danger Zone
+        // Danger Zone: Wipe
         val wipeBtn = findViewById<Button>(R.id.wipeEncryptionBtn)
         wipeBtn.setOnClickListener {
             SecurityManager.resetEncryption(this)
 
-            // Reset seed phrase after wipe
             val newSeed = SecurityManager.generateSeedPhrase()
             seedPhrase = newSeed
 
@@ -103,11 +148,7 @@ class SecurityActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * BLOCK: applyUiMode()
-     * PURPOSE: Apply light/dark mode for security panel
-     * SAFE: comment only
-     */
+    /** BLOCK: applyUiMode() */
     private fun applyUiMode() {
         val mode = prefs.getString("critical_ui_mode", "light")
 
@@ -121,36 +162,53 @@ class SecurityActivity : AppCompatActivity() {
             )
         }
     }
+
+    /** BLOCK: setActiveTab */
+    private fun setActiveTab(active: ImageButton) {
+        val buttons = listOf(btnChat, btnProjects, btnTerminal, btnAPI, btnSecurity, btnSettings)
+
+        buttons.forEach { btn ->
+            btn.setBackgroundResource(R.drawable.titanium_button)
+            btn.alpha = 0.6f
+        }
+
+        active.setBackgroundResource(R.drawable.titanium_button_active)
+        active.alpha = 1.0f
+    }
 }
 
 /* ========================================================================
-   METADATA FOOTER — SecurityActivity.kt
+   METADATA FOOTER — SecurityActivity.kt (Titanium Version)
    version: 1.0.0
-   local_timestamp: 07/06/2026 10:54 AM EDT
-   utc_timestamp: 2026-07-06T14:54:00Z
+   local_timestamp: 07/07/2026 09:41 AM EDT
+   utc_timestamp: 2026-07-07T13:41:00Z
 
-   ML TAGS
-   - ml_tags: ["security_ui", "seed_phrase", "encrypted_backup"]
+   ml_tags: [
+       "security_ui",
+       "seed_phrase",
+       "encrypted_backup",
+       "titanium_rainbow",
+       "tab_navigation"
+   ]
 
-   BLUEPRINT SECTION
-   - section: "6.0 — SecurityActivity.kt"
+   section: "7.1 — SecurityActivity.kt (Titanium Upgrade)"
 
-   SECTION PURPOSE
-   - Handles seed phrase generation, encrypted config backup/restore, and wipe actions.
-   - Controls critical UI mode (light/dark) for the security panel.
-   - Interfaces directly with activity_security.xml.
+   purpose:
+   - Titanium version of Security module UI.
+   - Preserves all seed phrase + backup/restore logic.
+   - Adds navigation + conformity with titanium top bar.
 
-   DEPENDENCIES
-   - uses: [
-       "SecurityManager.kt",
+   dependencies: [
        "activity_security.xml",
-       "app_settings SharedPreferences"
-     ]
+       "SecurityManager.kt",
+       "titanium_rainbow_background",
+       "titanium_button",
+       "titanium_button_active"
+   ]
 
-   NOTES
-   - Fully regenerated to restore conformity.
-   - Non-executable metadata footer.
-   - Safe for copy/paste.
+   notes:
+   - Safe drop‑in replacement.
+   - No drift. No cascade.
    ========================================================================
-   END OF FILE :: CHATMULTIAPI
+   END OF FILE :: CHATMULTIAPI :: GODMODE
 */
