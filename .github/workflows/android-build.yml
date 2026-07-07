@@ -31,15 +31,28 @@ jobs:
 
     - name: Create Python 3.11 symlink
       run: |
-        ln -s /opt/hostedtoolcache/Python/3.11.9/x64/bin/python3.11 /usr/local/bin/3.11 || true
-        ln -s /opt/hostedtoolcache/Python/3.11.9/x86_64/bin/python3.11 /usr/local/bin/3.11 || true
+        ln -s /opt/hostedtoolcache/Python/3.11.9/x64/bin/python3.11 /usr/local/bin/python3.11 || true
+        ln -s /opt/hostedtoolcache/Python/3.11.9/x86_64/bin/python3.11 /usr/local/bin/python3.11 || true
+
+    - name: Generate debug keystore (guaranteed)
+      working-directory: android
+      run: |
+        keytool -genkeypair \
+          -alias androiddebugkey \
+          -keypass android \
+          -keystore debug.keystore \
+          -storepass android \
+          -dname "CN=Android Debug,O=Android,C=US" \
+          -keyalg RSA \
+          -keysize 2048 \
+          -validity 10000
 
     - name: Grant execute permission for gradlew
       run: chmod +x android/gradlew
 
-    - name: Build APK
+    - name: Build APK (with full debug output)
       working-directory: android
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug --debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
