@@ -13,9 +13,7 @@ import android.content.Intent
 // • Cluster D — Navigation wiring (toSecurity(), etc.)
 // • Cluster E — Architecture rules (segment numbering, dependency chains)
 // • Cluster F — Metadata + ML tags
-//
-// Modules keep their own code files.
-// Router.kt keeps ALL wiring + ALL maps.
+// • Cluster G — File Tree (full project map for automation)
 // ============================================================================
 
 
@@ -32,11 +30,6 @@ import com.chatmultiapi.chat.ChatActivity
 
 // ============================================================================
 // CLUSTER A — MODULE-LOCAL WIRING (POLISHED)
-// ============================================================================
-// Each module has EXACTLY 3 segments:
-// (XML) → (Frontend) → (Backend)
-// Numbered in blocks of 3 to prevent collisions.
-// This cluster shows HOW each module internally connects.
 // ============================================================================
 
 /*
@@ -107,10 +100,6 @@ Internal Wiring:
 // ============================================================================
 // CLUSTER B — CROSS-MODULE WIRING (POLISHED)
 // ============================================================================
-// These are NOT internal 3-segment bundles.
-// These are module-to-module connections.
-// Kept separate so wiring never collides.
-// ============================================================================
 
 /*
 =========================
@@ -138,9 +127,6 @@ Chat → Security
 
 // ============================================================================
 // CLUSTER C — DEBUGGING MAP (SEGMENT → FILE → MODULE → LAYER)
-// ============================================================================
-// This map tells you EXACTLY where a problem is.
-// If Android logs say “Error in Segment 8” → TerminalActivity.kt.
 // ============================================================================
 
 /*
@@ -174,9 +160,6 @@ Segment 15 → ChatManager.kt          → Chat → Backend
 
 // ============================================================================
 // CLUSTER D — ROUTER NAVIGATION (ENTRY POINTS)
-// ============================================================================
-// These are the ONLY functions that actually run code.
-// Everything above is wiring + maps.
 // ============================================================================
 
 object Router {
@@ -238,8 +221,8 @@ DEPENDENCY CHAINS
 
 /*
 Router.kt — Master Wiring Atlas
-Version: 3.1.0
-Generated: Tuesday, July 07, 2026 — 16:52 EDT
+Version: 3.2.0
+Generated: Tuesday, July 07, 2026 — 17:25 EDT
 Location: Reston, Virginia, United States
 User: Peter
 
@@ -249,6 +232,53 @@ ML-TAGS:
 <ml-clustered-wiring>
 <ml-debug-map>
 <ml-clean-architecture>
+<ml-file-tree>
+*/
+
+
+
+// ============================================================================
+// CLUSTER G — FILE TREE (FULL PROJECT MAP FOR AUTOMATION)
+// ============================================================================
+// This cluster gives automation scripts the exact file paths for every module.
+// It is the final piece that makes Router.kt the SINGLE SOURCE OF TRUTH.
+// ============================================================================
+
+/*
+=========================
+FILE TREE — SECURITY MODULE (Segments 1–3)
+=========================
+/res/layout/activity_security.xml
+/java/com/chatmultiapi/security/SecurityActivity.kt
+/java/com/chatmultiapi/security/SecurityManager.kt
+
+=========================
+FILE TREE — API MODULE (Segments 4–6)
+=========================
+/res/layout/activity_api.xml
+/java/com/chatmultiapi/api/APIActivity.kt
+/java/com/chatmultiapi/api/APIManager.kt
+
+=========================
+FILE TREE — TERMINAL MODULE (Segments 7–9)
+=========================
+/res/layout/activity_terminal.xml
+/java/com/chatmultiapi/terminal/TerminalActivity.kt
+/java/com/chatmultiapi/terminal/TerminalManager.kt
+
+=========================
+FILE TREE — PROJECTS MODULE (Segments 10–12)
+=========================
+/res/layout/activity_projects.xml
+/java/com/chatmultiapi/projects/ProjectsActivity.kt
+/java/com/chatmultiapi/projects/ProjectsManager.kt
+
+=========================
+FILE TREE — CHAT MODULE (Segments 13–15)
+=========================
+/res/layout/activity_chat.xml
+/java/com/chatmultiapi/chat/ChatActivity.kt
+/java/com/chatmultiapi/chat/ChatManager.kt
 */
 
 // ============================== END OF FILE ==============================
