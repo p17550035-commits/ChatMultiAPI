@@ -1,0 +1,42 @@
+name: Router-Automation
+
+on:
+  push:
+    paths:
+      - "app/src/main/java/com/chatmultiapi/router/Router.kt"
+  workflow_dispatch:
+
+jobs:
+  auto-wire:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up environment
+        run: |
+          mkdir -p automation/output
+          echo "Environment ready"
+
+      - name: Parse Router.kt clusters
+        run: |
+          python3 automation/parse_router.py \
+            --router app/src/main/java/com/chatmultiapi/router/Router.kt \
+            --out automation/output/router.json
+
+      - name: Run wiring generator
+        run: |
+          python3 automation/generate_wiring.py \
+            --config automation/output/router.json \
+            --repo-root .
+
+      - name: Validate segment numbering
+        run: |
+          python3 automation/validate_segments.py \
+            --config automation/output/router.json
+
+      - name: Commit automation updates
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-wiring updates from Router.kt"
