@@ -1,0 +1,70 @@
+# Feature Set – Frankenstein Meta‑OS
+
+- Core compute:
+  - Termux-based Linux environment
+  - Rust, Clang/LLVM, Python (numpy, pydantic-core from source)
+  - Custom Android wheels and native builds
+
+- Repo ecosystem:
+  - GitHub, GitLab, Bitbucket, Gitea, Codeberg, SourceHut, other git-like repos
+  - Auto-push/pull, auto-merge, auto-scaffold, auto-versioning
+
+- ChatMultiAPI:
+  - Multi-provider AI routing (remote + local LLMs)
+  - Custom provider architecture and mandatory addons
+  - Security behavior and settings scaffolding
+
+- Crypto + node access:
+  - Crypto-based identity and secure node access
+  - Remote app wiring from anywhere with credentials + stable connection
+  - Node access toggleable and password-locked
+
+- IDE absorption:
+  - Acode in standalone, plugin, dual-control, and fully absorbed modes
+  - External editor integration as modular engines
+
+- Cloud + VM integration:
+  - Google Drive, OneDrive, Dropbox, Mega, S3, custom endpoints
+  - VM hooks for remote builds and distributed workflows
+
+- Android feature layer:
+  - File picker, storage manager, permissions manager
+  - Bluetooth/local device share
+  - Terminal overlay + full terminal tab
+  - System debugging hooks
+
+- Screen recorder + casting:
+  - Password-locked screen recorder
+  - Build-session, agent-training, and UI-change capture
+  - Casting to TVs, PCs, laptops, smart displays, phones
+  - Miracast / Chromecast / DLNA / WebRTC style endpoints
+
+- Agent training + evolution:
+  - Screen-recorded training sessions
+  - Playback, evolution logs, multi-agent observation
+  - Blueprint recording and behavior analysis
+
+- Password manager:
+  - Auto-generate and store credentials
+  - Vault integration with node access, recorder lock, cloud, repos, crypto
+
+- Notification + messaging stack:
+  - Texting app integration (WiFi/data-based SMS/IM for debug reports)
+  - Email integration for detailed logs and reports
+  - Notification scheduler (time-based, condition-based alerts)
+  - Emergency alert system (CRITICAL failures → high-priority alerts)
+  - Push notifications for non-critical events
+
+- Calendar integration:
+  - Built-in calendar for:
+    - Scheduled maintenance
+    - Planned updates
+    - Agent training sessions
+    - Build windows and deployment slots
+  - Tied into notification scheduler and emergency alerts
+
+- Orchestration cortex:
+  - Global workflow engine
+  - Auto-create repos, auto-organize folders, auto-deploy backends
+  - Auto-sync Termux builds, auto-ingest cloud files
+  - Auto-integrate IDEs, casting, agents, notifications
