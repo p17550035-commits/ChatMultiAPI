@@ -1,6 +1,8 @@
-========================= core_network.md =========================
-VERSION: 1.0
-FORMAT: MACHINE-READABLE SPECIFICATION
+-------------------------------
+  |       core_network.md       |
+  -------------------------------
+  VERSION: 1.0
+  FORMAT: MACHINE-READABLE SPECIFICATION
 
 
 SECTION 1 — PURPOSE
@@ -22,7 +24,7 @@ This creates a self‑healing, self‑routing, fault‑tolerant OS.
 SECTION 2 — SHARED HEARTBEAT MESH
 All three layers (Router, Hub, Redundancy) share a heartbeat:
 
-  Router → Hub → Redundancy → Router
+Router → Hub → Redundancy → Router
 
 Normal mode:
   - Router listens for module heartbeats
@@ -125,9 +127,9 @@ Alarm outputs:
 SECTION 8 — SHARED LOGGING MESH
 All three layers write logs with shared correlation_id:
 
-  router_log/<id>.log
-  hub_log/<id>.log
-  redundancy_log/<id>.log
+  router_log/<id>.log  
+  hub_log/<id>.log  
+  redundancy_log/<id>.log  
 
 This allows toaster‑LLMs to debug the entire failure chain.
 
@@ -148,15 +150,19 @@ This is the circulatory + nervous system of the Meta‑OS.
 
 
 
-============================== FOOTER ==============================
-FILE: core_network.md
-VERSION: 1.0
-GENERATED: 2026-07-08T13:29:00-04:00
-ML_TAGS: router, hub, redundancy, heartbeat, logging,
-         breaker, switch, alarms, closed_loop, meta_os
-META:
-  integrity: pending_checksum
-  origin: Frankenstein Meta-OS Documentation Engine
-  author: Peter + Copilot
-  notes: GitHub-safe, machine-readable
-============================ END OF FILE ============================
+  ------------------------------------------------------------------------
+  |                                FOOTER                                |
+  ------------------------------------------------------------------------
+  |                            FILE: core_network.md                      |
+  |                            VERSION: 1.0                               |
+  |                    GENERATED: 2026-07-08T13:57:00-04:00               |
+  | ML_TAGS: router, hub, redundancy, heartbeat, logging,                 |
+  |         breaker, switch, alarms, closed_loop, meta_os                 |
+  | META:                                                                 |
+  |     integrity: pending_checksum                                       |
+  |     origin: Frankenstein Meta-OS Documentation Engine                 |
+  |     author: Peter + Copilot                                           |
+  |     notes: GitHub-safe, machine-readable                              |
+  ------------------------------------------------------------------------
+  |                             END OF FILE                               |
+  ------------------------------------------------------------------------
