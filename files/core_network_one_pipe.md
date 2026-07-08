@@ -186,7 +186,7 @@
 ----------------------------------------------------------------
 | FILE: core_network_one_pipe.md                                |
 | VERSION: 1.0                                                  |
-| GENERATED: 2026-07-08T12:50:00-04:00                          |
+| GENERATED: 2026-07-08T13:03:00-04:00                          |
 | ML_TAGS: pipe, router, hub, redundancy, heartbeat, dual_pulse,|
 |          breaker, limp_mode, alerts, color_coded, phone_calls,|
 |          meta_os                                              |
