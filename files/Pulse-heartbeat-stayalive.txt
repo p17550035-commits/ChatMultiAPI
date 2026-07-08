@@ -1,4 +1,4 @@
-# Heartbeat / Pulse Monitoring Subsystem
+# Heartbeat / Pulse Monitoring Subsystem (with Router + Hub Logging)
 
 ## 1. Purpose
 Provide continuous, periodic communication between every module and its router, enabling:
@@ -7,12 +7,13 @@ Provide continuous, periodic communication between every module and its router, 
 - Automatic redundancy switching
 - Automatic recovery attempts
 - Automatic notification triggers
+- Full logging for debugging and forensic analysis
 
-This subsystem acts as the circulatory system of the closed-loop architecture.
+This subsystem acts as the circulatory + diagnostic system of the closed-loop architecture.
 
 ---
 
-## 2. Heartbeat Flow (Per Module)
+## 2. Heartbeat Packet Structure
 
 Each module sends a heartbeat packet to its router at fixed intervals.
 
@@ -23,7 +24,9 @@ Heartbeat packet includes:
 - last_error
 - uptime
 - load metrics (optional)
-- correlation_id
+- correlation_id (unique per heartbeat)
+- router_log_pointer (where logs for this heartbeat are stored)
+- hub_log_pointer (where hub logs for this heartbeat are stored)
 
 Routers forward heartbeat packets to:
 - Layer wiring hub
@@ -32,45 +35,113 @@ Routers forward heartbeat packets to:
 
 ---
 
-## 3. Failure Detection Logic
+## 3. Logging System (NEW)
+
+### 3.1 Router Logging
+Each router maintains its own log system:
+- heartbeat_received
+- heartbeat_missed
+- validation_errors
+- routing_decisions
+- timestamped events
+- correlation_id linking logs to heartbeat packets
+
+Router logs are stored in:
+- router_log_store/<module_id>/<date>/<correlation_id>.log
+
+### 3.2 Hub Logging
+Each hub maintains its own log system:
+- heartbeat_forwarded
+- module_status_changes
+- redundancy_switch_events
+- reconnection_attempts
+- recovery_success/failure
+- notification_triggers
+- timestamped events
+- correlation_id linking logs to router logs
+
+Hub logs are stored in:
+- hub_log_store/<layer>/<date>/<correlation_id>.log
+
+### 3.3 Master Hub Logging
+Master hub logs:
+- global heartbeat map updates
+- breaker/track-switch activations
+- orchestration line failures
+- orchestration line recoveries
+- global routing changes
+- emergency alerts
+- calendar scheduling events
+
+Stored in:
+- master_hub_logs/<date>/<correlation_id>.log
+
+### 3.4 Redundant Hub Logging
+Redundant hub logs:
+- takeover events
+- reconnection pings
+- recovery detection
+- fallback routing
+- secondary-line health
+
+Stored in:
+- redundant_hub_logs/<date>/<correlation_id>.log
+
+---
+
+## 4. Failure Detection Logic
 
 If a module misses X heartbeats:
+- Router logs heartbeat_missed
 - Router marks module as DEGRADED
+- Hub logs module_status_change
 - Hub marks module as OFFLINE
 - Hub triggers:
   - Notification subsystem
   - Calendar subsystem (optional scheduling)
   - Redundancy subsystem (breaker/track switch)
 
+All events are logged with correlation_id.
+
 If heartbeat resumes:
+- Router logs heartbeat_received
+- Hub logs recovery_success
 - Router marks module as RECOVERED
 - Hub marks module as ONLINE
 - Notification subsystem sends recovery alert
 
 ---
 
-## 4. Redundancy Wiring Integration
+## 5. Redundancy Wiring Integration
 
 Heartbeat is the trigger for redundancy switching.
 
 Flow:
-1. Module heartbeat stops
-2. Router reports failure to hub
-3. Hub signals master wiring hub
-4. Master hub flips breaker → activates secondary orchestration line
-5. Secondary line attempts reconnection
-6. Secondary line begins pinging module
-7. If module responds:
-   - Hub marks module as ALIVE
-   - Notification subsystem sends recovery alert
-8. If module does not respond:
-   - Hub marks module as DEAD
-   - Notification subsystem sends critical alert
-   - Calendar schedules recovery window
+1. Module heartbeat stops  
+   → router logs missed heartbeat  
+2. Router reports failure to hub  
+   → hub logs status change  
+3. Hub signals master wiring hub  
+   → master logs failure  
+4. Master hub flips breaker → activates secondary orchestration line  
+   → master logs breaker event  
+5. Secondary line attempts reconnection  
+   → redundant hub logs reconnection attempt  
+6. Secondary line begins pinging module  
+   → redundant hub logs ping results  
+7. If module responds:  
+   - Hub marks module as ALIVE  
+   - Hub logs recovery  
+   - Notification subsystem sends recovery alert  
+8. If module does not respond:  
+   - Hub marks module as DEAD  
+   - Hub logs death  
+   - Notification subsystem sends critical alert  
+   - Calendar schedules recovery window  
 
 ---
 
-## 5. Notification Triggers
+## 6. Notification Triggers
 
 Heartbeat failure triggers:
 - Text message
@@ -85,16 +156,20 @@ Heartbeat recovery triggers:
   - downtime duration
   - recovery path (primary or secondary line)
   - module health metrics
+  - correlation_id for log lookup
+
+All notifications include log pointers.
 
 ---
 
-## 6. Router Responsibilities
+## 7. Router Responsibilities
 
 Routers must:
 - Receive heartbeat packets
 - Validate packet structure
 - Timestamp arrival
 - Detect missed intervals
+- Log all events
 - Forward status to hubs
 - Provide structured logs for toaster LLM debugging
 
@@ -102,10 +177,11 @@ Routers NEVER talk directly to other modules.
 
 ---
 
-## 7. Hub Responsibilities
+## 8. Hub Responsibilities
 
 Layer hubs:
 - Track heartbeat status for their module
+- Log all status changes
 - Report status to master hub
 - Trigger redundancy switching
 - Trigger notifications
@@ -113,26 +189,28 @@ Layer hubs:
 
 Master hub:
 - Maintains global heartbeat map
+- Logs all global events
 - Controls breaker/track switching
 - Coordinates recovery attempts
 
 Redundant hub:
+- Logs takeover events
 - Takes over routing during primary failure
 - Performs reconnection pings
 - Reports recovery or death
 
 ---
 
-## 8. Closed-Loop Integration
+## 9. Closed-Loop Integration
 
-Heartbeat ties the entire closed-loop system together:
+Heartbeat + logging ties the entire closed-loop system together:
 
-- Foundation Forge sends heartbeat → Orchestration Cortex monitors
-- Functional layers send heartbeat → Hubs track status
-- Notification layer reacts to heartbeat changes
-- Calendar layer schedules recovery windows
-- Redundancy wiring switches based on heartbeat loss
-- Orchestration Cortex adjusts routing based on heartbeat map
+- Foundation Forge sends heartbeat → Orchestration Cortex monitors + logs
+- Functional layers send heartbeat → Hubs track + log status
+- Notification layer reacts to heartbeat changes + logs alerts
+- Calendar layer schedules recovery windows + logs events
+- Redundancy wiring switches based on heartbeat loss + logs switching
+- Orchestration Cortex adjusts routing based on heartbeat map + logs decisions
 
 This makes the system:
 - self-aware
@@ -140,16 +218,21 @@ This makes the system:
 - self-healing
 - self-notifying
 - self-routing
+- self-documenting
 
 ---
 
-## 9. Summary
+## 10. Summary
 
 The heartbeat subsystem:
 - Detects failures
+- Logs failures
 - Triggers redundancy switching
+- Logs switching
 - Attempts reconnection
+- Logs reconnection attempts
 - Confirms recovery
+- Logs recovery
 - Notifies you
 - Schedules fixes
 - Keeps the closed-loop architecture alive
