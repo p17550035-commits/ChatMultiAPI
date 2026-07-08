@@ -155,7 +155,7 @@ This is the circulatory + nervous system of the Meta‑OS.
   ------------------------------------------------------------------------
   |                            FILE: core_network.md                      |
   |                            VERSION: 1.0                               |
-  |                    GENERATED: 2026-07-08T13:57:00-04:00               |
+  |                    GENERATED: 2026-07-08T14:00:00-04:00               |
   | ML_TAGS: router, hub, redundancy, heartbeat, logging,                 |
   |         breaker, switch, alarms, closed_loop, meta_os                 |
   | META:                                                                 |
