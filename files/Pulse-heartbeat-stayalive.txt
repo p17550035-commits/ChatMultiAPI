@@ -1,238 +1,85 @@
-FILE: heartbeat_subsystem.md
-VERSION: 1.0
-FORMAT: MACHINE-READABLE SPECIFICATION
-
-============================================================
-SECTION 1 — PURPOSE
-============================================================
-The heartbeat subsystem provides continuous, periodic communication
-between every module and its router. It enables:
-- Real-time health monitoring
-- Automatic failure detection
-- Automatic redundancy switching
-- Automatic recovery attempts
-- Automatic notification triggers
-- Full logging for debugging and forensic analysis
-
-This subsystem acts as the circulatory + diagnostic system of the
-closed-loop Frankenstein Meta-OS.
-
-============================================================
-SECTION 2 — HEARTBEAT PACKET STRUCTURE
-============================================================
-Each module sends a heartbeat packet to its router at fixed intervals.
-
-HeartbeatPacket:
-  module_id: string
-  timestamp: int (unix epoch)
-  status: enum(OK, DEGRADED, OFFLINE)
-  last_error: string|null
-  uptime: int (seconds)
-  load: float|null
-  correlation_id: string (UUID)
-  router_log_pointer: string (path)
-  hub_log_pointer: string (path)
-
-Routers forward packets to:
-  - LayerHub
-  - MasterHub (primary)
-  - RedundantHub (secondary)
-
-============================================================
-SECTION 3 — LOGGING SYSTEM
-============================================================
-
-3.1 Router Logging
-RouterLog:
-  event_type: enum(HEARTBEAT_RECEIVED, HEARTBEAT_MISSED, VALIDATION_ERROR, ROUTE_DECISION)
-  module_id: string
-  timestamp: int
-  correlation_id: string
-  details: object
-
-Stored at:
-  /logs/router/<module_id>/<date>/<correlation_id>.log
-
-------------------------------------------------------------
-
-3.2 Hub Logging
-HubLog:
-  event_type: enum(STATUS_CHANGE, REDUNDANCY_SWITCH, RECONNECT_ATTEMPT, RECOVERY_SUCCESS, RECOVERY_FAILURE, NOTIFICATION_TRIGGER)
-  layer_id: string
-  timestamp: int
-  correlation_id: string
-  details: object
-
-Stored at:
-  /logs/hub/<layer>/<date>/<correlation_id>.log
-
-------------------------------------------------------------
-
-3.3 Master Hub Logging
-MasterHubLog:
-  event_type: enum(GLOBAL_MAP_UPDATE, BREAKER_SWITCH, ORCHESTRATION_FAILURE, ORCHESTRATION_RECOVERY)
-  timestamp: int
-  correlation_id: string
-  details: object
-
-Stored at:
-  /logs/master/<date>/<correlation_id>.log
-
-------------------------------------------------------------
-
-3.4 Redundant Hub Logging
-RedundantHubLog:
-  event_type: enum(TAKEOVER, PING, RECOVERY_DETECTED, FALLBACK_ROUTING)
-  timestamp: int
-  correlation_id: string
-  details: object
-
-Stored at:
-  /logs/redundant/<date>/<correlation_id>.log
-
-============================================================
-SECTION 4 — FAILURE DETECTION LOGIC
-============================================================
-
-If module misses X heartbeats:
-  Router:
-    - logs HEARTBEAT_MISSED
-    - sets status = DEGRADED
-  Hub:
-    - logs STATUS_CHANGE
-    - sets status = OFFLINE
-    - triggers NotificationSubsystem
-    - triggers CalendarSubsystem
-    - triggers RedundancySubsystem
-
-If heartbeat resumes:
-  Router:
-    - logs HEARTBEAT_RECEIVED
-    - sets status = RECOVERED
-  Hub:
-    - logs RECOVERY_SUCCESS
-    - sets status = ONLINE
-    - triggers NotificationSubsystem
-
-============================================================
-SECTION 5 — REDUNDANCY WIRING INTEGRATION
-============================================================
-
-Failure Flow:
-  1. Heartbeat stops → Router logs
-  2. Router reports failure → Hub logs
-  3. Hub signals MasterHub → Master logs
-  4. MasterHub flips breaker → Secondary line activated
-  5. RedundantHub attempts reconnection → logs attempts
-  6. RedundantHub pings module → logs ping results
-
-Recovery Flow:
-  If module responds:
-    - Hub sets status = ALIVE
-    - Hub logs RECOVERY_DETECTED
-    - NotificationSubsystem sends recovery alert
-
-  If module does not respond:
-    - Hub sets status = DEAD
-    - Hub logs RECOVERY_FAILURE
-    - NotificationSubsystem sends critical alert
-    - CalendarSubsystem schedules recovery window
-
-============================================================
-SECTION 6 — NOTIFICATION TRIGGERS
-============================================================
-
-Failure triggers:
-  - Text message
-  - Email
-  - Push notification
-  - Emergency alert
-  - Optional automated call
-
-Recovery triggers:
-  - “Module restored” alert
-  - Includes:
-      downtime_duration
-      recovery_path
-      module_health_metrics
-      correlation_id
-
-============================================================
-SECTION 7 — ROUTER RESPONSIBILITIES
-============================================================
-
-Router must:
-  - Receive heartbeat packets
-  - Validate packet structure
-  - Timestamp arrival
-  - Detect missed intervals
-  - Log all events
-  - Forward status to hubs
-  - Provide structured logs for LLM debugging
-
-Routers NEVER communicate with other modules directly.
-
-============================================================
-SECTION 8 — HUB RESPONSIBILITIES
-============================================================
-
-LayerHub:
-  - Track heartbeat status
-  - Log all status changes
-  - Report to MasterHub
-  - Trigger redundancy switching
-  - Trigger notifications
-  - Trigger calendar scheduling
-
-MasterHub:
-  - Maintain global heartbeat map
-  - Log global events
-  - Control breaker/track switching
-  - Coordinate recovery attempts
-
-RedundantHub:
-  - Log takeover events
-  - Handle routing during primary failure
-  - Perform reconnection pings
-  - Report recovery or death
-
-============================================================
-SECTION 9 — CLOSED-LOOP INTEGRATION
-============================================================
-
-Heartbeat + logging unify the closed-loop system:
-  - FoundationForge → sends heartbeat
-  - FunctionalLayers → send heartbeat
-  - NotificationLayer → reacts + logs
-  - CalendarLayer → schedules + logs
-  - RedundancyWiring → switches + logs
-  - OrchestrationCortex → adjusts routing + logs
-
-System becomes:
-  - self-aware
-  - self-correcting
-  - self-healing
-  - self-notifying
-  - self-routing
-  - self-documenting
-
-============================================================
-SECTION 10 — SUMMARY
-============================================================
-
-Heartbeat subsystem:
-  - Detects failures
-  - Logs failures
-  - Triggers redundancy switching
-  - Logs switching
-  - Attempts reconnection
-  - Logs reconnection
-  - Confirms recovery
-  - Logs recovery
-  - Notifies user
-  - Schedules fixes
-  - Maintains closed-loop survival
-
-============================================================
-# END OF FILE
-============================================================
++----------------------------------------------------------+
+|                      BEGIN FILE                          |
++----------------------------------------------------------+
+| FILE: heartbeat_subsystem.md                             |
+| VERSION: 1.6                                             |
+| FORMAT: MACHINE-READABLE SPECIFICATION                   |
+| META:                                                    |
+|   author: Peter + Copilot                                |
+|   system: Frankenstein Meta-OS                           |
+|   module: Heartbeat/Pulse Monitoring                     |
+|   layer: Circulatory + Diagnostic Layer                  |
+|   status: stable                                         |
+|   last_updated: 2026-07-08T11:15:00-04:00                |
+|   ml_tags: heartbeat, router, hub, redundancy, logging   |
+|            closed_loop, fault_tolerance, machine_readable|
+|            meta_os                                       |
++----------------------------------------------------------+
+| SECTION 1 — PURPOSE                                      |
++----------------------------------------------------------+
+| The heartbeat subsystem provides periodic communication   |
+| between every module and its router. It enables:          |
+| - Real-time health monitoring                             |
+| - Automatic failure detection                             |
+| - Automatic redundancy switching                          |
+| - Automatic recovery attempts                             |
+| - Automatic notification triggers                         |
+| - Full logging for debugging and forensic analysis        |
++----------------------------------------------------------+
+| SECTION 2 — HEARTBEAT PACKET STRUCTURE                   |
++----------------------------------------------------------+
+| HeartbeatPacket:                                         |
+|   module_id: string                                      |
+|   timestamp: int (unix epoch)                            |
+|   status: enum(OK, DEGRADED, OFFLINE)                    |
+|   last_error: string|null                                |
+|   uptime: int                                            |
+|   load: float|null                                       |
+|   correlation_id: string (UUID)                          |
+|   router_log_pointer: string                             |
+|   hub_log_pointer: string                                |
+| Routers forward packets to:                              |
+|   - LayerHub                                              |
+|   - MasterHub (primary)                                   |
+|   - RedundantHub (secondary)                              |
++----------------------------------------------------------+
+| SECTION 3 — LOGGING SYSTEM                               |
++----------------------------------------------------------+
+| RouterLog:                                               |
+|   event_type: HEARTBEAT_RECEIVED, HEARTBEAT_MISSED,      |
+|               VALIDATION_ERROR, ROUTE_DECISION           |
+|   module_id: string                                      |
+|   timestamp: int                                         |
+|   correlation_id: string                                 |
+|   details: object                                        |
+| Stored at: /logs/router/<module>/<date>/<id>.log         |
+|                                                          |
+| HubLog:                                                  |
+|   event_type: STATUS_CHANGE, REDUNDANCY_SWITCH,          |
+|               RECONNECT_ATTEMPT, RECOVERY_SUCCESS,       |
+|               RECOVERY_FAILURE, NOTIFICATION_TRIGGER     |
+|   layer_id: string                                       |
+|   timestamp: int                                         |
+|   correlation_id: string                                 |
+|   details: object                                        |
+| Stored at: /logs/hub/<layer>/<date>/<id>.log             |
+|                                                          |
+| MasterHubLog:                                            |
+|   event_type: GLOBAL_MAP_UPDATE, BREAKER_SWITCH,         |
+|               ORCHESTRATION_FAILURE, ORCHESTRATION_RECOV |
+| Stored at: /logs/master/<date>/<id>.log                  |
+|                                                          |
+| RedundantHubLog:                                         |
+|   event_type: TAKEOVER, PING, RECOVERY_DETECTED,         |
+|               FALLBACK_ROUTING                           |
+| Stored at: /logs/redundant/<date>/<id>.log               |
++----------------------------------------------------------+
+| SECTION 4 — FAILURE DETECTION LOGIC                      |
++----------------------------------------------------------+
+| If module misses X heartbeats:                           |
+|   Router logs HEARTBEAT_MISSED                           |
+|   Router sets status = DEGRADED                          |
+|   Hub logs STATUS_CHANGE                                 |
+|   Hub sets status = OFFLINE                              |
+|   Hub triggers notifications + redundancy + calendar     |
+|
