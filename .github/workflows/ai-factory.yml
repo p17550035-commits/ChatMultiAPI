@@ -1,0 +1,86 @@
+name: AI-Factory-Autobuild
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  ai-factory:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
+    - name: Zip Repository
+      run: |
+        zip -r repo.zip .
+
+    - name: Send Repo to Grok for Code Generation
+      env:
+        GROK_API_KEY: ${{ secrets.GROK_API_KEY }}
+      run: |
+        curl -X POST "https://api.x.ai/v1/chat/completions" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer $GROK_API_KEY" \
+          -d '{
+            "model": "grok-beta",
+            "messages": [
+              {
+                "role": "system",
+                "content": "You are an autonomous code generator. Improve, fix, and expand the Android + Python project. Regenerate Router.kt, ProviderRouter.kt, WiringAtlas, Activities, backend.py, and any missing modules. Return ONLY a JSON object mapping file paths to updated file contents."
+              },
+              {
+                "role": "user",
+                "content": "Here is the full repository zip (base64 encoded): '"$(base64 repo.zip)"'"
+              }
+            ]
+          }' > ai_output.json
+
+    - name: Apply AI Changes
+      run: |
+        python3 - << 'EOF'
+        import json, os
+        data = json.load(open("ai_output.json"))
+        files = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        try:
+            updates = json.loads(files)
+        except:
+            print("AI returned non-JSON. Aborting.")
+            exit(1)
+
+        for path, content in updates.items():
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "w") as f:
+                f.write(content)
+        EOF
+
+    - name: Commit AI Changes
+      run: |
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "AI Factory: Automated code generation"
+        git push || true
+
+    - name: Setup JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: 17
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Make Gradle Executable
+      run: chmod +x gradlew
+
+    - name: Build APK
+      run: ./gradlew assembleRelease
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: Frankenstein-APK
+        path: app/build/outputs/apk/release/*.apk
